@@ -6,7 +6,7 @@ using UnityEngine;
 
 // Player Controller
 
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {   
 
     // Needs adjustment

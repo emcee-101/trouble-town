@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewMouse : MonoBehaviour
+public class PlayerMouse : MonoBehaviour
 {
     // In future iterations: can be set by menu
     public float mouseSensitivity = 200f;
