@@ -19,6 +19,14 @@ public class startMenu : MonoBehaviour
     {
         Application.Quit();
     }
+    
+    public void hostGame()
+    {
+    }
+
+    public void findGame()
+    {
+    }
 
 }
 //Scenen in Build settings in der richtigen reihenfolge festlegen, mit entsprechenden index die szene laden
