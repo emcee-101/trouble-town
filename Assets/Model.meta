@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Model.meta
 guid: 1f96de2dfed7fa041b85f3a39faba1df
+========
+guid: ebea282080dec41c4bb4e50300131c96
+>>>>>>>> Scenes_in_work_with_menu:Assets/Rusty Barricade/Scenes.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

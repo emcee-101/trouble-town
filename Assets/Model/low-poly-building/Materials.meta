@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Model/low-poly-building/Materials.meta
 guid: 9f897ebc21a9c8047a3c87cdd028217e
+========
+guid: 868bb5cf4a62ac14faf14fb0b6bdf8d4
+>>>>>>>> Scenes_in_work_with_menu:Assets/Model/low-poly-building.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
