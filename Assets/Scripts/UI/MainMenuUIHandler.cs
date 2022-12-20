@@ -21,6 +21,16 @@ public class MainMenuUIHandler : MonoBehaviour
 
         GameManager.instance.playerNickName = inputField.text;
 
+        SceneManager.LoadScene("Multiplayer");
+    }
+
+    public void OnSinglePlayerClicked()
+    {
         SceneManager.LoadScene("Main_Scene");
+    }
+
+    public void OnSampleSceneClicked()
+    {
+        SceneManager.LoadScene("SampleScene");
     }
 }
