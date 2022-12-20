@@ -8,11 +8,12 @@ public class CharacterInputHandler : MonoBehaviour
     Vector2 viewInputVector = Vector2.zero;
     bool isJumpButtonPressed = false;
 
-    // other components
-    CharacterMovementHandler characterMovementHandler;
+    //Other components
+    LocalCameraHandler localCameraHandler;
+
     private void Awake()
     {
-        characterMovementHandler = GetComponent<CharacterMovementHandler>();
+        localCameraHandler = GetComponentInChildren<LocalCameraHandler>();
     }
 
     // Start is called before the first frame update
@@ -25,31 +26,38 @@ public class CharacterInputHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // change view as server input
+        //View input
         viewInputVector.x = Input.GetAxis("Mouse X");
         viewInputVector.y = Input.GetAxis("Mouse Y") * -1; //Invert the mouse look
 
-        characterMovementHandler.SetViewInputVector(viewInputVector);
-
-        // move as server input
+        //Move input
         moveInputVector.x = Input.GetAxis("Horizontal");
         moveInputVector.y = Input.GetAxis("Vertical");
 
-        isJumpButtonPressed = Input.GetButtonDown("Jump");
+        //Jump
+        if (Input.GetButtonDown("Jump"))
+            isJumpButtonPressed = true;
+
+        //Set view
+        localCameraHandler.SetViewInputVector(viewInputVector);
+
     }
 
     public NetworkInputData GetNetworkInput()
     {
         NetworkInputData networkInputData = new NetworkInputData();
 
-        // view-vector
-        networkInputData.rotationInput = viewInputVector.x;
+        //Aim data
+        networkInputData.aimForwardVector = localCameraHandler.transform.forward;
 
-        // move-vector
+        //Move data
         networkInputData.movementInput = moveInputVector;
 
-        // jump-bool
+        //Jump data
         networkInputData.isJumpPressed = isJumpButtonPressed;
+
+        //Reset variables now that we have read their states
+        isJumpButtonPressed = false;
 
         return networkInputData;
     }

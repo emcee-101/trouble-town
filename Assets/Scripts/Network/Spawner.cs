@@ -10,10 +10,8 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
 {
     public NetworkPlayer playerPrefab;
 
-    //Other compoents
     CharacterInputHandler characterInputHandler;
 
-    // Start is called before the first frame update
     void Start()
     {
 

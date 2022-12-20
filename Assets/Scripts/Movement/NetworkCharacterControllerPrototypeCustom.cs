@@ -11,11 +11,11 @@ public class NetworkCharacterControllerPrototypeCustom : NetworkTransform
     [Header("Character Controller Settings")]
     public float gravity = -20.0f;
     public float jumpImpulse = 8.0f;
-    public float acceleration = 10.0f;
-    public float braking = 10.0f;
-    public float maxSpeed = 2.0f;
-    public float rotationSpeed = 15.0f;
-    public float viewUpDownRotationSpeed = 50.0f;
+    public float acceleration = 50.0f;
+    public float braking = 30.0f;
+    public float maxSpeed = 6.0f;
+    public float rotationSpeed = 80.0f;
+    public float viewUpDownRotationSpeed = 60.0f;
 
     [Networked]
     [HideInInspector]

@@ -5,58 +5,52 @@ using Fusion;
 
 public class CharacterMovementHandler : NetworkBehaviour
 {
-    Vector2 viewInput;
-
-    //Rotation
-    float cameraRotationX = 0;
-
     //Other components
     NetworkCharacterControllerPrototypeCustom networkCharacterControllerPrototypeCustom;
-    Camera localCamera;
 
     private void Awake()
     {
         networkCharacterControllerPrototypeCustom = GetComponent<NetworkCharacterControllerPrototypeCustom>();
-        localCamera = GetComponentInChildren<Camera>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        cameraRotationX += viewInput.y * Time.deltaTime * networkCharacterControllerPrototypeCustom.viewUpDownRotationSpeed;
-        cameraRotationX = Mathf.Clamp(cameraRotationX, -90, 90);
-
-        localCamera.transform.localRotation = Quaternion.Euler(cameraRotationX, 0, 0);
-    }
-
-    // Update-Function a cross the network (server is place where to move players etc)
     public override void FixedUpdateNetwork()
     {
-        // get input from network
+        //Get the input from the network
         if (GetInput(out NetworkInputData networkInputData))
         {
-            // transform view-rotation
-            networkCharacterControllerPrototypeCustom.Rotate(networkInputData.rotationInput);
+            //Rotate the transform according to the client aim vector
+            transform.forward = networkInputData.aimForwardVector;
 
-            // transform position
+            //Cancel out rotation on X axis as we don't want our character to tilt
+            Quaternion rotation = transform.rotation;
+            rotation.eulerAngles = new Vector3(0, rotation.eulerAngles.y, rotation.eulerAngles.z);
+            transform.rotation = rotation;
+
+            //Move
             Vector3 moveDirection = transform.forward * networkInputData.movementInput.y + transform.right * networkInputData.movementInput.x;
             moveDirection.Normalize();
+
             networkCharacterControllerPrototypeCustom.Move(moveDirection);
 
-            // jump if nesseccary
+            //Jump
             if (networkInputData.isJumpPressed)
                 networkCharacterControllerPrototypeCustom.Jump();
+
+            //Check if we've fallen off the world.
+            CheckFallRespawn();
         }
+
     }
 
-    public void SetViewInputVector(Vector2 viewInput)
+    void CheckFallRespawn()
     {
-        this.viewInput = viewInput;
+        if (transform.position.y < -12)
+            transform.position = Utils.GetRandomSpawnPoint();
     }
+
 }
