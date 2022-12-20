@@ -27,10 +27,10 @@ public class Bank : Interactable
             
         }
         else if (totalMoney > 0){
-            totalMoney = 0
+            totalMoney = 0;
         }
         else {
-            
+
         }
     }
 }
