@@ -15,7 +15,9 @@ __Asymmetric Multiplayer Game__ in dem mehrere Spieler in die Rolle von __Dieben
 
 ## Bedienungsanleitung
 
-Zunächst müssen sie, nachdem sie das Spiel gestartet haben auf "Spiel starten" klicken. 
+Um den Stand der Zwischenpräentation zu erhalten, laden sie sich bitte den Stand unter dem Tag [0.0.1alpha](https://git.ai.fh-erfurt.de/ncmc/trouble-town/-/tags) herunter.
+
+Zunächst müssen sie, nachdem sie das Spiel gestartet einen Namen eingeben und "Join" klicken. 
 Dadurch kommen sie in einen Multiplayer-Raum. Befindet sich auf dem Server keiner, wird einer neu erstellt. Ansonsten schließen sie sich dem bestehenden an.
 Das bedeutet, dass Spieler die nach ihnen starten ebenfalls dort landen werden.
 
