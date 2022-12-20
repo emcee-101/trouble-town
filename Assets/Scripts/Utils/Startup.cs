@@ -11,6 +11,8 @@ public class Startup
 
         GameObject[] prefabsToInstantiate = Resources.LoadAll<GameObject>("InstantiateOnLoad/");
 
+        Debug.Log("Length: " + prefabsToInstantiate.Length);
+
         foreach (GameObject prefab in prefabsToInstantiate)
         {
             Debug.Log($"Creating {prefab.name}");
