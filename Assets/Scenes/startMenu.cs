@@ -5,13 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class startMenu : MonoBehaviour
 {
+
+    public GameObject menu;
+    public GameObject game;
     
    public void startGame()
     {
         // Make Mouse crosshair invisible and locked inside the game window
 
 
-        SceneManager.LoadScene(1);
+        menu.SetActive(false);
+        game.SetActive(true);
     }
 
     public void exitGame()
