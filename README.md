@@ -13,3 +13,17 @@ __Asymmetric Multiplayer Game__ in dem mehrere Spieler in die Rolle von __Dieben
 
 - siehe [__Miro Board__](https://miro.com/app/board/uXjVPElktB8=/?share_link_id=987341971219)
 
+## Bedienungsanleitung
+
+Zunächst müssen sie, nachdem sie das Spiel gestartet haben auf "Spiel starten" klicken. 
+Dadurch kommen sie in einen Multiplayer-Raum. Befindet sich auf dem Server keiner, wird einer neu erstellt. Ansonsten schließen sie sich dem bestehenden an.
+Das bedeutet, dass Spieler die nach ihnen starten ebenfalls dort landen werden.
+
+Dort gilt folgende __Steuerung__:
+ - __WASD, Maus__ - Bewegung
+ - __E__ - Interaktion, Item aufnehmen
+
+Es kann bereits mit der Bank (schwarzes Tower-Gebäude) interagiert werden.
+
+In der finalen Version werden sie eine Anzeige erhalten, welche Rolle sie spielen, Polizist oder Räuber.
+Je nachdem welche Rolle gestaltet sich dann ihr Spielziel. Die Bank zum einen möglichst häufig berauben oder zum anderen möglichst oft die Diebe zu fangen.
