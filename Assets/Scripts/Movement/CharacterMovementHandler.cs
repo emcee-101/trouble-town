@@ -7,6 +7,7 @@ public class CharacterMovementHandler : NetworkBehaviour
 {
     //Other components
     NetworkCharacterControllerPrototypeCustom networkCharacterControllerPrototypeCustom;
+    NetworkInGameMessages networkInGameMessages;
 
     private void Awake()
     {

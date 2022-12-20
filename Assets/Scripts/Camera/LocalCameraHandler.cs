@@ -15,7 +15,7 @@ public class LocalCameraHandler : MonoBehaviour
 
     //Other components
     NetworkCharacterControllerPrototypeCustom networkCharacterControllerPrototypeCustom;
-    Camera localCamera;
+    public Camera localCamera;
 
     private void Awake()
     {
@@ -26,9 +26,8 @@ public class LocalCameraHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Detach camera if enabled
-        if (localCamera.enabled)
-            localCamera.transform.parent = null;
+        cameraRotationX = GameManager.instance.cameraViewRotation.x;
+        cameraRotationY = GameManager.instance.cameraViewRotation.y;
     }
 
     void LateUpdate()
@@ -55,5 +54,14 @@ public class LocalCameraHandler : MonoBehaviour
     public void SetViewInputVector(Vector2 viewInput)
     {
         this.viewInput = viewInput;
+    }
+
+    private void OnDestroy()
+    {
+        if (cameraRotationX != 0 && cameraRotationY != 0)
+        {
+            GameManager.instance.cameraViewRotation.x = cameraRotationX;
+            GameManager.instance.cameraViewRotation.y = cameraRotationY;
+        }
     }
 }
