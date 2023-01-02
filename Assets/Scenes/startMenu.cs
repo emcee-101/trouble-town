@@ -8,9 +8,7 @@ public class startMenu : MonoBehaviour
     
    public void startGame()
     {
-        // Make Mouse crosshair invisible and locked inside the game window
-
-
+        
         SceneManager.LoadScene(1);
     }
 
