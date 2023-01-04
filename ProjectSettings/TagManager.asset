@@ -6,6 +6,7 @@ TagManager:
   tags:
   - InteractorOfPlayer
   - MinimapCam
+  - State
   layers:
   - Default
   - TransparentFX
