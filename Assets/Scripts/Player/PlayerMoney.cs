@@ -31,7 +31,7 @@ public class PlayerMoney : MonoBehaviour
     }
     public void UpdateMoneyUI()
     {
-        Debug.Log(currentMoney);
+        //Debug.Log(currentMoney);
         float hFraction = currentMoney / maxMoney;
         float fillF = frontBarMoney.fillAmount;
         float fillB = backBarMoney.fillAmount;
