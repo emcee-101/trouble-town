@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4897346013298315724}
   - component: {fileID: 7508987135565287466}
+  - component: {fileID: 9028186317784987121}
   m_Layer: 0
   m_Name: Building_21
   m_TagString: Untagged
@@ -64,6 +65,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!65 &9028186317784987121
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4897346013298315725}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.9128847, y: 20.77988, z: 7.1654873}
+  m_Center: {x: -0.23945856, y: 9.88994, z: -0.10246611}
 --- !u!1001 &1150945497835780592
 PrefabInstance:
   m_ObjectHideFlags: 0
