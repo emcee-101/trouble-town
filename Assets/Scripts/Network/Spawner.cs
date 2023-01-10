@@ -5,6 +5,7 @@ using Unity;
 using Fusion;
 using Fusion.Sockets;
 using System;
+using Newtonsoft.Json.Linq;
 
 public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
 {
@@ -12,6 +13,7 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
 
     // Mapping between Token ID and Re-created Players
     Dictionary<int, NetworkPlayer> mapTokenIDWithNetworkPlayer;
+    UtilLobby lobbyUtilities;
 
     CharacterInputHandler characterInputHandler;
 
@@ -73,14 +75,26 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
             else
             {
                 Debug.Log($"Spawning new player for connection token {playerToken}");
-                NetworkPlayer spawnedNetworkPlayer = runner.Spawn(playerPrefab, Utils.GetRandomSpawnPoint(), Quaternion.identity, player);
+                NetworkPlayer spawnedNetworkPlayer = null;
+
+                if (lobbyUtilities == null)
+                {
+                    GameObject obj = GameObject.FindGameObjectWithTag("State");
+                    lobbyUtilities = obj.GetComponent<UtilLobby>();
+                }
+
+                if (lobbyUtilities != null)
+                    spawnedNetworkPlayer = runner.Spawn(playerPrefab, lobbyUtilities.GetSpawnLocation(), Quaternion.identity, player);
+                else
+                    spawnedNetworkPlayer = runner.Spawn(playerPrefab, Utils.GetRandomSpawnPoint(), Quaternion.identity, player);
+
 
                 //Store the token for the player
                 spawnedNetworkPlayer.token = playerToken;
 
                 //Store the mapping between playerToken and the spawned network player
                 mapTokenIDWithNetworkPlayer[playerToken] = spawnedNetworkPlayer;
-            }
+                }
         }
         else Debug.Log("OnPlayerJoined");
     }
@@ -119,9 +133,12 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
     }
 
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data) { }
+
+    #region CarAndItemLogicHere
     public void OnSceneLoadDone(NetworkRunner runner) { }
     public void OnSceneLoadStart(NetworkRunner runner) { }
-
+    
+    #endregion
     public void OnHostMigrationCleanUp()
     {
         Debug.Log("Spawner OnHostMigrationCleanUp started");
@@ -140,4 +157,9 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
 
         Debug.Log("Spawner OnHostMigrationCleanUp completed");
     }
+
+
+
+
+
 }
