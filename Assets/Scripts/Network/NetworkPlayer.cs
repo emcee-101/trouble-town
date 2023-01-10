@@ -22,6 +22,8 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     public LocalCameraHandler localCameraHandler;
     public GameObject localUI;
 
+    private miniMapScript miniMapCam;
+
     NetworkInGameMessages networkInGameMessages;
 
     void Awake()
@@ -57,6 +59,10 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             // Enable UI for local player
             localUI.SetActive(true);
 
+            // Enable Minimap for you
+            miniMapCam = GetComponentInChildren<miniMapScript>();
+            if (miniMapCam != null) miniMapCam.enable = true;
+
             RPC_SetNickName(GameManager.instance.playerNickName);
             
             Debug.Log("Spawned local player");
@@ -65,6 +71,10 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         {
             //Disable the camera if we are not the local player
             localCameraHandler.localCamera.enabled = false;
+
+            // Disable Minimap for every other player
+            miniMapCam = GetComponentInChildren<miniMapScript>();
+            if (miniMapCam != null) miniMapCam.enable = false;
 
             // Disable UI for remote player
             localUI.SetActive(false);
@@ -133,5 +143,20 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         //Get rid of the local camera if we get destroyed as a new one will be spawned with the new Network player
         if (localCameraHandler != null)
             Destroy(localCameraHandler.gameObject);
+    }
+
+    private Component FindCameraWithTag(string tag) {
+
+        Component[] foundObjects = GetComponentsInChildren<Camera>() as Component[];
+
+
+        foreach (Component obj in foundObjects)
+        {
+            if (obj.tag == tag)
+                
+                 return  obj;
+         
+        }
+        return null;
     }
 }
