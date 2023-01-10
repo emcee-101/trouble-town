@@ -145,18 +145,4 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             Destroy(localCameraHandler.gameObject);
     }
 
-    private Component FindCameraWithTag(string tag) {
-
-        Component[] foundObjects = GetComponentsInChildren<Camera>() as Component[];
-
-
-        foreach (Component obj in foundObjects)
-        {
-            if (obj.tag == tag)
-                
-                 return  obj;
-         
-        }
-        return null;
-    }
 }
