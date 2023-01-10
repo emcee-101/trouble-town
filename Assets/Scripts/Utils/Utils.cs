@@ -9,6 +9,8 @@ public static class Utils
         return new Vector3(Random.Range(-20, 20), 4, Random.Range(-20, 20));
     }
 
+   
+
     public static void SetRenderLayerInChildren(Transform transform, int layerNumber)
     {
         foreach (Transform trans in transform.GetComponentsInChildren<Transform>(true))
