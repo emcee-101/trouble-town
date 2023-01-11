@@ -6,6 +6,7 @@ using Fusion;
 using Fusion.Sockets;
 using System;
 using Newtonsoft.Json.Linq;
+using static UtilLobby;
 
 public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
 {
@@ -84,7 +85,15 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
                 }
 
                 if (lobbyUtilities != null)
-                    spawnedNetworkPlayer = runner.Spawn(playerPrefab, lobbyUtilities.GetSpawnLocation(), Quaternion.identity, player);
+                {
+                    positionData spawnData = lobbyUtilities.GetSpawnData();
+
+                    // - 26.65 / 3.4000001 / 26.93
+                    //Log.Info("Spawnlocation: x="+spawnLocation.x+" y=" + spawnLocation.y + " z=" + spawnLocation.z);
+
+                    // Spawning happens in PlayerPrefab->CharacterMovemetnHandler->Spawned() now
+                    spawnedNetworkPlayer = runner.Spawn(playerPrefab, inputAuthority: player);
+                }
                 else
                     spawnedNetworkPlayer = runner.Spawn(playerPrefab, Utils.GetRandomSpawnPoint(), Quaternion.identity, player);
 
@@ -94,6 +103,7 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
 
                 //Store the mapping between playerToken and the spawned network player
                 mapTokenIDWithNetworkPlayer[playerToken] = spawnedNetworkPlayer;
+
                 }
         }
         else Debug.Log("OnPlayerJoined");
