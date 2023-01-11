@@ -10,6 +10,8 @@ public class CharacterMovementHandler : NetworkBehaviour
     NetworkInGameMessages networkInGameMessages;
     UtilLobby lobbyUtils = null;
 
+    positionData spawnPoint;
+
     private void Awake()
     {
         networkCharacterControllerPrototypeCustom = GetComponent<NetworkCharacterControllerPrototypeCustom>();
@@ -61,10 +63,32 @@ public class CharacterMovementHandler : NetworkBehaviour
             
 
             if(lobbyUtils != null)
-                transform.position = lobbyUtils.GetSpawnLocation();
-
+            { 
+                transform.position = spawnPoint.returnPos();
+                transform.rotation = spawnPoint.returnAngle();
+            }
             else { transform.position = Utils.GetRandomSpawnPoint(); }
             
+        }
+    }
+
+    override public void Spawned() {
+
+        Log.Info("Spawned called");
+
+        if (lobbyUtils == null)
+        {
+
+            GameObject obj = GameObject.FindGameObjectWithTag("State");
+            lobbyUtils = obj.GetComponent<UtilLobby>();
+        }
+
+
+        if (lobbyUtils != null) { 
+            spawnPoint = lobbyUtils.GetSpawnData();
+
+            transform.position = spawnPoint.returnPos();
+            transform.rotation = spawnPoint.returnAngle();
         }
     }
 
