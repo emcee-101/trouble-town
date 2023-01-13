@@ -176,6 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7972205308682395018}
   - component: {fileID: 756901004858709417}
+  - component: {fileID: 311403047077227013}
   m_Layer: 0
   m_Name: Car_B2
   m_TagString: Untagged
@@ -216,6 +217,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.9176486, y: 1.359513, z: 4.0158906}
   m_Center: {x: -0.00874114, y: 0.65219593, z: -0.041067123}
+--- !u!195 &311403047077227013
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6411348670761512857}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.5
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &6818025779366926214
 GameObject:
   m_ObjectHideFlags: 0

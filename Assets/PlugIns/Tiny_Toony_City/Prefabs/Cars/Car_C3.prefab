@@ -425,6 +425,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7434238256779994509}
   - component: {fileID: 8461479176032968807}
+  - component: {fileID: 6334588484759295928}
   m_Layer: 0
   m_Name: Car_C3
   m_TagString: Untagged
@@ -465,3 +466,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8222206, y: 1.3617316, z: 3.6048355}
   m_Center: {x: -0.0017939806, y: 0.7139587, z: -0.18464929}
+--- !u!195 &6334588484759295928
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5868438351130613662}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.5
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
