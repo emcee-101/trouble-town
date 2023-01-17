@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class MainMenuUIHandler : MonoBehaviour
+public class MainMenuUIHandler : MonoBehaviour, IMenu
 {
     public TMP_InputField inputField;
+    private Canvas myCanvas;
+
 
     void Start()
     {
+        myCanvas = GetComponent<Canvas>();
+
         if (PlayerPrefs.HasKey("PlayerNickname"))
             inputField.text = PlayerPrefs.GetString("PlayerNickname");
     }
@@ -33,4 +37,13 @@ public class MainMenuUIHandler : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene");
     }
+
+    public bool toggleStatus()
+    {
+        myCanvas.enabled = !myCanvas.enabled;
+        return myCanvas.enabled;
+
+    }
+
+
 }

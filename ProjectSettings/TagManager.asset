@@ -7,6 +7,9 @@ TagManager:
   - InteractorOfPlayer
   - MinimapCam
   - State
+  - MainAndSettingsMenu
+  - MAIN_MENU
+  - SET_MENU
   layers:
   - Default
   - TransparentFX
