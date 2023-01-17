@@ -12,10 +12,13 @@ public class MainMenuUIHandler : MonoBehaviour, IMenu
 
     void Start()
     {
-        myCanvas = GetComponent<Canvas>();
+        myCanvas = this.GetComponent<Canvas>();
 
         if (PlayerPrefs.HasKey("PlayerNickname"))
             inputField.text = PlayerPrefs.GetString("PlayerNickname");
+
+
+        myCanvas.enabled = true;
     }
 
     public void OnJoinGameClicked()
@@ -38,12 +41,15 @@ public class MainMenuUIHandler : MonoBehaviour, IMenu
         SceneManager.LoadScene("SampleScene");
     }
 
-    public bool toggleStatus()
+    public bool toggleStatus(bool setTo)
     {
-        myCanvas.enabled = !myCanvas.enabled;
+        myCanvas.enabled = setTo;
         return myCanvas.enabled;
 
     }
 
-
+    public bool getStatus()
+    {
+        return myCanvas.enabled;
+    }
 }

@@ -1,22 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SettingMenuScript : MonoBehaviour, IMenu
 {
 
-    private Canvas myCanvas;
+    private Canvas thisCanvas;
+    
 
     void Start()
     {
-        myCanvas = GetComponent<Canvas>();
+        thisCanvas=this.GetComponent<Canvas>();
+        
+
     }
-    public bool toggleStatus()
+    public bool toggleStatus(bool setTo)
     {
 
-        myCanvas.enabled = !myCanvas.enabled;
-        return myCanvas.enabled;
+        thisCanvas.enabled = setTo;
+        return thisCanvas.enabled;
 
+    }
+
+    public bool getStatus() {
+        
+        return thisCanvas.enabled;
     }
 
 
