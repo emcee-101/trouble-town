@@ -27,12 +27,9 @@ public class global_money : NetworkBehaviour
         // Check if in Bounds -> if < 0 : Round ended | else : okay
         if (GlobalMoney <= 0)
         {
-
             Log.Info("round has ended officially");
-
         }
         else {
-
             Log.Info("Theres still Money at the Bank!");
         }
     }

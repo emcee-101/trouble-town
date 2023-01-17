@@ -5098,7 +5098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useEvents: 1
-  promptMessage: press E to rob Bank
+  promptMessage: Press E to rob Bank
 --- !u!1 &1027997168
 GameObject:
   m_ObjectHideFlags: 0
