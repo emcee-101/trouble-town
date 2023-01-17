@@ -14,10 +14,10 @@ TagManager:
   - 
   - Water
   - UI
+  - LocalPlayerModel
   - Interactable
   - Minimap
-  - 
-  - 
+  - SpawnPoints
   - 
   - 
   - 

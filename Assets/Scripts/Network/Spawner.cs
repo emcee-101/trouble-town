@@ -5,6 +5,8 @@ using Unity;
 using Fusion;
 using Fusion.Sockets;
 using System;
+using Newtonsoft.Json.Linq;
+using static UtilLobby;
 
 public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
 {
@@ -12,6 +14,7 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
 
     // Mapping between Token ID and Re-created Players
     Dictionary<int, NetworkPlayer> mapTokenIDWithNetworkPlayer;
+    UtilLobby lobbyUtilities;
 
     CharacterInputHandler characterInputHandler;
 
@@ -73,14 +76,35 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
             else
             {
                 Debug.Log($"Spawning new player for connection token {playerToken}");
-                NetworkPlayer spawnedNetworkPlayer = runner.Spawn(playerPrefab, Utils.GetRandomSpawnPoint(), Quaternion.identity, player);
+                NetworkPlayer spawnedNetworkPlayer = null;
+
+                if (lobbyUtilities == null)
+                {
+                    GameObject obj = GameObject.FindGameObjectWithTag("State");
+                    lobbyUtilities = obj.GetComponent<UtilLobby>();
+                }
+
+                if (lobbyUtilities != null)
+                {
+                    positionData spawnData = lobbyUtilities.GetSpawnData();
+
+                    // - 26.65 / 3.4000001 / 26.93
+                    //Log.Info("Spawnlocation: x="+spawnLocation.x+" y=" + spawnLocation.y + " z=" + spawnLocation.z);
+
+                    // Spawning happens in PlayerPrefab->CharacterMovemetnHandler->Spawned() now
+                    spawnedNetworkPlayer = runner.Spawn(playerPrefab, inputAuthority: player);
+                }
+                else
+                    spawnedNetworkPlayer = runner.Spawn(playerPrefab, Utils.GetRandomSpawnPoint(), Quaternion.identity, player);
+
 
                 //Store the token for the player
                 spawnedNetworkPlayer.token = playerToken;
 
                 //Store the mapping between playerToken and the spawned network player
                 mapTokenIDWithNetworkPlayer[playerToken] = spawnedNetworkPlayer;
-            }
+
+                }
         }
         else Debug.Log("OnPlayerJoined");
     }
@@ -119,9 +143,12 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
     }
 
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data) { }
+
+    #region CarAndItemLogicHere
     public void OnSceneLoadDone(NetworkRunner runner) { }
     public void OnSceneLoadStart(NetworkRunner runner) { }
-
+    
+    #endregion
     public void OnHostMigrationCleanUp()
     {
         Debug.Log("Spawner OnHostMigrationCleanUp started");
@@ -140,4 +167,9 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
 
         Debug.Log("Spawner OnHostMigrationCleanUp completed");
     }
+
+
+
+
+
 }
