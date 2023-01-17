@@ -426,6 +426,7 @@ GameObject:
   - component: {fileID: 7428930153532125733}
   - component: {fileID: 3557003409832470015}
   - component: {fileID: 6275858628244591363}
+  - component: {fileID: 5317755210324162573}
   m_Layer: 0
   m_Name: Car_C5
   m_TagString: Untagged
@@ -488,3 +489,16 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5317755210324162573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5855670474627776566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc94bdb2c1466f4c91caa0e0074e9d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 30

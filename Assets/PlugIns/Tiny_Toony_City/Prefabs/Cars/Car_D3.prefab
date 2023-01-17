@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4241582880040516534}
   - component: {fileID: 2428115153942506266}
   - component: {fileID: 2999892390459656697}
+  - component: {fileID: 1244352062789253445}
   m_Layer: 0
   m_Name: Car_D3
   m_TagString: Untagged
@@ -73,6 +74,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1244352062789253445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902541751777462693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc94bdb2c1466f4c91caa0e0074e9d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 30
 --- !u!1 &3197676105035014576
 GameObject:
   m_ObjectHideFlags: 0

@@ -343,6 +343,7 @@ GameObject:
   - component: {fileID: 6522797375478762999}
   - component: {fileID: 8619199082569997939}
   - component: {fileID: 1761655661515526769}
+  - component: {fileID: 9198941196817081481}
   m_Layer: 0
   m_Name: Car_A2
   m_TagString: Untagged
@@ -405,6 +406,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &9198941196817081481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7844980828304441316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc94bdb2c1466f4c91caa0e0074e9d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
 --- !u!1 &7866481436305059389
 GameObject:
   m_ObjectHideFlags: 0
