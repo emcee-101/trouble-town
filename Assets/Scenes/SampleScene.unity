@@ -129,7 +129,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh68744
+  m_Name: pb_Mesh36610
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2379,6 +2379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentMoney: 0
   maxMoney: 8000
+  stealCooldown: 5
   frontBarMoney: {fileID: 920493719}
   backBarMoney: {fileID: 1338732798}
   moneyText: {fileID: 2024317827}
@@ -3680,7 +3681,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh68758
+  m_Name: pb_Mesh36624
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
