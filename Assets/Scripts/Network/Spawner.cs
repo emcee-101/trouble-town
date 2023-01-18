@@ -81,11 +81,11 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
                 Debug.Log($"Spawning new player for connection token {playerToken}");
                 NetworkPlayer spawnedNetworkPlayer = null;
 
-                //if (lobbyUtilities == null)
-                //{
-                //    GameObject obj = GameObject.FindGameObjectWithTag("State");
-                //    lobbyUtilities = obj.GetComponent<UtilLobby>();
-                //}
+                if (lobbyUtilities == null)
+                {
+                    GameObject obj = GameObject.FindGameObjectWithTag("State");
+                    lobbyUtilities = obj.GetComponent<UtilLobby>();
+                }
 
                 if (lobbyUtilities != null)
                 {
