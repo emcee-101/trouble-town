@@ -90,6 +90,7 @@ public class CharacterMovementHandler : NetworkBehaviour
             transform.position = spawnPoint.returnPos();
             transform.rotation = spawnPoint.returnAngle();
         }
+        else { transform.position = Utils.GetRandomSpawnPoint(); }
     }
 
 }
