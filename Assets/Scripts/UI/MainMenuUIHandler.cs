@@ -6,8 +6,20 @@ using TMPro;
 
 public class MainMenuUIHandler : MonoBehaviour, IMenu
 {
-    public TMP_InputField inputField;
+    [Header("Panels")]
+    public GameObject playerDetailsPanel;
+    public GameObject sessionBrowserPanel;
+    public GameObject createSessionPanel;
+    public GameObject statusPanel;
+
+    [Header("Player settings")]
+    public TMP_InputField playerNameInputField;
+
+    [Header("New game session")]
+    public TMP_InputField sessionNameInputField;
+
     private Canvas myCanvas;
+    private const string mapSceneName = "Multiplayer";
 
 
     void Start()
@@ -15,30 +27,59 @@ public class MainMenuUIHandler : MonoBehaviour, IMenu
         myCanvas = this.GetComponent<Canvas>();
 
         if (PlayerPrefs.HasKey("PlayerNickname"))
-            inputField.text = PlayerPrefs.GetString("PlayerNickname");
+            playerNameInputField.text = PlayerPrefs.GetString("PlayerNickname");
 
 
         myCanvas.enabled = true;
     }
 
-    public void OnJoinGameClicked()
+    private void HideAllPanels()
     {
-        PlayerPrefs.SetString("PlayerNickname", inputField.text);
+        playerDetailsPanel.SetActive(false);
+        sessionBrowserPanel.SetActive(false);
+        statusPanel.SetActive(false);
+        createSessionPanel.SetActive(false);
+    }
+
+    public void OnFindGameClicked()
+    {
+        PlayerPrefs.SetString("PlayerNickname", playerNameInputField.text);
         PlayerPrefs.Save();
 
-        GameManager.instance.playerNickName = inputField.text;
+        GameManager.instance.playerNickName = playerNameInputField.text;
 
-        SceneManager.LoadScene("Multiplayer");
+        NetworkRunnerHandler networkRunnerHandler = FindObjectOfType<NetworkRunnerHandler>();
+
+        networkRunnerHandler.OnJoinLobby();
+
+        HideAllPanels();
+
+        sessionBrowserPanel.gameObject.SetActive(true);
+        FindObjectOfType<SessionListUIHandler>(true).OnLookingForGameSessions();
+    }
+    public void OnCreateNewGameClicked()
+    {
+        HideAllPanels();
+
+        createSessionPanel.SetActive(true);
     }
 
-    public void OnSinglePlayerClicked()
+    public void OnStartNewSessionClicked()
     {
-        SceneManager.LoadScene("Main_Scene");
+        NetworkRunnerHandler networkRunnerHandler = FindObjectOfType<NetworkRunnerHandler>();
+
+        networkRunnerHandler.CreateGame(sessionNameInputField.text, mapSceneName);
+
+        HideAllPanels();
+
+        statusPanel.gameObject.SetActive(true);
     }
 
-    public void OnSampleSceneClicked()
+    public void OnJoiningServer()
     {
-        SceneManager.LoadScene("SampleScene");
+        HideAllPanels();
+
+        statusPanel.gameObject.SetActive(true);
     }
 
     public bool toggleStatus(bool setTo)

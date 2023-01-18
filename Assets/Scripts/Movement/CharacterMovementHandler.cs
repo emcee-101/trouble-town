@@ -55,11 +55,11 @@ public class CharacterMovementHandler : NetworkBehaviour
     {
         if (transform.position.y < -12) {
 
-            if(lobbyUtils == null) { 
+            //if(lobbyUtils == null) { 
                 
-                GameObject obj = GameObject.FindGameObjectWithTag("State");
-                lobbyUtils = obj.GetComponent<UtilLobby>();
-            }
+            //    GameObject obj = GameObject.FindGameObjectWithTag("State");
+            //    lobbyUtils = obj.GetComponent<UtilLobby>();
+            //}
             
 
             if(lobbyUtils != null)
@@ -76,12 +76,12 @@ public class CharacterMovementHandler : NetworkBehaviour
 
         Log.Info("Spawned called");
 
-        if (lobbyUtils == null)
-        {
+        //if (lobbyUtils == null)
+        //{
 
-            GameObject obj = GameObject.FindGameObjectWithTag("State");
-            lobbyUtils = obj.GetComponent<UtilLobby>();
-        }
+        //    GameObject obj = GameObject.FindGameObjectWithTag("State");
+        //    lobbyUtils = obj.GetComponent<UtilLobby>();
+        //}
 
 
         if (lobbyUtils != null) { 
@@ -90,6 +90,7 @@ public class CharacterMovementHandler : NetworkBehaviour
             transform.position = spawnPoint.returnPos();
             transform.rotation = spawnPoint.returnAngle();
         }
+        else { transform.position = Utils.GetRandomSpawnPoint(); }
     }
 
 }
