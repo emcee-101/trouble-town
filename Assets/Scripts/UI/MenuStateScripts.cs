@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static MainMenuUIHandler;
 
@@ -49,5 +50,10 @@ public class MenuStateScripts : MonoBehaviour
         // when the Object gets disabled it isnt acessible - duh -> just let tge main menu handle this ig (it overlays the settingsmenu)
         // settingsMenu.toggleStatus(!settingsMenu.getStatus());
 
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
