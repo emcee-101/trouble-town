@@ -425,7 +425,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5164911579385275237}
   - component: {fileID: 3561182791527116211}
-  - component: {fileID: 8815807981076619952}
   - component: {fileID: 389782061780520176}
   m_Layer: 0
   m_Name: Car_D5
@@ -467,28 +466,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.1642017, y: 1.9187319, z: 4.242599}
   m_Center: {x: -0.030998647, y: 0.9630166, z: -0.0547359}
---- !u!195 &8815807981076619952
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8211797629438873974}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 1
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &389782061780520176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,4 +478,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acc94bdb2c1466f4c91caa0e0074e9d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  gameObject: {fileID: 8211797629438873974}
+  direction: {x: 1, y: 1, z: 1}
+  speed: 5
