@@ -86,6 +86,7 @@ public class PlayerMoney : MonoBehaviour
         pocketMoney = stealAmount;
         currentStealCooldown = stealCooldown;
         playerUI.isCriminal = true;
+        playerUI.pocketMoneyHidden = false;
         return true;
 
     }
@@ -94,6 +95,7 @@ public class PlayerMoney : MonoBehaviour
         // check if cooldown exists
         internalReceiveFunds(pocketMoney);
         pocketMoney = 0;
+        playerUI.pocketMoneyHidden = true;
         return true;
 
     }

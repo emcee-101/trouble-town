@@ -10,6 +10,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI cooldownText;
     public bool isCriminal;
+    public bool pocketMoneyHidden;
 
     [Header("Intense Overlay")]
     [SerializeField]
@@ -17,12 +18,14 @@ public class PlayerUI : MonoBehaviour
     public TextMeshProUGUI criminalIndicator;
     public float duration;
     public float fadeSpeed;
-    
-    private float durationTimer;
+    public float wantedStateDuration;
 
+    private float durationTimer;
+    private float durationTimerCriminalState;
         // Start is called before the first frame update 
     void Start()
     {
+        durationTimerCriminalState = 0;
         intenseOverlay.color = new Color(intenseOverlay.color.r, intenseOverlay.color.g, intenseOverlay.color.b, 0.6f);
         cooldownText.text = "Current Cooldown: ";
     }
@@ -40,6 +43,7 @@ public class PlayerUI : MonoBehaviour
             criminalIndicator.enabled = false;
             intenseOverlay.enabled = false;
         }
+        UpdateCriminalStatus();
     }
 
     public void UpdateIntenseOverlay()
@@ -68,6 +72,16 @@ public class PlayerUI : MonoBehaviour
             durationTimer = 0;
         }
 
+    }
+    public void UpdateCriminalStatus(){
+        if (pocketMoneyHidden && isCriminal)
+        {
+            durationTimerCriminalState += Time.deltaTime;
+            if (durationTimerCriminalState > wantedStateDuration){
+                isCriminal = false;
+                durationTimerCriminalState = 0;
+            }
+        }
     }
 
     public void UpdateText(string promptMessage)
