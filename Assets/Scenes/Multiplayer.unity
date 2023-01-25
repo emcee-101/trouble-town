@@ -3763,7 +3763,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 8.611e-42, z: 3.8e-44, w: 2.8703e-41}
+  m_BoundingSphereOverride: {x: 0.0000008141942, y: 6.323129e-19, z: 6337696, w: -0.000000001262964}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -5067,7 +5067,6 @@ GameObject:
   - component: {fileID: 1025969435}
   - component: {fileID: 1025969434}
   - component: {fileID: 1025969438}
-  - component: {fileID: 1025969437}
   m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
@@ -5154,33 +5153,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1025969430}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1025969437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1025969430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98c11709b756e5647931c45fc03340c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2021736218597710207, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
-        m_TargetAssemblyTypeName: PlayerMoney, Assembly-CSharp
-        m_MethodName: receiveFunds
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 200
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1025969438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5193,7 +5165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd93a2100a74da4298f8b71c6f2575b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useEvents: 1
+  useEvents: 0
+  interactableType: bank
   promptMessage: Press E to rob Bank
 --- !u!1 &1027997168
 GameObject:
