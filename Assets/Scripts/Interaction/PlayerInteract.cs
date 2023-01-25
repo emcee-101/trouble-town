@@ -10,9 +10,11 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField]
     private LayerMask mask;
     private PlayerUI playerUI;
+    private PlayerMoney playerMoney;
 
     void Start() 
     {
+        playerMoney = GetComponent<PlayerMoney>();
         playerUI = GetComponent<PlayerUI>();
     }
 
@@ -32,8 +34,27 @@ public class PlayerInteract : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     interactable.BaseInteract();
+                    onInteractPlayerAction(interactable.interactableType);
+                    
                 }
             }
+        }
+    }
+
+    void onInteractPlayerAction(string interactableType){
+        switch (interactableType)
+        {
+            case "bank":
+                bool rubbed_succesfully = playerMoney.rubBank();
+                if (rubbed_succesfully){
+                }
+                break;
+            case "hideout":
+                playerMoney.hideMoney();
+                break;
+            default:
+                break;
+
         }
     }
 }
