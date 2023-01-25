@@ -58,3 +58,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: -2632763811948166320, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+  playerPrefabs:
+  - {fileID: 6810563241164734923, guid: 5b778acd465a66349b4b9e64f33c755c, type: 3}
+  - {fileID: 6823691118604696551, guid: 98dfba971f702a544bdbcb581625095d, type: 3}
