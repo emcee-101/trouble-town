@@ -240,6 +240,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1027997169}
     m_Modifications:
+    - target: {fileID: 1030341366398804473, guid: 27582de621335a24c85990522bd45942, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1030341366398804473, guid: 27582de621335a24c85990522bd45942, type: 3}
+      propertyPath: direction.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1030341366398804473, guid: 27582de621335a24c85990522bd45942, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1030341366398804473, guid: 27582de621335a24c85990522bd45942, type: 3}
+      propertyPath: direction.z
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 6411348670761512857, guid: 27582de621335a24c85990522bd45942, type: 3}
       propertyPath: m_Name
       value: Car_B2
@@ -744,6 +760,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1027997169}
     m_Modifications:
+    - target: {fileID: 5317755210324162573, guid: e4ba7b438f7beb444959c2ac25c990a3, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317755210324162573, guid: e4ba7b438f7beb444959c2ac25c990a3, type: 3}
+      propertyPath: direction.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317755210324162573, guid: e4ba7b438f7beb444959c2ac25c990a3, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5317755210324162573, guid: e4ba7b438f7beb444959c2ac25c990a3, type: 3}
+      propertyPath: direction.z
+      value: -35
+      objectReference: {fileID: 0}
     - target: {fileID: 5855670474627776566, guid: e4ba7b438f7beb444959c2ac25c990a3, type: 3}
       propertyPath: m_Name
       value: Car_C5
@@ -754,7 +786,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7428930153532125733, guid: e4ba7b438f7beb444959c2ac25c990a3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -21.644
+      value: -21.859
       objectReference: {fileID: 0}
     - target: {fileID: 7428930153532125733, guid: e4ba7b438f7beb444959c2ac25c990a3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -762,7 +794,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7428930153532125733, guid: e4ba7b438f7beb444959c2ac25c990a3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.283
+      value: 4.858
       objectReference: {fileID: 0}
     - target: {fileID: 7428930153532125733, guid: e4ba7b438f7beb444959c2ac25c990a3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -976,6 +1008,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 162153580956324600, guid: a3b0c462f74b5e94cb38634a297cdfff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254139374305677887, guid: a3b0c462f74b5e94cb38634a297cdfff, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254139374305677887, guid: a3b0c462f74b5e94cb38634a297cdfff, type: 3}
+      propertyPath: direction.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254139374305677887, guid: a3b0c462f74b5e94cb38634a297cdfff, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254139374305677887, guid: a3b0c462f74b5e94cb38634a297cdfff, type: 3}
+      propertyPath: direction.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3754678322062385387, guid: a3b0c462f74b5e94cb38634a297cdfff, type: 3}
@@ -2516,6 +2564,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1027997169}
     m_Modifications:
+    - target: {fileID: 3762332906486222299, guid: 41c854e4d8bae5e4da0d66149c04f9dd, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3762332906486222299, guid: 41c854e4d8bae5e4da0d66149c04f9dd, type: 3}
+      propertyPath: direction.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3762332906486222299, guid: 41c854e4d8bae5e4da0d66149c04f9dd, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3762332906486222299, guid: 41c854e4d8bae5e4da0d66149c04f9dd, type: 3}
+      propertyPath: direction.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4705745046421405957, guid: 41c854e4d8bae5e4da0d66149c04f9dd, type: 3}
       propertyPath: m_Name
       value: Car_D1
@@ -3114,6 +3178,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1027997169}
     m_Modifications:
+    - target: {fileID: 4188354917604722922, guid: 4d4fe236dedb99b4db68258efbd912f1, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4188354917604722922, guid: 4d4fe236dedb99b4db68258efbd912f1, type: 3}
+      propertyPath: direction.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4188354917604722922, guid: 4d4fe236dedb99b4db68258efbd912f1, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4188354917604722922, guid: 4d4fe236dedb99b4db68258efbd912f1, type: 3}
+      propertyPath: direction.z
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5271114585982985550, guid: 4d4fe236dedb99b4db68258efbd912f1, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -4563,6 +4643,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1027997169}
     m_Modifications:
+    - target: {fileID: 221270156875178291, guid: df6f9c70542197b48b8adb71487ec352, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 221270156875178291, guid: df6f9c70542197b48b8adb71487ec352, type: 3}
+      propertyPath: direction.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 221270156875178291, guid: df6f9c70542197b48b8adb71487ec352, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 221270156875178291, guid: df6f9c70542197b48b8adb71487ec352, type: 3}
+      propertyPath: direction.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6271265308200710641, guid: df6f9c70542197b48b8adb71487ec352, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -6813,6 +6909,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1027997169}
     m_Modifications:
+    - target: {fileID: 3961050455274945818, guid: 0fbe7831ff2124f41b77fdd9689a91ad, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3961050455274945818, guid: 0fbe7831ff2124f41b77fdd9689a91ad, type: 3}
+      propertyPath: direction.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3961050455274945818, guid: 0fbe7831ff2124f41b77fdd9689a91ad, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3961050455274945818, guid: 0fbe7831ff2124f41b77fdd9689a91ad, type: 3}
+      propertyPath: direction.z
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 6773934762954810851, guid: 0fbe7831ff2124f41b77fdd9689a91ad, type: 3}
       propertyPath: m_Name
       value: Car_A3
@@ -7028,6 +7140,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1027997169}
     m_Modifications:
+    - target: {fileID: 70174648698897779, guid: 98bdc006596375142935cf98d510d804, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 70174648698897779, guid: 98bdc006596375142935cf98d510d804, type: 3}
+      propertyPath: direction.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 70174648698897779, guid: 98bdc006596375142935cf98d510d804, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 70174648698897779, guid: 98bdc006596375142935cf98d510d804, type: 3}
+      propertyPath: direction.z
+      value: 48
+      objectReference: {fileID: 0}
     - target: {fileID: 1144839929252039276, guid: 98bdc006596375142935cf98d510d804, type: 3}
       propertyPath: m_Name
       value: Car_C1
@@ -7094,6 +7222,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car_D3
       objectReference: {fileID: 0}
+    - target: {fileID: 1244352062789253445, guid: 5f163ed9d4fe4a8498f2e6ba2b8624a4, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244352062789253445, guid: 5f163ed9d4fe4a8498f2e6ba2b8624a4, type: 3}
+      propertyPath: direction.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244352062789253445, guid: 5f163ed9d4fe4a8498f2e6ba2b8624a4, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244352062789253445, guid: 5f163ed9d4fe4a8498f2e6ba2b8624a4, type: 3}
+      propertyPath: direction.z
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4241582880040516534, guid: 5f163ed9d4fe4a8498f2e6ba2b8624a4, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -7152,6 +7296,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1027997169}
     m_Modifications:
+    - target: {fileID: 957772095773175051, guid: f3c506a673ebfdf4582745c2ba1adc79, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 957772095773175051, guid: f3c506a673ebfdf4582745c2ba1adc79, type: 3}
+      propertyPath: direction.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 957772095773175051, guid: f3c506a673ebfdf4582745c2ba1adc79, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 957772095773175051, guid: f3c506a673ebfdf4582745c2ba1adc79, type: 3}
+      propertyPath: direction.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2136643725221372724, guid: f3c506a673ebfdf4582745c2ba1adc79, type: 3}
       propertyPath: m_Name
       value: Car_A5
@@ -9233,6 +9393,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car_D2
       objectReference: {fileID: 0}
+    - target: {fileID: 8920996746143440577, guid: 2489a429200736048950475b70585815, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920996746143440577, guid: 2489a429200736048950475b70585815, type: 3}
+      propertyPath: direction.x
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920996746143440577, guid: 2489a429200736048950475b70585815, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920996746143440577, guid: 2489a429200736048950475b70585815, type: 3}
+      propertyPath: direction.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2489a429200736048950475b70585815, type: 3}
 --- !u!4 &1635603257 stripped
@@ -9247,6 +9423,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1027997169}
     m_Modifications:
+    - target: {fileID: 389782061780520176, guid: af4d30a68728bfe46a589c083cc1cd0b, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 389782061780520176, guid: af4d30a68728bfe46a589c083cc1cd0b, type: 3}
+      propertyPath: direction.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 389782061780520176, guid: af4d30a68728bfe46a589c083cc1cd0b, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 389782061780520176, guid: af4d30a68728bfe46a589c083cc1cd0b, type: 3}
+      propertyPath: direction.z
+      value: 34
+      objectReference: {fileID: 0}
     - target: {fileID: 5164911579385275237, guid: af4d30a68728bfe46a589c083cc1cd0b, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -9364,6 +9556,18 @@ PrefabInstance:
     - target: {fileID: 7844980828304441316, guid: 5c20c99ab4d7db44f96225108f37088e, type: 3}
       propertyPath: m_Name
       value: Car_A2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9198941196817081481, guid: 5c20c99ab4d7db44f96225108f37088e, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9198941196817081481, guid: 5c20c99ab4d7db44f96225108f37088e, type: 3}
+      propertyPath: direction.x
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 9198941196817081481, guid: 5c20c99ab4d7db44f96225108f37088e, type: 3}
+      propertyPath: direction.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c20c99ab4d7db44f96225108f37088e, type: 3}
@@ -9549,6 +9753,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3848261196142154037, guid: 2d1345aa1e9e0d74aacd05815ba8a34e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998134592964045833, guid: 2d1345aa1e9e0d74aacd05815ba8a34e, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998134592964045833, guid: 2d1345aa1e9e0d74aacd05815ba8a34e, type: 3}
+      propertyPath: direction.x
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998134592964045833, guid: 2d1345aa1e9e0d74aacd05815ba8a34e, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4998134592964045833, guid: 2d1345aa1e9e0d74aacd05815ba8a34e, type: 3}
+      propertyPath: direction.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -10478,6 +10698,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car_C3
       objectReference: {fileID: 0}
+    - target: {fileID: 6374837496160004817, guid: 707e478b9cc52cb41b3f3d42287be961, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374837496160004817, guid: 707e478b9cc52cb41b3f3d42287be961, type: 3}
+      propertyPath: direction.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374837496160004817, guid: 707e478b9cc52cb41b3f3d42287be961, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374837496160004817, guid: 707e478b9cc52cb41b3f3d42287be961, type: 3}
+      propertyPath: direction.z
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 7434238256779994509, guid: 707e478b9cc52cb41b3f3d42287be961, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -10772,6 +11008,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3499314671908895415, guid: 57efc65eb7033204b9cbce45b02d24a7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3570763370057787595, guid: 57efc65eb7033204b9cbce45b02d24a7, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3570763370057787595, guid: 57efc65eb7033204b9cbce45b02d24a7, type: 3}
+      propertyPath: direction.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3570763370057787595, guid: 57efc65eb7033204b9cbce45b02d24a7, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3570763370057787595, guid: 57efc65eb7033204b9cbce45b02d24a7, type: 3}
+      propertyPath: direction.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
