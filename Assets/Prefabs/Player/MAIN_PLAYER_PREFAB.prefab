@@ -735,7 +735,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8484312688373783044}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: MODEL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -981,7 +981,7 @@ GameObject:
   - component: {fileID: 9182277528670622834}
   - component: {fileID: 2239327318453336679}
   - component: {fileID: 7483390195334433398}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: UI MARKER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1162,9 +1162,9 @@ GameObject:
   - component: {fileID: 2991245161320222033}
   - component: {fileID: 2021736218597710207}
   - component: {fileID: 8081760661856977215}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: MAIN_PLAYER_PREFAB
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

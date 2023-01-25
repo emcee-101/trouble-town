@@ -7,10 +7,12 @@ using Fusion.Sockets;
 using System;
 using Newtonsoft.Json.Linq;
 using static UtilLobby;
+using System.Linq;
 
 public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
 {
     public NetworkPlayer playerPrefab;
+    public List<NetworkPlayer> playerPrefabs;
 
     // Mapping between Token ID and Re-created Players
     Dictionary<int, NetworkPlayer> mapTokenIDWithNetworkPlayer;
@@ -85,6 +87,15 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
                 {
                     GameObject obj = GameObject.FindGameObjectWithTag("State");
                     lobbyUtilities = obj.GetComponent<UtilLobby>();
+                }
+
+
+                // LOGIC IN WHICH A PLAYER PREFAB IS ASSIGNED
+                if (playerPrefabs.Count != 1) {
+
+                    Debug.Log("new Assignment called");
+                    playerPrefab = playerPrefabs[0];
+                
                 }
 
                 if (lobbyUtilities != null)
