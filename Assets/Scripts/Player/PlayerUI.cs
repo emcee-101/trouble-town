@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Fusion;
+
 public class PlayerUI : MonoBehaviour
 {
     [SerializeField]
@@ -19,6 +21,10 @@ public class PlayerUI : MonoBehaviour
     public float duration;
     public float fadeSpeed;
     public float wantedStateDuration;
+
+    [Header("LobbyUI")]
+    [SerializeField]
+    public TextMeshProUGUI playerCountText;
 
     private float durationTimer;
     private float durationTimerCriminalState;
@@ -44,6 +50,22 @@ public class PlayerUI : MonoBehaviour
             intenseOverlay.enabled = false;
         }
         UpdateCriminalStatus();
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            GameObject obj = GameObject.FindGameObjectWithTag("State");
+            game_state gameState = obj.GetComponent<game_state>();
+
+            if (gameState.gameState == GameState.pregame)
+            {
+                onStartClick();
+            }
+            else if (gameState.gameState == GameState.game)
+            {
+                gameState.gameState = GameState.pregame;
+            }
+            
+        }
     }
 
     public void UpdateIntenseOverlay()
@@ -93,4 +115,21 @@ public class PlayerUI : MonoBehaviour
         cooldownText.text = cooldownText.text = "Current Cooldown: " + timer;
     }
 
+    public void updatePlayerCount(SessionInfo sessionInfo)
+    {
+        if (!playerCountText.IsActive())
+        {
+            return;
+        }
+
+        playerCountText.text = $"{sessionInfo.PlayerCount.ToString()}/{sessionInfo.MaxPlayers.ToString()} Player";
+    }
+
+    public void onStartClick()
+    {
+        GameObject obj = GameObject.FindGameObjectWithTag("State");
+        game_state gameState = obj.GetComponent<game_state>();
+
+        gameState.gameState = GameState.game;
+    }
 }

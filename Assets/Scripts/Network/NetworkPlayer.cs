@@ -22,6 +22,9 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     public LocalCameraHandler localCameraHandler;
     public GameObject localUI;
 
+    public GameObject lobbyUI;
+    public GameObject gameUI;
+
     private miniMapScript miniMapCam;
 
     NetworkInGameMessages networkInGameMessages;
@@ -64,7 +67,17 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             if (miniMapCam != null) miniMapCam.enable = true;
 
             RPC_SetNickName(GameManager.instance.playerNickName);
-            
+
+            GameObject obj = GameObject.FindGameObjectWithTag("State");
+            game_state gameState = obj.GetComponent<game_state>();
+
+            foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                PlayerUI playerUI = player.GetComponent<PlayerUI>();
+
+                // playerUI.updatePlayerCount(gameState.sessionInfo);
+            }
+
             Debug.Log("Spawned local player");
         }
         else
@@ -144,16 +157,24 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public void GameStart()
     {
-
+        HideUIs();
+        gameUI.SetActive(true);
     }
 
     public void LobbyStart()
     {
-
+        HideUIs();
+        lobbyUI.SetActive(true);
     }
 
     public void GameEnd()
     {
 
+    }
+
+    private void HideUIs()
+    {
+        lobbyUI.SetActive(false);
+        gameUI.SetActive(false);
     }
 }
