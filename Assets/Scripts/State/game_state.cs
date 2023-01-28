@@ -44,15 +44,15 @@ public class game_state : NetworkBehaviour
 
     private void startGame()
     {
-        //map.SetActive(true);
-        //preMap.SetActive(false);
+        map.SetActive(true);
+        preMap.SetActive(false);
         respawnAllPlayersInActiveMap();
     }
 
     private void startLobby()
     {
-        //map.SetActive(false);
-        //preMap.SetActive(true);
+        map.SetActive(false);
+        preMap.SetActive(true);
         respawnAllPlayersInActiveMap();
     }
 
