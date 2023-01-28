@@ -108,8 +108,8 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
                     // Spawning happens in PlayerPrefab->CharacterMovemetnHandler->Spawned() now
                     spawnedNetworkPlayer = runner.Spawn(playerPrefab, inputAuthority: player);
                 }
-                else
-                    spawnedNetworkPlayer = runner.Spawn(playerPrefab, Utils.GetRandomSpawnPoint(), Quaternion.identity, player);
+                //else
+                //    spawnedNetworkPlayer = runner.Spawn(playerPrefab, Utils.GetRandomSpawnPoint(), Quaternion.identity, player);
 
 
                 //Store the token for the player

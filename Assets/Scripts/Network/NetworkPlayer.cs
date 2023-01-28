@@ -144,5 +144,4 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         if (localCameraHandler != null)
             Destroy(localCameraHandler.gameObject);
     }
-
 }
