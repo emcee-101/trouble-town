@@ -102,12 +102,9 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
                 if (playerLeftNetworkObject == Object)
                     Local.GetComponent<NetworkInGameMessages>().SendInGameRPCMessage(playerLeftNetworkObject.GetComponent<NetworkPlayer>().nickName.ToString(), "left (" + "" + ")");
             }
-
         }
-
         if (player == Object.InputAuthority)
             Runner.Despawn(Object);
-
     }
 
     static void OnNickNameChanged(Changed<NetworkPlayer> changed)
@@ -143,5 +140,20 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         //Get rid of the local camera if we get destroyed as a new one will be spawned with the new Network player
         if (localCameraHandler != null)
             Destroy(localCameraHandler.gameObject);
+    }
+
+    public void GameStart()
+    {
+
+    }
+
+    public void LobbyStart()
+    {
+
+    }
+
+    public void GameEnd()
+    {
+
     }
 }
