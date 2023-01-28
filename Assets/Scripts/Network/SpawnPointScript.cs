@@ -10,7 +10,7 @@ public class SpawnPointScript : MonoBehaviour
 
     private void Awake()
     {
-        place = transform.position;
+        place = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         angle = transform.rotation;
     }
 }

@@ -53,6 +53,9 @@ public class game_state : NetworkBehaviour
             networkPlayer.GameStart();
         }
 
+        // start the round timer
+        GameObject.FindGameObjectWithTag("State").GetComponent<round_timer>().startTimer();
+
         respawnAllPlayersInActiveMap();
     }
 
@@ -78,11 +81,48 @@ public class game_state : NetworkBehaviour
 
     private void endGame()
     {
+        String playerName = "";
+        float biggestMoney = 0.0f;
+        bool policeWon;
+
+        GameObject state = GameObject.FindGameObjectWithTag("State");
+
+        state.GetComponent<round_timer>().stopTimer();
+        
+        if (state.GetComponent<global_money>().GlobalMoney <= 0)
+        {
+
+            Log.Info("Police lost - all the money's gone!!!");
+            policeWon = false;
+
+        } else
+        {
+
+            Log.Info("Theres still money in da Bank - Police won");
+            policeWon = true;
+
+        }
+
         foreach (GameObject player in getAllNetworkPlayers())
         {
             NetworkPlayer networkPlayer = player.GetComponent<NetworkPlayer>();
+
+            
+            // decide winner
+            if(networkPlayer.GetComponentInParent<PlayerMoney>().currentMoney > biggestMoney) {
+
+                playerName = networkPlayer.nickName.ToString();
+                biggestMoney = networkPlayer.GetComponentInParent<PlayerMoney>().currentMoney;
+
+            }
+
+            // Nothing happens here atm
             networkPlayer.GameEnd();
         }
+
+        Log.Info($"Player named {playerName} won with a money count of {biggestMoney}");
+
+
     }
 
     private void respawnAllPlayersInActiveMap()
