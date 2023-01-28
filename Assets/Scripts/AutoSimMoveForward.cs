@@ -31,7 +31,7 @@ public class AutoSimMoveForward : MonoBehaviour
 
             gameObject.transform.Rotate(180, 0, 180);
             target = transform.position - direction;
-            transform.Translate(target* Time.deltaTime);
+            direction = -direction;
 
 
         }
@@ -62,44 +62,6 @@ public class AutoSimMoveForward : MonoBehaviour
 
 
 --------------------------------------------------------------------------------------------------------------------------------
-    void Update()
-{
-
-    transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-
-    if (target == transform.position)
-    {
-
-        gameObject.transform.Rotate(180, 0, 180);
-        target = transform.position - direction;
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-        target2 = target;
-
-
-    }
-    if (target2 == transform.position)
-    {
-
-        gameObject.transform.Rotate(180, 0, 180);
-        target2 = transform.position - direction;
-        transform.position = Vector3.MoveTowards(transform.position, target2, speed * Time.deltaTime);
-        target = target2;
-    }
-}
-
-
-
-    ________________________________________________________________________________________________________________________________
-    if (target == transform.position)
-        {
-
-            gameObject.transform.Rotate(180, 0, 180);
-            
-            transform.Translate(transform.position-direction * Time.deltaTime);
-
-
-        }kreuz und quer
-
-     }*/
+*/
 
 }
