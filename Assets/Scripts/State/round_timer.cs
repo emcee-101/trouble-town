@@ -24,7 +24,13 @@ public class round_timer : NetworkBehaviour
 
 
     }
+    public void stopTimer()
+    {
 
+        timer = TickTimer.None;
+
+
+    }
 
     public override void FixedUpdateNetwork() {
 
@@ -33,8 +39,8 @@ public class round_timer : NetworkBehaviour
         if (GetComponent<game_state>().gameState != GameState.aftergame && timer.Expired(networkRunnerInScene))
         {
             // reset timer
-            timer = TickTimer.None;
-            
+            stopTimer();
+
             // end round
             GetComponent<game_state>().gameState = GameState.aftergame;
 

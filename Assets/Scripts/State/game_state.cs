@@ -86,6 +86,8 @@ public class game_state : NetworkBehaviour
         bool policeWon;
 
         GameObject state = GameObject.FindGameObjectWithTag("State");
+
+        state.GetComponent<round_timer>().stopTimer();
         
         if (state.GetComponent<global_money>().GlobalMoney <= 0)
         {
