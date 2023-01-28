@@ -40,28 +40,4 @@ public class AutoSimMoveForward : MonoBehaviour
 
 
 
-
-
-
-
-    /* void Update()
-     {
-
-         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-
-         if (transform.position == target)
-         {
-
-             gameObject.transform.Rotate(180.0f, 0.0f, 180.0f);
-             target = transform.position - direction;
-
-         }
-
-
-     Autos fahren und rotieren, fahren abwer nicht in rotierte richtung weiter
-
-
---------------------------------------------------------------------------------------------------------------------------------
-*/
-
 }
