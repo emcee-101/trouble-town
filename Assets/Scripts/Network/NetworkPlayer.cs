@@ -169,7 +169,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public void GameEnd()
     {
-
+        Log.Info("Game has just ended!!");
     }
 
     private void HideUIs()

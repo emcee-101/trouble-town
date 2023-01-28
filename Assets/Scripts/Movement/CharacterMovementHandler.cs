@@ -74,8 +74,12 @@ public class CharacterMovementHandler : NetworkBehaviour
         if (lobbyUtils != null)
         {
             positionData spawnPoint = lobbyUtils.GetSpawnData();
-            transform.position = spawnPoint.returnPos();
-            transform.rotation = spawnPoint.returnAngle();
+
+            // lets test if this works better
+            transform.position = new Vector3(spawnPoint.returnPos().x, spawnPoint.returnPos().y, spawnPoint.returnPos().z);
+            // transform.position = spawnPoint.returnPos();
+            
+            transform.rotation = new Quaternion(spawnPoint.returnAngle().x, spawnPoint.returnAngle().y, spawnPoint.returnAngle().z, spawnPoint.returnAngle().w);
         }
     }
 }

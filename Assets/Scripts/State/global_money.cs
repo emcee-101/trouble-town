@@ -27,7 +27,9 @@ public class global_money : NetworkBehaviour
         // Check if in Bounds -> if < 0 : Round ended | else : okay
         if (GlobalMoney <= 0)
         {
-            Log.Info("round has ended officially");
+            game_state game_manager = GetComponent<game_state>();
+            Log.Info("Game has ended due to the Bank being robbed empty - the robbers win!!");
+            game_manager.gameState = GameState.aftergame;
         }
         else {
             Log.Info("Theres still Money at the Bank!");
