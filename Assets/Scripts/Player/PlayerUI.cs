@@ -62,6 +62,10 @@ public class PlayerUI : MonoBehaviour
             }
             else if (gameState.gameState == GameState.game)
             {
+                gameState.gameState = GameState.aftergame;
+            }
+            else if (gameState.gameState == GameState.aftergame)
+            {
                 gameState.gameState = GameState.pregame;
             }
             
