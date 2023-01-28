@@ -53,6 +53,9 @@ public class game_state : NetworkBehaviour
             networkPlayer.GameStart();
         }
 
+        // start the round timer
+        GameObject.FindGameObjectWithTag("State").GetComponent<round_timer>().startTimer();
+
         respawnAllPlayersInActiveMap();
     }
 

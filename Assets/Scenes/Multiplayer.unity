@@ -4249,6 +4249,7 @@ GameObject:
   - component: {fileID: 790916595}
   - component: {fileID: 790916596}
   - component: {fileID: 790916597}
+  - component: {fileID: 790916598}
   m_Layer: 0
   m_Name: STATE
   m_TagString: State
@@ -4295,6 +4296,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 790916595}
   - {fileID: 790916597}
+  - {fileID: 790916598}
   SimulationBehaviours: []
 --- !u!114 &790916595
 MonoBehaviour:
@@ -4340,6 +4342,20 @@ MonoBehaviour:
   map: {fileID: 114076558}
   preMap: {fileID: 5973718489598144884}
   _gameState: 0
+--- !u!114 &790916598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790916592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5962c5625292c444fa8d2d961b3963c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  timeForOneRoundInMinutes: 10
 --- !u!1001 &807010350
 PrefabInstance:
   m_ObjectHideFlags: 0
