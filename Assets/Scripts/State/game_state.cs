@@ -4,14 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState { pregame, game, aftergame };
+public enum GameState { pregame, game, aftergame, defaultState };
 
 public class game_state : NetworkBehaviour
 {
     public GameObject map;
     public GameObject preMap;
 
-    [Networked(OnChanged = nameof(onGameStateChanged))] public GameState gameState { get; set; } = GameState.pregame;
+    [Networked(OnChanged = nameof(onGameStateChanged))] public GameState gameState { get; set; } = GameState.defaultState;
 
     public static void onGameStateChanged(Changed<game_state> changed)
     {
@@ -37,27 +37,52 @@ public class game_state : NetworkBehaviour
                 endGame();
                 break;
             default:
-                Debug.Log("Unknown GameState");
+                Debug.Log("Unknown/Default GameState");
                 break;
         }
     }
 
     private void startGame()
     {
+        HideAllMaps();
         map.SetActive(true);
-        preMap.SetActive(false);
+
+        foreach (GameObject player in getAllNetworkPlayers())
+        {
+            NetworkPlayer networkPlayer = player.GetComponent<NetworkPlayer>();
+            networkPlayer.GameStart();
+        }
+
         respawnAllPlayersInActiveMap();
     }
 
     private void startLobby()
     {
-        map.SetActive(false);
+        HideAllMaps();
         preMap.SetActive(true);
+        
+        foreach (GameObject player in getAllNetworkPlayers())
+        {
+            NetworkPlayer networkPlayer = player.GetComponent<NetworkPlayer>();
+            networkPlayer.LobbyStart();
+        }
+
         respawnAllPlayersInActiveMap();
+    }
+
+    private void HideAllMaps()
+    {
+        map.SetActive(false);
+        preMap.SetActive(false);
     }
 
     private void endGame()
     {
+        foreach (GameObject player in getAllNetworkPlayers())
+        {
+            NetworkPlayer networkPlayer = player.GetComponent<NetworkPlayer>();
+            networkPlayer.GameEnd();
+        }
     }
 
     private void respawnAllPlayersInActiveMap()
@@ -72,17 +97,5 @@ public class game_state : NetworkBehaviour
     private GameObject[] getAllNetworkPlayers()
     {
         return GameObject.FindGameObjectsWithTag("Player");
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

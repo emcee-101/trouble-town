@@ -671,7 +671,7 @@ GameObject:
   - component: {fileID: 6788687210263543925}
   - component: {fileID: 5035527012873260421}
   m_Layer: 0
-  m_Name: Button
+  m_Name: StartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -779,7 +779,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6788687210263543925}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8081760661856977215}
+        m_TargetAssemblyTypeName: PlayerUI, Assembly-CSharp
+        m_MethodName: onStartClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3071583952176706105
 GameObject:
   m_ObjectHideFlags: 0
@@ -2019,6 +2031,8 @@ MonoBehaviour:
   _token: 0
   localCameraHandler: {fileID: 6104833922207306215}
   localUI: {fileID: 3555256760894673365}
+  lobbyUI: {fileID: 8097377039037183750}
+  gameUI: {fileID: 2245701287687838839}
 --- !u!114 &5594361340946633643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2179,6 +2193,7 @@ MonoBehaviour:
   duration: 1
   fadeSpeed: 0.5
   wantedStateDuration: 3
+  playerCountText: {fileID: 8331207558226751238}
 --- !u!1 &8440505826930676116
 GameObject:
   m_ObjectHideFlags: 0
