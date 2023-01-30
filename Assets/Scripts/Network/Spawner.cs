@@ -95,6 +95,8 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
                     ? playerPolicePrefabs[UnityEngine.Random.Range(0, playerPolicePrefabs.Count())]
                     : playerRobberPrefabs[UnityEngine.Random.Range(0, playerRobberPrefabs.Count())];
 
+                playerPrefab.isHostAndPolice = isPolice;
+
                 if (lobbyUtilities != null)
                 {
                     positionData spawnData = lobbyUtilities.GetSpawnData();
@@ -104,9 +106,6 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
                 }
                 //else
                 //    spawnedNetworkPlayer = runner.Spawn(playerPrefab, Utils.GetRandomSpawnPoint(), Quaternion.identity, player);
-
-                //Store role for player
-                spawnedNetworkPlayer.isPolice = isPolice;
 
                 //Store the token for the player
                 spawnedNetworkPlayer.token = playerToken;

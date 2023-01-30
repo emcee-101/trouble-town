@@ -18,7 +18,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     [Networked] public int token { get; set; }
 
     bool isPublicJoinMessageSent = false;
-    public bool isPolice = false;
+    public bool isHostAndPolice = false;
 
     public LocalCameraHandler localCameraHandler;
     public GameObject localUI;
@@ -165,7 +165,10 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     public void LobbyStart()
     {
         HideUIs();
-        lobbyUI.SetActive(true);
+        if (isHostAndPolice)
+        {
+            lobbyUI.SetActive(true);
+        }
     }
 
     public void GameEnd()

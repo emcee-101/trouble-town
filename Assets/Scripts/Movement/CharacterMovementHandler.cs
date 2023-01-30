@@ -58,6 +58,7 @@ public class CharacterMovementHandler : NetworkBehaviour
 
     override public void Spawned()
     {
+        GetComponent<NetworkPlayer>().LobbyStart();
         Respawn();
     }
 
