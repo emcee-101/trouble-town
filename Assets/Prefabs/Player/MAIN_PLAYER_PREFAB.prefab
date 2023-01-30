@@ -1837,7 +1837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2890999321583664885
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2029,7 +2029,7 @@ MonoBehaviour:
     _data:
       Data: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   _token: 0
-  isPolice: 0
+  isHostAndPolice: 0
   localCameraHandler: {fileID: 6104833922207306215}
   localUI: {fileID: 3555256760894673365}
   lobbyUI: {fileID: 8097377039037183750}

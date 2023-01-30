@@ -160,6 +160,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     {
         HideUIs();
         gameUI.SetActive(true);
+        GetComponent<PlayerUI>().Init();
     }
 
     public void LobbyStart()

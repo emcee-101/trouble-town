@@ -28,8 +28,8 @@ public class PlayerUI : MonoBehaviour
 
     private float durationTimer;
     private float durationTimerCriminalState;
-        // Start is called before the first frame update 
-    void Start()
+
+    public void Init()
     {
         durationTimerCriminalState = 0;
         intenseOverlay.color = new Color(intenseOverlay.color.r, intenseOverlay.color.g, intenseOverlay.color.b, 0.6f);
