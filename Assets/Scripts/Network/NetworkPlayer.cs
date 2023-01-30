@@ -18,6 +18,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     [Networked] public int token { get; set; }
 
     bool isPublicJoinMessageSent = false;
+    public bool isPolice = false;
 
     public LocalCameraHandler localCameraHandler;
     public GameObject localUI;

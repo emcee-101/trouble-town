@@ -37,14 +37,8 @@ public class UtilLobby : MonoBehaviour
     public SpawnPointScript GetSpawnPoint()
     {
         SpawnPointScript[] spawnPoints = UnityEngine.Object.FindObjectsOfType<SpawnPointScript>();
-        Debug.Log($"Found {spawnPoints.Length} SpawnPoints");
         // pick random element
         SpawnPointScript resultPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
-        foreach (var item in spawnPoints)
-        {
-            Debug.Log("LIST: " + item.place);
-        }
-        Debug.Log("returned: " + resultPoint.place);
         return resultPoint;
     }
 }
