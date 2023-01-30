@@ -11,8 +11,8 @@ using System.Linq;
 
 public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
 {
-    public NetworkPlayer playerPrefab;
-    public List<NetworkPlayer> playerPrefabs;
+    public List<NetworkPlayer> playerPolicePrefabs;
+    public List<NetworkPlayer> playerRobberPrefabs;
 
     // Mapping between Token ID and Re-created Players
     Dictionary<int, NetworkPlayer> mapTokenIDWithNetworkPlayer;
@@ -89,14 +89,13 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
                     lobbyUtilities = obj.GetComponent<UtilLobby>();
                 }
 
+                bool isPolice = runner.ActivePlayers.Count() == 1;
 
-                // LOGIC IN WHICH A PLAYER PREFAB IS ASSIGNED
-                if (playerPrefabs.Count != 1) {
+                NetworkPlayer playerPrefab = isPolice
+                    ? playerPolicePrefabs[UnityEngine.Random.Range(0, playerPolicePrefabs.Count())]
+                    : playerRobberPrefabs[UnityEngine.Random.Range(0, playerRobberPrefabs.Count())];
 
-                    Debug.Log("new Assignment called");
-                    playerPrefab = playerPrefabs[0];
-                
-                }
+                playerPrefab.isHostAndPolice = isPolice;
 
                 if (lobbyUtilities != null)
                 {
@@ -108,13 +107,11 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
                 //else
                 //    spawnedNetworkPlayer = runner.Spawn(playerPrefab, Utils.GetRandomSpawnPoint(), Quaternion.identity, player);
 
-
                 //Store the token for the player
                 spawnedNetworkPlayer.token = playerToken;
 
                 //Store the mapping between playerToken and the spawned network player
                 mapTokenIDWithNetworkPlayer[playerToken] = spawnedNetworkPlayer;
-
                 }
         }
         else Debug.Log("OnPlayerJoined");
