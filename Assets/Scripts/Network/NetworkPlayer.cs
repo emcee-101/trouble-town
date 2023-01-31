@@ -36,9 +36,31 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start() { }
+    
+    private void Update()
     {
-
+        //Update LobbyUI for HostAndPolice
+        if (FindObjectOfType<game_state>().gameState == GameState.pregame)
+        {
+            Debug.Log("gamestate is pregame indeed");
+            foreach (NetworkPlayer nP in FindObjectsOfType<NetworkPlayer>())
+            {
+                Debug.Log("found a nP with id: " + nP.Id);
+                if (nP.isHostAndPolice)
+                {
+                    Debug.Log("player with id is host: " + nP.Id);
+                    NetworkRunner runner = FindObjectOfType<NetworkRunner>();
+                    int activePlayers = 0;
+                    foreach (PlayerRef pR in runner.ActivePlayers)
+                        activePlayers++;
+                    
+                    nP.GetComponentInParent<PlayerUI>()
+                        .updatePlayerCount(activePlayers, runner.SessionInfo.MaxPlayers);
+                    break;
+                }
+            }
+        }
     }
 
     public override void Spawned()
@@ -74,9 +96,9 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
             foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
             {
+                NetworkRunner runner = FindObjectOfType<NetworkRunner>();
                 PlayerUI playerUI = player.GetComponent<PlayerUI>();
-
-                // playerUI.updatePlayerCount(gameState.sessionInfo);
+                playerUI.updatePlayerCount(runner.SessionInfo.PlayerCount, runner.SessionInfo.MaxPlayers);
             }
 
             Debug.Log("Spawned local player");
@@ -114,7 +136,9 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             if (Runner.TryGetPlayerObject(player, out NetworkObject playerLeftNetworkObject))
             {
                 if (playerLeftNetworkObject == Object)
-                    Local.GetComponent<NetworkInGameMessages>().SendInGameRPCMessage(playerLeftNetworkObject.GetComponent<NetworkPlayer>().nickName.ToString(), "left (" + "" + ")");
+                    Local.GetComponent<NetworkInGameMessages>()
+                        .SendInGameRPCMessage(playerLeftNetworkObject.GetComponent<NetworkPlayer>()
+                        .nickName.ToString(), "left");
             }
         }
         if (player == Object.InputAuthority)
