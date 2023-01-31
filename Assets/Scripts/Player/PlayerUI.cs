@@ -51,7 +51,7 @@ public class PlayerUI : MonoBehaviour
         }
         UpdateCriminalStatus();
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) && GetComponentInParent<NetworkPlayer>().isHostAndPolice)
         {
             GameObject obj = GameObject.FindGameObjectWithTag("State");
             game_state gameState = obj.GetComponent<game_state>();
@@ -119,14 +119,10 @@ public class PlayerUI : MonoBehaviour
         cooldownText.text = cooldownText.text = "Current Cooldown: " + timer;
     }
 
-    public void updatePlayerCount(SessionInfo sessionInfo)
+    public void updatePlayerCount(int playerCount, int maxPlayers)
     {
-        if (!playerCountText.IsActive())
-        {
-            return;
-        }
-
-        playerCountText.text = $"{sessionInfo.PlayerCount.ToString()}/{sessionInfo.MaxPlayers.ToString()} Player";
+        Debug.Log("UPDATE PLAYER UI: activeplayers: " + playerCount);
+        playerCountText.text = $"{playerCount}/{maxPlayers} Player";
     }
 
     public void onStartClick()
