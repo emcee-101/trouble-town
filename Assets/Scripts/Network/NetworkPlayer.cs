@@ -66,10 +66,16 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             //Sets the layer of the local players model
             Utils.SetRenderLayerInChildren(playerModel, LayerMask.NameToLayer("LocalPlayerModel"));
 
+            // Disable main Camera
+            if (Camera.main != null)
+            {
+                Camera.main.gameObject.SetActive(false);
+            }
+            
             //Enable 1 audio listner
             AudioListener audioListener = GetComponentInChildren<AudioListener>(true);
             audioListener.enabled = true;
-
+            
             // Enable the local camera
             localCameraHandler.localCamera.enabled = true;
 
@@ -165,13 +171,6 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
             isPublicJoinMessageSent = true;
         }
-    }
-
-    void OnDestroy()
-    {
-        //Get rid of the local camera if we get destroyed as a new one will be spawned with the new Network player
-        if (localCameraHandler != null)
-            Destroy(localCameraHandler.gameObject);
     }
 
     public void GameStart()
