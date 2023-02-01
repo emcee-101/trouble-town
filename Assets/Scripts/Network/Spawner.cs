@@ -162,17 +162,7 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
     }
     public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data) { }
 
-    public async void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
-    {
-        Debug.Log("OnHostMigration");
-
-        // Shut down the current runner
-        await runner.Shutdown(shutdownReason: ShutdownReason.HostMigration);
-
-        //Find the network runner handler and start the host migration
-        FindObjectOfType<NetworkRunnerHandler>().StartHostMigration(hostMigrationToken);
-
-    }
+    public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
 
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data) { }
 
