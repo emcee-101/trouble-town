@@ -147,7 +147,7 @@ public class NetworkRunnerHandler : MonoBehaviour
         var clientTask = JoinLobby();
     }
 
-    private async Task JoinLobby()
+    public async Task JoinLobby()
     {
         Debug.Log("JoinLobby started");
 

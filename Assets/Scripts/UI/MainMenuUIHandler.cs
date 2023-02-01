@@ -2,21 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
 public class MainMenuUIHandler : MonoBehaviour, IMenu
 {
     [Header("Panels")]
     public GameObject playerDetailsPanel;
-    public GameObject sessionBrowserPanel;
+    public GameObject sessionListPanel;
     public GameObject createSessionPanel;
     public GameObject statusPanel;
 
-    [Header("Player settings")]
+    [Header("Player Details")]
     public TMP_InputField playerNameInputField;
 
-    [Header("New game session")]
+    [Header("Session List ")]
+    public Button backFromSessionListPanelButton;
+    public Button createNewSessionButton;
+    
+    [Header("Create Session")]
     public TMP_InputField sessionNameInputField;
+    public Button backFromCreateSessionPanelButton;
 
     private Canvas myCanvas;
     private const string mapSceneName = "Multiplayer";
@@ -36,7 +42,7 @@ public class MainMenuUIHandler : MonoBehaviour, IMenu
     private void HideAllPanels()
     {
         playerDetailsPanel.SetActive(false);
-        sessionBrowserPanel.SetActive(false);
+        sessionListPanel.SetActive(false);
         statusPanel.SetActive(false);
         createSessionPanel.SetActive(false);
     }
@@ -54,9 +60,13 @@ public class MainMenuUIHandler : MonoBehaviour, IMenu
 
         HideAllPanels();
 
-        sessionBrowserPanel.gameObject.SetActive(true);
+        sessionListPanel.gameObject.SetActive(true);
+        backFromSessionListPanelButton.gameObject.SetActive(false);
+        createNewSessionButton.gameObject.SetActive(false);
+
         FindObjectOfType<SessionListUIHandler>(true).OnLookingForGameSessions();
     }
+
     public void OnCreateNewGameClicked()
     {
         HideAllPanels();
@@ -73,6 +83,20 @@ public class MainMenuUIHandler : MonoBehaviour, IMenu
         HideAllPanels();
 
         statusPanel.gameObject.SetActive(true);
+    }
+
+    public void OnBackFromSessionListPanelClicked()
+    {
+        HideAllPanels();
+
+        playerDetailsPanel.gameObject.SetActive(true);
+    }
+
+    public void OnBackFromCreateSessionPanelClicked()
+    {
+        HideAllPanels();
+
+        sessionListPanel.gameObject.SetActive(true);
     }
 
     public void OnJoiningServer()
