@@ -26,8 +26,6 @@ public class LocalCameraHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cameraRotationX = GameManager.instance.cameraViewRotation.x;
-        cameraRotationY = GameManager.instance.cameraViewRotation.y;
     }
 
     void LateUpdate()
@@ -54,14 +52,5 @@ public class LocalCameraHandler : MonoBehaviour
     public void SetViewInputVector(Vector2 viewInput)
     {
         this.viewInput = viewInput;
-    }
-
-    private void OnDestroy()
-    {
-        if (cameraRotationX != 0 && cameraRotationY != 0)
-        {
-            GameManager.instance.cameraViewRotation.x = cameraRotationX;
-            GameManager.instance.cameraViewRotation.y = cameraRotationY;
-        }
     }
 }

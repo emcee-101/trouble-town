@@ -86,7 +86,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             miniMapCam = GetComponentInChildren<miniMapScript>();
             if (miniMapCam != null) miniMapCam.enable = true;
 
-            RPC_SetNickName(GameManager.instance.playerNickName);
+            RPC_SetNickName(PlayerPrefs.GetString("PlayerNickname"));
 
             GameObject obj = GameObject.FindGameObjectWithTag("State");
             game_state gameState = obj.GetComponent<game_state>();
