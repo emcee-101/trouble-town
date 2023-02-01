@@ -65,13 +65,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
             //Sets the layer of the local players model
             Utils.SetRenderLayerInChildren(playerModel, LayerMask.NameToLayer("LocalPlayerModel"));
-
-            // Disable main Camera
-            if (Camera.main != null)
-            {
-                Camera.main.gameObject.SetActive(false);
-            }
-            
+                        
             //Enable 1 audio listner
             AudioListener audioListener = GetComponentInChildren<AudioListener>(true);
             audioListener.enabled = true;
@@ -126,7 +120,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         Runner.SetPlayerObject(Object.InputAuthority, Object);
 
         //Make it easier to tell which player is which.
-        transform.name = $"P_{Object.Id}";
+        transform.name = $"Player_{Object.Id}";
     }
 
     public void PlayerLeft(PlayerRef player)
