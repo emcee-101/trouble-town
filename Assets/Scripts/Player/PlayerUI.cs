@@ -201,7 +201,6 @@ public class PlayerUI : MonoBehaviour
 
     public void updatePlayerCount(int playerCount, int maxPlayers)
     {
-        Debug.Log("UPDATE PLAYER UI: activeplayers: " + playerCount);
         playerCountText.text = $"{playerCount}/{maxPlayers} Player";
     }
 
