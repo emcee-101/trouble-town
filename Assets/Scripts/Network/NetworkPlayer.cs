@@ -43,13 +43,10 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         //Update LobbyUI for HostAndPolice
         if (FindObjectOfType<game_state>().gameState == GameState.pregame)
         {
-            Debug.Log("gamestate is pregame indeed");
             foreach (NetworkPlayer nP in FindObjectsOfType<NetworkPlayer>())
             {
-                Debug.Log("found a nP with id: " + nP.Id);
                 if (nP.isHostAndPolice)
                 {
-                    Debug.Log("player with id is host: " + nP.Id);
                     NetworkRunner runner = FindObjectOfType<NetworkRunner>();
                     int activePlayers = 0;
                     foreach (PlayerRef pR in runner.ActivePlayers)
@@ -147,7 +144,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     static void OnNickNameChanged(Changed<NetworkPlayer> changed)
     {
-        Debug.Log($"{Time.time} OnHPChanged value {changed.Behaviour.nickName}");
+        Debug.Log($"{Time.time} OnNickNameChanged value {changed.Behaviour.nickName}");
 
         changed.Behaviour.OnNickNameChanged();
     }
