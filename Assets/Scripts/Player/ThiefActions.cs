@@ -4,32 +4,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class PlayerMoney : MonoBehaviour
+public class ThiefActions : MonoBehaviour
 {
     [SerializeField]
-    public float currentMoney;
-    public float maxMoney;
-    public float stealAmount = 1000;
-    public float stealCooldown;
-    [SerializeField]
-    private float currentStealCooldown;
-    private float pocketMoney;
-    private float lerpTimer;
-    private float delayTimer;
-    private float chipSpeed = 30f;
+    public int currentMoney;
+    public int maxMoney;
+    public int stealAmount = 1000;
+
     public Image frontBarMoney;
     public Image backBarMoney;
     public TextMeshProUGUI moneyText;
     
+    private int pocketMoney;
     private PlayerUI playerUI;
 
     // Start is called before the first frame update
     void Start()
     {   
         pocketMoney = 0;
-        playerUI = GetComponent<PlayerUI>();
-        frontBarMoney.fillAmount = currentMoney / maxMoney;
-        backBarMoney.fillAmount = currentMoney / maxMoney;
+        playerUI = GetComponentInParent<PlayerUI>();
+        frontBarMoney.fillAmount =  (float)currentMoney / (float)maxMoney;
+        backBarMoney.fillAmount =  (float)currentMoney / (float)maxMoney;
     }
 
     // Update is called once per frame
@@ -37,7 +32,6 @@ public class PlayerMoney : MonoBehaviour
     {
         currentMoney = Mathf.Clamp(currentMoney, 0, maxMoney);
         UpdateMoneyUI();
-        UpdateCooldown();
     }
     private void UpdateMoneyUI()
     {
@@ -47,30 +41,13 @@ public class PlayerMoney : MonoBehaviour
         moneyText.text = Mathf.Round(currentMoney) + "+" + Mathf.Round(pocketMoney) + " $";
 
     }
-    private void UpdateCooldown()
-    {
-        // Reduce cooldown as time goes...
-        //Debug.Log(currentStealCooldown);
-        if (currentStealCooldown > 0) 
-        {
-
-            currentStealCooldown -= Time.deltaTime;
-            currentStealCooldown = Mathf.Clamp(currentStealCooldown, 0, 999);
-
-            playerUI.UpdateCooldown(currentStealCooldown.ToString("0"));
-        }
-    }
-    public void deductFunds(float amount)
-    {
-        currentMoney -= amount;
-        lerpTimer = 0f;
-    }
+    
     public bool rubBank()
     {
         // check if cooldown exists
-        if (currentStealCooldown > 0) 
+        if (playerUI.isOnStealCooldown()) 
         {
-            Debug.LogFormat("Cooldown Running, Time Left: {0}", currentStealCooldown);
+            Debug.Log("Steal Cooldown Running");
             return false;
         }
 
@@ -80,13 +57,11 @@ public class PlayerMoney : MonoBehaviour
             global_money statedata = state.GetComponent<global_money>();
             if (statedata != null)
             {
-                statedata.GlobalMoney -= statedata.moneyStolenPerSteal;
+                statedata.GlobalMoney -= stealAmount;
             }
         }
-        pocketMoney = stealAmount;
-        currentStealCooldown = stealCooldown;
-        playerUI.isCriminal = true;
-        playerUI.pocketMoneyHidden = false;
+        pocketMoney += stealAmount;
+        playerUI.hasRecentlyStolen = true;
         return true;
 
     }
@@ -99,8 +74,24 @@ public class PlayerMoney : MonoBehaviour
         return true;
 
     }
-    private void internalReceiveFunds(float amount){
+    private void internalReceiveFunds(int amount){
         currentMoney += amount;
-        lerpTimer = 0f;
+    }
+
+    public bool getInvestigated(){
+        playerUI.isBeingInvestigated = true;
+
+         GameObject state = GameObject.FindWithTag("State");
+        if (state != null)
+        {
+            global_money statedata = state.GetComponent<global_money>();
+            if (statedata != null)
+            {
+                statedata.GlobalMoney += pocketMoney;
+            }
+        }
+
+        return true;
     }
 }
+

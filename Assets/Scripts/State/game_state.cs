@@ -109,10 +109,10 @@ public class game_state : NetworkBehaviour
 
             
             // decide winner
-            if(networkPlayer.GetComponentInParent<PlayerMoney>().currentMoney > biggestMoney) {
+            if(networkPlayer.GetComponentInParent<ThiefActions>().currentMoney > biggestMoney) {
 
                 playerName = networkPlayer.nickName.ToString();
-                biggestMoney = networkPlayer.GetComponentInParent<PlayerMoney>().currentMoney;
+                biggestMoney = networkPlayer.GetComponentInParent<ThiefActions>().currentMoney;
 
             }
 
