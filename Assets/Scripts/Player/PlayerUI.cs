@@ -1,16 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using Fusion;
 
 public class PlayerUI : MonoBehaviour
 {
-    [SerializeField]
-    private TextMeshProUGUI promptText;
-    [SerializeField]
-    private TextMeshProUGUI cooldownText;
+    public TextMeshProUGUI promptText;
+    public TextMeshProUGUI cooldownText;
     public bool hasRecentlyStolen;
     public bool isCriminal;
     public bool isBeingInvestigated;
@@ -18,7 +13,6 @@ public class PlayerUI : MonoBehaviour
     public bool pocketMoneyHidden;
     public float stealCooldown;
     [Header("Intense Overlay")]
-    [SerializeField]
     public Image intenseOverlay;
     public TextMeshProUGUI warnMessage;
     public float investigationDuration;
@@ -58,7 +52,7 @@ public class PlayerUI : MonoBehaviour
         warnMessage.text = "";
         intenseOverlay.enabled = false;
         
-        UpdateChristoferStuff();
+        CheckEnterClickFromHost();
 
         if (hasRecentlyStolen){
             isCriminal = true;
@@ -66,6 +60,7 @@ public class PlayerUI : MonoBehaviour
             durationTimerStealCooldown = stealCooldown;
             hasRecentlyStolen = false;
         }
+
         if (isCriminal) {
             intenseOverlay.enabled = true;
             warnMessage.text = "Now you are criminal! Stay away from policemen";
@@ -73,6 +68,7 @@ public class PlayerUI : MonoBehaviour
             UpdateCriminalStatus();
             UpdateStealingCooldown();
         }
+
         if (isBeingInvestigated) {
             warnMessage.text = "You are being investigated by policeman!";
             UpdateBeingInvestigated();
@@ -83,7 +79,7 @@ public class PlayerUI : MonoBehaviour
             UpdateWhileInPrison();
         }   
     }
-    private void UpdateChristoferStuff(){
+    private void CheckEnterClickFromHost(){
         if (Input.GetKeyDown(KeyCode.Return) && GetComponentInParent<NetworkPlayer>().isHostAndPolice)
         {
             GameObject obj = GameObject.FindGameObjectWithTag("State");
@@ -103,8 +99,8 @@ public class PlayerUI : MonoBehaviour
             }
             
         }
-
     }
+
     private void UpdateStealingCooldown()
     {
         // Reduce cooldown as time goes...
