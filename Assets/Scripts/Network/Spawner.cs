@@ -117,7 +117,5 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
     #region CarAndItemLogicHere
     public void OnSceneLoadDone(NetworkRunner runner) { }
     public void OnSceneLoadStart(NetworkRunner runner) { }
-    
     #endregion
-    public void OnHostMigrationCleanUp() { }
 }

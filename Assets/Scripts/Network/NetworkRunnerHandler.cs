@@ -69,13 +69,6 @@ public class NetworkRunnerHandler : MonoBehaviour
         });
     }
 
-    IEnumerator CleanUpHostMigrationCO()
-    {
-        yield return new WaitForSeconds(5.0f);
-
-        FindObjectOfType<Spawner>().OnHostMigrationCleanUp();
-    }
-
     public void OnJoinLobby()
     {
         var clientTask = JoinLobby();
