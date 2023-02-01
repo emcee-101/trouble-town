@@ -157,6 +157,8 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
                 Debug.Log($"Found session {sessionInfo.Name} playerCount {sessionInfo.PlayerCount}");
             }
         }
+
+        sessionListUIHandler.ShowButtons();
     }
     public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data) { }
 

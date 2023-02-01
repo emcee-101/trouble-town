@@ -10,6 +10,8 @@ public class SessionListUIHandler : MonoBehaviour
     public TextMeshProUGUI statusText;
     public GameObject sessionItemListPrefab;
     public VerticalLayoutGroup verticalLayoutGroup;
+    public Button backButton;
+    public Button createNewSessionButton;
 
     private void Awake()
     {
@@ -64,5 +66,11 @@ public class SessionListUIHandler : MonoBehaviour
 
         statusText.text = "Looking for game sessions";
         statusText.gameObject.SetActive(true);
+    }
+
+    public void ShowButtons()
+    {
+        backButton.gameObject.SetActive(true);
+        createNewSessionButton.gameObject.SetActive(true);
     }
 }
