@@ -1311,7 +1311,7 @@ GameObject:
   - component: {fileID: 1348796707440626339}
   - component: {fileID: 2281504437514802209}
   m_Layer: 0
-  m_Name: CriminalWarn
+  m_Name: WarnMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1365,7 +1365,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Now you are criminal! Stay away from policemen
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
@@ -2165,11 +2165,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a1da9db07cac0478bc4806ea95545c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentMoney: 3000
+  currentMoney: 0
   maxMoney: 8000
   stealAmount: 1000
-  stealCooldown: 6
-  currentStealCooldown: 0
   frontBarMoney: {fileID: 6730733148261154328}
   backBarMoney: {fileID: 4105185178252245768}
   moneyText: {fileID: 5287749522341494087}
@@ -2187,13 +2185,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptText: {fileID: 2603194682968071791}
   cooldownText: {fileID: 8400371057046751538}
+  hasRecentlyStolen: 0
   isCriminal: 0
+  isBeingInvestigated: 0
+  isInPrison: 0
   pocketMoneyHidden: 0
+  stealCooldown: 20
   intenseOverlay: {fileID: 7949378937108162228}
-  criminalIndicator: {fileID: 2281504437514802209}
+  warnMessage: {fileID: 2281504437514802209}
+  investigationDuration: 5
+  prisonTimeDuration: 20
   duration: 1
   fadeSpeed: 0.5
-  wantedStateDuration: 3
+  wantedStateDuration: 15
   playerCountText: {fileID: 8331207558226751238}
 --- !u!1 &8440505826930676116
 GameObject:
@@ -2261,7 +2265,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Cooldown
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
