@@ -10,11 +10,11 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField]
     private LayerMask mask;
     private PlayerUI playerUI;
-    private PlayerMoney playerMoney;
+    private ThiefActions thiefActions;
 
     void Start() 
     {
-        playerMoney = GetComponent<PlayerMoney>();
+        thiefActions = GetComponent<ThiefActions>();
         playerUI = GetComponent<PlayerUI>();
     }
 
@@ -45,14 +45,15 @@ public class PlayerInteract : MonoBehaviour
         switch (interactableType)
         {
             case "bank":
-                bool rubbed_succesfully = playerMoney.rubBank();
+                bool rubbed_succesfully = thiefActions.rubBank();
                 if (rubbed_succesfully){
                 }
                 break;
             case "hideout":
-                playerMoney.hideMoney();
+                thiefActions.hideMoney();
                 break;
-            default:
+            case "thief":
+                thiefActions.getInvestigated();
                 break;
 
         }
