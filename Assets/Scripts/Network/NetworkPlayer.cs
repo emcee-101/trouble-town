@@ -14,9 +14,6 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     [Networked(OnChanged = nameof(OnNickNameChanged))]
     public NetworkString<_16> nickName { get; set; }
 
-    // Remote Client Token Hash
-    [Networked] public int token { get; set; }
-
     bool isPublicJoinMessageSent = false;
     public bool isHostAndPolice = false;
 
@@ -69,10 +66,16 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             //Sets the layer of the local players model
             Utils.SetRenderLayerInChildren(playerModel, LayerMask.NameToLayer("LocalPlayerModel"));
 
+            // Disable main Camera
+            if (Camera.main != null)
+            {
+                Camera.main.gameObject.SetActive(false);
+            }
+            
             //Enable 1 audio listner
             AudioListener audioListener = GetComponentInChildren<AudioListener>(true);
             audioListener.enabled = true;
-
+            
             // Enable the local camera
             localCameraHandler.localCamera.enabled = true;
 
@@ -86,7 +89,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             miniMapCam = GetComponentInChildren<miniMapScript>();
             if (miniMapCam != null) miniMapCam.enable = true;
 
-            RPC_SetNickName(GameManager.instance.playerNickName);
+            RPC_SetNickName(PlayerPrefs.GetString("PlayerNickname"));
 
             GameObject obj = GameObject.FindGameObjectWithTag("State");
             game_state gameState = obj.GetComponent<game_state>();
@@ -168,13 +171,6 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
             isPublicJoinMessageSent = true;
         }
-    }
-
-    void OnDestroy()
-    {
-        //Get rid of the local camera if we get destroyed as a new one will be spawned with the new Network player
-        if (localCameraHandler != null)
-            Destroy(localCameraHandler.gameObject);
     }
 
     public void GameStart()

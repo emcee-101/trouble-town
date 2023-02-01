@@ -52,8 +52,6 @@ public class MainMenuUIHandler : MonoBehaviour, IMenu
         PlayerPrefs.SetString("PlayerNickname", playerNameInputField.text);
         PlayerPrefs.Save();
 
-        GameManager.instance.playerNickName = playerNameInputField.text;
-
         NetworkRunnerHandler networkRunnerHandler = FindObjectOfType<NetworkRunnerHandler>();
 
         networkRunnerHandler.OnJoinLobby();
