@@ -38,15 +38,14 @@ public class NetworkRunnerHandler : MonoBehaviour
 
             if (SceneManager.GetActiveScene().name != menuSceneName)
             {
-                byte[] cT = GameManager.instance.GetConnectionToken();
-                var clientTask = InitializeNetworkRunner(networkRunner, GameMode.AutoHostOrClient, "TestSession", cT, NetAddress.Any(), SceneManager.GetActiveScene().buildIndex, null);
+                var clientTask = InitializeNetworkRunner(networkRunner, GameMode.AutoHostOrClient, "TestSession", NetAddress.Any(), SceneManager.GetActiveScene().buildIndex, null);
             }
 
             Debug.Log($"Server NetworkRunner started.");
         }
     }
 
-    protected virtual Task InitializeNetworkRunner(NetworkRunner runner, GameMode gameMode, string sessionName, byte[] connectionToken, NetAddress address, SceneRef scene, Action<NetworkRunner> initialized)
+    protected virtual Task InitializeNetworkRunner(NetworkRunner runner, GameMode gameMode, string sessionName, NetAddress address, SceneRef scene, Action<NetworkRunner> initialized)
     {
         var sceneManager = runner.GetComponents(typeof(MonoBehaviour)).OfType<INetworkSceneManager>().FirstOrDefault();
 
@@ -66,8 +65,7 @@ public class NetworkRunnerHandler : MonoBehaviour
             SessionName = sessionName,
             CustomLobbyName = lobbyID,
             Initialized = initialized,
-            SceneManager = sceneManager,
-            ConnectionToken = connectionToken
+            SceneManager = sceneManager
         });
     }
 
@@ -103,7 +101,7 @@ public class NetworkRunnerHandler : MonoBehaviour
         Debug.Log($"Create session {sessionName} scene {sceneName} build Index {SceneUtility.GetBuildIndexByScenePath($"scenes/{sceneName}")}");
 
         //Join existing game as a client
-        var clientTask = InitializeNetworkRunner(networkRunner, GameMode.Host, sessionName, GameManager.instance.GetConnectionToken(), NetAddress.Any(), SceneUtility.GetBuildIndexByScenePath($"scenes/{sceneName}"), null);
+        var clientTask = InitializeNetworkRunner(networkRunner, GameMode.Host, sessionName, NetAddress.Any(), SceneUtility.GetBuildIndexByScenePath($"scenes/{sceneName}"), null);
 
     }
 
@@ -112,7 +110,7 @@ public class NetworkRunnerHandler : MonoBehaviour
         Debug.Log($"Join session {sessionInfo.Name}");
 
         //Join existing game as a client
-        var clientTask = InitializeNetworkRunner(networkRunner, GameMode.Client, sessionInfo.Name, GameManager.instance.GetConnectionToken(), NetAddress.Any(), SceneManager.GetActiveScene().buildIndex, null);
+        var clientTask = InitializeNetworkRunner(networkRunner, GameMode.Client, sessionInfo.Name, NetAddress.Any(), SceneManager.GetActiveScene().buildIndex, null);
 
     }
 

@@ -14,9 +14,6 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     [Networked(OnChanged = nameof(OnNickNameChanged))]
     public NetworkString<_16> nickName { get; set; }
 
-    // Remote Client Token Hash
-    [Networked] public int token { get; set; }
-
     bool isPublicJoinMessageSent = false;
     public bool isHostAndPolice = false;
 
