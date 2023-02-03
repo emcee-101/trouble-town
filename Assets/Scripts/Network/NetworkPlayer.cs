@@ -22,6 +22,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public GameObject lobbyUI;
     public GameObject gameUI;
+    public GameObject scoresUI;
 
     private miniMapScript miniMapCam;
 
