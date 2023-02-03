@@ -22,6 +22,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public GameObject lobbyUI;
     public GameObject gameUI;
+    private ActicateScoreboard scoreUI;
 
     private miniMapScript miniMapCam;
 
@@ -79,6 +80,8 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             // Enable UI for local player
             localUI.SetActive(true);
 
+            scoreUI = GetComponentInChildren<ActicateScoreboard>();
+
             // Enable Minimap for you
             miniMapCam = GetComponentInChildren<miniMapScript>();
             if (miniMapCam != null) miniMapCam.enable = true;
@@ -121,7 +124,10 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
         //Make it easier to tell which player is which.
         transform.name = $"Player_{Object.Id}";
-    }
+
+        
+       
+}
 
     public void PlayerLeft(PlayerRef player)
     {
@@ -172,6 +178,8 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         HideUIs();
         gameUI.SetActive(true);
         GetComponent<PlayerUI>().Init();
+        if (scoreUI != null)
+            scoreUI.activated = true;
     }
 
     public void LobbyStart()
@@ -186,11 +194,14 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     public void GameEnd()
     {
         Log.Info("Game has just ended!!");
+        scoreUI.activated = false;
     }
 
     private void HideUIs()
     {
         lobbyUI.SetActive(false);
         gameUI.SetActive(false);
+        if(scoreUI != null)
+            scoreUI.activated = false;
     }
 }
