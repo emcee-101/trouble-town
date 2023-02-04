@@ -15,9 +15,7 @@ public class game_state : NetworkBehaviour
 
     public static void onGameStateChanged(Changed<game_state> changed)
     {
-
         changed.Behaviour.onGameStateChanged();
-
     }
 
     private void onGameStateChanged()

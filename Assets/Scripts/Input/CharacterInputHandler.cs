@@ -7,6 +7,7 @@ public class CharacterInputHandler : MonoBehaviour
     Vector2 moveInputVector = Vector2.zero;
     Vector2 viewInputVector = Vector2.zero;
     bool isJumpButtonPressed = false;
+    private NetworkPlayer networkPlayer;
 
     //Other components
     LocalCameraHandler localCameraHandler;
@@ -21,32 +22,42 @@ public class CharacterInputHandler : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        networkPlayer = GetComponentInParent<NetworkPlayer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //View input
-        viewInputVector.x = Input.GetAxis("Mouse X");
-        viewInputVector.y = Input.GetAxis("Mouse Y") * -1; //Invert the mouse look
+        if (!networkPlayer.isGamePaused)
+        {
+            //View input
+            viewInputVector.x = Input.GetAxis("Mouse X");
+            viewInputVector.y = Input.GetAxis("Mouse Y") * -1; //Invert the mouse look
 
-        //Move input
-        moveInputVector.x = Input.GetAxis("Horizontal");
-        moveInputVector.y = Input.GetAxis("Vertical");
+            //Move input
+            moveInputVector.x = Input.GetAxis("Horizontal");
+            moveInputVector.y = Input.GetAxis("Vertical");
 
-        //Jump
-        if (Input.GetButtonDown("Jump"))
-            isJumpButtonPressed = true;
+            //Jump
+            if (Input.GetButtonDown("Jump"))
+                isJumpButtonPressed = true;
 
-        //Set view
-        localCameraHandler.SetViewInputVector(viewInputVector);
+            //Set view
+            localCameraHandler.SetViewInputVector(viewInputVector);
+        }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            networkPlayer.toggleGamePausedState();
+
+        }
     }
 
     public NetworkInputData GetNetworkInput()
     {
         NetworkInputData networkInputData = new NetworkInputData();
-
+        
         //Aim data
         networkInputData.aimForwardVector = localCameraHandler.transform.forward;
 

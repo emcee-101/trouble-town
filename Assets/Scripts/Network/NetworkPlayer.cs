@@ -22,7 +22,12 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public GameObject lobbyUI;
     public GameObject gameUI;
+    public GameObject endUI;
+    public GameObject gamePausedBackgroundUI;
+
     private ActicateScoreboard scoreUI;
+
+    public bool isGamePaused = false;
 
     private miniMapScript miniMapCam;
 
@@ -38,9 +43,10 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     
     private void Update()
     {
-        //Update LobbyUI for HostAndPolice
+        
         if (FindObjectOfType<game_state>().gameState == GameState.pregame)
         {
+            //Update LobbyUI for HostAndPolice
             foreach (NetworkPlayer nP in FindObjectsOfType<NetworkPlayer>())
             {
                 if (nP.isHostAndPolice)
@@ -55,6 +61,23 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
                     break;
                 }
             }
+        }
+    }
+
+    public void toggleGamePausedState()
+    {
+        isGamePaused = !isGamePaused;
+
+        Cursor.visible = isGamePaused;
+        gamePausedBackgroundUI.SetActive(isGamePaused);
+
+        if (isGamePaused)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 
@@ -124,9 +147,6 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
         //Make it easier to tell which player is which.
         transform.name = $"Player_{Object.Id}";
-
-        
-       
 }
 
     public void PlayerLeft(PlayerRef player)
@@ -175,7 +195,10 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public void GameStart()
     {
-        HideUIs();
+        if (isGamePaused)
+            toggleGamePausedState();
+
+        HideUisAndSetGameUnPause();
         gameUI.SetActive(true);
         GetComponent<PlayerUI>().Init();
         if (scoreUI != null)
@@ -184,7 +207,10 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public void LobbyStart()
     {
-        HideUIs();
+        if (isGamePaused)
+            toggleGamePausedState();
+
+        HideUisAndSetGameUnPause();
         if (isHostAndPolice)
         {
             lobbyUI.SetActive(true);
@@ -193,15 +219,22 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public void GameEnd()
     {
-        Log.Info("Game has just ended!!");
+        if (!isGamePaused)
+            toggleGamePausedState();
+
+        HideUisAndSetGameUnPause();
+
+        endUI.SetActive(true);
         scoreUI.activated = false;
     }
 
-    private void HideUIs()
+    private void HideUisAndSetGameUnPause()
     {
         lobbyUI.SetActive(false);
         gameUI.SetActive(false);
-        if(scoreUI != null)
+        endUI.SetActive(false);
+
+        if (scoreUI != null)
             scoreUI.activated = false;
     }
 }
