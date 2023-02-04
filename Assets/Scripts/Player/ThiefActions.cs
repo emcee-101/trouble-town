@@ -18,6 +18,8 @@ public class ThiefActions : MonoBehaviour
     private int pocketMoney;
     private PlayerUI playerUI;
 
+    private GameObject state;
+
     // Start is called before the first frame update
     void Start()
     {   
@@ -25,6 +27,9 @@ public class ThiefActions : MonoBehaviour
         playerUI = GetComponentInParent<PlayerUI>();
         frontBarMoney.fillAmount =  (float)currentMoney / (float)maxMoney;
         backBarMoney.fillAmount =  (float)currentMoney / (float)maxMoney;
+
+        state = GameObject.FindWithTag("State");
+        if(state == null) { Debug.Log("State Object was not found because Niklas is stupid"); }
     }
 
     // Update is called once per frame
@@ -51,14 +56,17 @@ public class ThiefActions : MonoBehaviour
             return false;
         }
 
-        GameObject state = GameObject.FindWithTag("State");
+
         if (state != null)
         {
             global_money statedata = state.GetComponent<global_money>();
-            if (statedata != null)
-            {
-                statedata.GlobalMoney -= stealAmount;
-            }
+            statedata.GlobalMoney -= stealAmount;
+
+            // add Points
+            scoring scorings = state.GetComponent<scoring>();
+            NetworkPlayer player = GetComponent<NetworkPlayer>();
+            scorings.addRobbingPoints(player.nickName.ToString());
+
         }
         pocketMoney += stealAmount;
         playerUI.hasRecentlyStolen = true;
@@ -71,6 +79,12 @@ public class ThiefActions : MonoBehaviour
         internalReceiveFunds(pocketMoney);
         pocketMoney = 0;
         playerUI.pocketMoneyHidden = true;
+
+        // add Points
+        scoring scorings = state.GetComponent<scoring>();
+        NetworkPlayer player = state.GetComponent<NetworkPlayer>();
+        scorings.addStoringMoneyPoints(player.nickName.ToString());
+
         return true;
 
     }
@@ -81,15 +95,12 @@ public class ThiefActions : MonoBehaviour
     public bool getInvestigated(){
         playerUI.isBeingInvestigated = true;
 
-         GameObject state = GameObject.FindWithTag("State");
-        if (state != null)
-        {
-            global_money statedata = state.GetComponent<global_money>();
-            if (statedata != null)
-            {
-                statedata.GlobalMoney += pocketMoney;
-            }
-        }
+        pocketMoney = 0;
+
+        // reduce Points
+        scoring scorings = state.GetComponent<scoring>();
+        NetworkPlayer player = state.GetComponent<NetworkPlayer>();
+        scorings.addGettingCaughtPoints(player.nickName.ToString());
 
         return true;
     }

@@ -113,8 +113,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
             RPC_SetNickName(PlayerPrefs.GetString("PlayerNickname"));
 
-            GameObject obj = GameObject.FindGameObjectWithTag("State");
-            game_state gameState = obj.GetComponent<game_state>();
+
 
             foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
             {
@@ -122,6 +121,11 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
                 PlayerUI playerUI = player.GetComponent<PlayerUI>();
                 playerUI.updatePlayerCount(runner.SessionInfo.PlayerCount, runner.SessionInfo.MaxPlayers);
             }
+
+            // register Player for Scoring
+            GameObject obj = GameObject.FindGameObjectWithTag("State");
+            scoring Scores = obj.GetComponent<scoring>();
+            Scores.registerPlayer(nickName.ToString());
 
             Debug.Log("Spawned local player");
         }
@@ -153,6 +157,13 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public void PlayerLeft(PlayerRef player)
     {
+
+        // deregister Player from Scoring
+        GameObject obj = GameObject.FindGameObjectWithTag("State");
+        scoring Scores = obj.GetComponent<scoring>();
+        Scores.removePlayer(nickName.ToString());
+
+
         if (Object.HasStateAuthority)
         {
             if (Runner.TryGetPlayerObject(player, out NetworkObject playerLeftNetworkObject))

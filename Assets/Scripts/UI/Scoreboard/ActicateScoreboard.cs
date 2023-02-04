@@ -5,6 +5,8 @@ using UnityEngine;
 public class ActicateScoreboard : MonoBehaviour
 {
     public bool activated = false;
+
+    // Score UI Object
     public GameObject scoreBoard;
 
     private void Awake()
@@ -20,6 +22,8 @@ public class ActicateScoreboard : MonoBehaviour
             if ((Input.GetKey(KeyCode.Tab) && (!scoreBoard.active)))
             {
                 scoreBoard.SetActive(true);
+                scoreBoard.GetComponentInChildren<ScoreUI>().refreshUI();
+
                 
             } else if (scoreBoard.active && !Input.GetKey(KeyCode.Tab))
             {
