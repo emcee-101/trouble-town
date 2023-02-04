@@ -12,15 +12,23 @@ public class ScoreUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scoreManager.scores.Add(new Score("Johnson", 23));
-        scoreManager.scores.Add(new Score("Immanuel", 25));
 
-        scoreManager.SortScores();
+        // TEST VALUES
+        //scoreManager.scores.Add(new Score("Johnson", 23));
+        //scoreManager.scores.Add(new Score("Immanuel", 25));
+        //scoreManager.SortScores();
+
+        refreshUI();
+    }
+
+    public void refreshUI() {
+
+        scoreManager.refreshScore();
         List<Score> scores = scoreManager.scores;
 
         int i = 0;
 
-        foreach(Score score in scores)
+        foreach (Score score in scores)
         {
             RowUI row = Instantiate(rowUI, transform).GetComponent<RowUI>();
 
@@ -32,6 +40,8 @@ public class ScoreUI : MonoBehaviour
             row.score.text = score.score.ToString();
 
         }
+
+
     }
 
    

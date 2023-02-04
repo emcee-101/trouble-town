@@ -10,9 +10,9 @@ public class Score : IComparable<Score>, IEquatable<Score>
 
 
     public string PlayerName;
-    public int score;
+    public float score;
 
-    public Score(string PlayerName, int score)
+    public Score(string PlayerName, float score)
     {
         this.PlayerName = PlayerName;
         this.score = score;
