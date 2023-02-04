@@ -28,6 +28,7 @@ public class ScoreManager : MonoBehaviour
     public void refreshScore()
     {
         scores.Clear();
+        //Debug.Log("lengst of scores after clean:" + scores.Count);
 
         foreach (KeyValuePair<string, float> entry in scorings.scorings) {
 

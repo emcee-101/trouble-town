@@ -15,8 +15,11 @@ public class scoring : NetworkBehaviour
 
     [Networked, Capacity(10)]
     public NetworkDictionary<string, float> scorings { get; }
-          = MakeInitializer(new Dictionary<string, float> { { "Herbert", 10.0f }, { "Swagio", 20.0f } });
+          = MakeInitializer(new Dictionary<string, float> {  });
 
+    public void initScores() {
+        scorings.Clear();
+    }
 
     public void addRobbingPoints(string playerName) { addPoints(playerName, pointsForRobbing); }
     public void addGettingCaughtPoints(string playerName) { addPoints(playerName, pointsForGettingCaught); }
@@ -28,12 +31,15 @@ public class scoring : NetworkBehaviour
         scorings.Set(playerName, scorings.Get(playerName) + pointsToAdd);
         if(scorings.Get(playerName) < 0.0f) { scorings.Set(playerName, 0.0f); }
 
+        Debug.Log("Current registered Players: " + scorings.Count);
+
     }
 
 
     public void registerPlayer(string playerName)
     {
         scorings.Add(playerName, 0.0f);
+
     }
 
     public void removePlayer(string playerName)

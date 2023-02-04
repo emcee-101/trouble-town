@@ -64,7 +64,7 @@ public class ThiefActions : MonoBehaviour
 
             // add Points
             scoring scorings = state.GetComponent<scoring>();
-            NetworkPlayer player = state.GetComponent<NetworkPlayer>();
+            NetworkPlayer player = GetComponent<NetworkPlayer>();
             scorings.addRobbingPoints(player.nickName.ToString());
 
         }

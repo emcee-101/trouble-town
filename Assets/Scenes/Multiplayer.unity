@@ -4653,6 +4653,7 @@ GameObject:
   - component: {fileID: 790916596}
   - component: {fileID: 790916597}
   - component: {fileID: 790916598}
+  - component: {fileID: 790916599}
   m_Layer: 0
   m_Name: STATE
   m_TagString: State
@@ -4700,6 +4701,7 @@ MonoBehaviour:
   - {fileID: 790916595}
   - {fileID: 790916597}
   - {fileID: 790916598}
+  - {fileID: 790916599}
   SimulationBehaviours: []
 --- !u!114 &790916595
 MonoBehaviour:
@@ -4759,6 +4761,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   timeForOneRoundInSeconds: 10
+--- !u!114 &790916599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790916592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb47cc3458d490449c8de816ecf0956, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  pointsForRobbing: 100
+  pointsForGettingCaught: -100
+  pointsForStoringMoney: 200
+  pointsForCatchingRobber: 300
+  _scorings:
+    _items:
+    - Key: Herbert
+      Value: 10
+    - Key: Swagio
+      Value: 20
 --- !u!1001 &793162739
 PrefabInstance:
   m_ObjectHideFlags: 0
