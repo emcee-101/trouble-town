@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class SpawnPointScript : MonoBehaviour
+public class ItemSpawnPointScript : MonoBehaviour
 {
     public Vector3 place { get; set; }
     public Quaternion angle { get; set; }

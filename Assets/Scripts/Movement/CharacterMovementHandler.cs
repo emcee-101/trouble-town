@@ -74,7 +74,7 @@ public class CharacterMovementHandler : NetworkBehaviour
 
         if (lobbyUtils != null)
         {
-            positionData spawnPoint = lobbyUtils.GetSpawnData();
+            positionData spawnPoint = lobbyUtils.GetPlayerSpawnData();
 
             // lets test if this works better
             transform.position = new Vector3(spawnPoint.returnPos().x, spawnPoint.returnPos().y, spawnPoint.returnPos().z);

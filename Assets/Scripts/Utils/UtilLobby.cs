@@ -17,28 +17,48 @@ public struct positionData
 }
 public class UtilLobby : MonoBehaviour
 {
+    public positionData GetPlayerSpawnData() {
 
-
-
-    public positionData GetSpawnData() {
-
-        SpawnPointScript point = GetSpawnPoint();
+        PlayerSpawnPointScript point = GetPlayerSpawnPoint();
         positionData data = new positionData(point.place, point.angle);
 
         return data;
     }
-    public Vector3 GetSpawnLocation()
+    public Vector3 GetPlayerSpawnLocation()
     {
-        SpawnPointScript point = GetSpawnPoint();
+        PlayerSpawnPointScript point = GetPlayerSpawnPoint();
 
         return point.place;
     }
 
-    public SpawnPointScript GetSpawnPoint()
+    public PlayerSpawnPointScript GetPlayerSpawnPoint()
     {
-        SpawnPointScript[] spawnPoints = UnityEngine.Object.FindObjectsOfType<SpawnPointScript>();
+        PlayerSpawnPointScript[] spawnPoints = UnityEngine.Object.FindObjectsOfType<PlayerSpawnPointScript>();
         // pick random element
-        SpawnPointScript resultPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+        PlayerSpawnPointScript resultPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+        return resultPoint;
+    }
+
+    public positionData GetItemSpawnData()
+    {
+
+        ItemSpawnPointScript point = GetItemSpawnPoint();
+        positionData data = new positionData(point.place, point.angle);
+
+        return data;
+    }
+    public Vector3 GetItemSpawnLocation()
+    {
+        ItemSpawnPointScript point = GetItemSpawnPoint();
+
+        return point.place;
+    }
+
+    public ItemSpawnPointScript GetItemSpawnPoint()
+    {
+        ItemSpawnPointScript[] spawnPoints = UnityEngine.Object.FindObjectsOfType<ItemSpawnPointScript>();
+        // pick random element
+        ItemSpawnPointScript resultPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
         return resultPoint;
     }
 }
