@@ -5,9 +5,7 @@ using UnityEngine;
 
 public class round_spawner : NetworkBehaviour
 {
-    private NetworkRunner networkRunnerInScene;
     private round_timer roundTimer;
-    private TickTimer timer;
 
     public float secondsForItemWave1;
 
@@ -20,20 +18,17 @@ public class round_spawner : NetworkBehaviour
 
     bool itemWave1 = false;
 
-    private void Start()
+    public void Init()
     {
-        networkRunnerInScene = FindObjectOfType<NetworkRunner>();
         roundTimer = FindObjectOfType<round_timer>();
-        timer = roundTimer.timer;
         lobbyUtils = GameObject.FindGameObjectWithTag("State").GetComponent<UtilLobby>();
 
-        secondsForItemWave1 = roundTimer.timeForOneRoundInSeconds - 10;
-        Debug.Log("seconds:" + secondsForItemWave1);
+        secondsForItemWave1 = roundTimer.timeForOneRoundInSeconds - 5;
     }
 
     public override void FixedUpdateNetwork()
     {
-        if (timer.RemainingTime(networkRunnerInScene) < secondsForItemWave1 && !itemWave1)
+        if (roundTimer.timer.RemainingTime(roundTimer.networkRunnerInScene) < secondsForItemWave1 && !itemWave1)
         {
             itemWave1 = true;
             SpawnWave1();
@@ -42,22 +37,27 @@ public class round_spawner : NetworkBehaviour
 
     private void SpawnWave1()
     {
-        positionData spawnPoint = lobbyUtils.GetItemSpawnData();
+        Debug.Log("Spawning Wave 1....");
+        List<positionData> spawnPoints = lobbyUtils.GetAllItemSpawnData();
+
+        positionData spawnPoint = spawnPoints[0];
+        spawnPoints.Remove(spawnPoint);
         Vector3 position = new Vector3(
             spawnPoint.returnPos().x,
             spawnPoint.returnPos().y,
             spawnPoint.returnPos().z
         );
 
-        spawnedRedPoliceItems.Add(networkRunnerInScene.Spawn(redPoliceItemPrefab, position));
+        spawnedRedPoliceItems.Add(roundTimer.networkRunnerInScene.Spawn(redPoliceItemPrefab, position));
 
-        spawnPoint = lobbyUtils.GetItemSpawnData();
+        spawnPoint = spawnPoints[0];
+        spawnPoints.Remove(spawnPoint);
         position = new Vector3(
             spawnPoint.returnPos().x,
             spawnPoint.returnPos().y,
             spawnPoint.returnPos().z
         );
 
-        spawnedBlueRobberItems.Add(networkRunnerInScene.Spawn(blueRobberItemPrefab, position));
+        spawnedBlueRobberItems.Add(roundTimer.networkRunnerInScene.Spawn(blueRobberItemPrefab, position));
     }
 }
