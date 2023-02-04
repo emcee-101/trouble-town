@@ -53,7 +53,7 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
 
             if (lobbyUtilities != null)
             {
-                positionData spawnData = lobbyUtilities.GetSpawnData();
+                positionData spawnData = lobbyUtilities.GetPlayerSpawnData();
 
                 // Spawning happens in PlayerPrefab->CharacterMovemetnHandler->Spawned() now
                 spawnedNetworkPlayer = runner.Spawn(playerPrefab, inputAuthority: player);
