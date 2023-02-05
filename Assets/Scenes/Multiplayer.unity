@@ -4784,11 +4784,7 @@ MonoBehaviour:
   pointsForStoringMoney: 200
   pointsForCatchingRobber: 300
   _scorings:
-    _items:
-    - Key: Herbert
-      Value: 10
-    - Key: Swagio
-      Value: 20
+    _items: []
 --- !u!1001 &793162739
 PrefabInstance:
   m_ObjectHideFlags: 0
