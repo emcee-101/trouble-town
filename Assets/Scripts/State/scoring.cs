@@ -15,7 +15,7 @@ public class scoring : NetworkBehaviour
 
     [Networked, Capacity(10)]
     public NetworkDictionary<string, float> scorings { get; }
-          = MakeInitializer(new Dictionary<string, float> {  });
+          = MakeInitializer(new Dictionary<string, float> { { "hi", 0.1f} });
 
     public void initScores() {
         scorings.Clear();
