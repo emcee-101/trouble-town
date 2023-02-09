@@ -9,7 +9,7 @@ public class round_timer : NetworkBehaviour
 
     [Networked] public TickTimer timer { get; set; } 
 
-    private NetworkRunner networkRunnerInScene;
+    public NetworkRunner networkRunnerInScene;
 
     private void Start()
     {
@@ -18,7 +18,7 @@ public class round_timer : NetworkBehaviour
 
     public void startTimer()
     {
-        networkRunnerInScene = FindObjectOfType<NetworkRunner>();
+        networkRunnerInScene = FindObjectOfType<NetworkRunnerHandler>().networkRunner;
 
         // create new timer
         timer = TickTimer.CreateFromSeconds(networkRunnerInScene, timeForOneRoundInSeconds);

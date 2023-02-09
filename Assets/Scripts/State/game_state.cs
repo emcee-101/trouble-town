@@ -54,6 +54,7 @@ public class game_state : NetworkBehaviour
        
         // start the round timer
         gameObject.GetComponent<round_timer>().startTimer();
+
         
 
         respawnAllPlayersInActiveMap();
@@ -63,13 +64,15 @@ public class game_state : NetworkBehaviour
     {
         HideAllMaps();
         preMap.SetActive(true);
-        
+
+        gameObject.GetComponent<scoring>().initScores();
+
         foreach (GameObject player in getAllNetworkPlayers())
         {
             NetworkPlayer networkPlayer = player.GetComponent<NetworkPlayer>();
             networkPlayer.LobbyStart();
         }
-
+        
         respawnAllPlayersInActiveMap();
     }
 

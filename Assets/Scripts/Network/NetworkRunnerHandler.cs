@@ -8,12 +8,11 @@ using System.Threading.Tasks;
 using System;
 using System.Linq;
 
-
 public class NetworkRunnerHandler : MonoBehaviour
 {
     public NetworkRunner networkRunnerPrefab;
 
-    NetworkRunner networkRunner;
+    public NetworkRunner networkRunner;
 
     private const string menuSceneName = "MenuScene";
     private const string lobbyID = "OurLobbyID";
@@ -89,13 +88,13 @@ public class NetworkRunnerHandler : MonoBehaviour
             Debug.Log("JoinLobby ok");
         }
     }
+
     public void CreateGame(string sessionName, string sceneName)
     {
         Debug.Log($"Create session {sessionName} scene {sceneName} build Index {SceneUtility.GetBuildIndexByScenePath($"scenes/{sceneName}")}");
 
         //Join existing game as a client
         var clientTask = InitializeNetworkRunner(networkRunner, GameMode.Host, sessionName, NetAddress.Any(), SceneUtility.GetBuildIndexByScenePath($"scenes/{sceneName}"), null);
-
     }
 
     public void JoinGame(SessionInfo sessionInfo)
@@ -104,8 +103,6 @@ public class NetworkRunnerHandler : MonoBehaviour
 
         //Join existing game as a client
         var clientTask = InitializeNetworkRunner(networkRunner, GameMode.Client, sessionInfo.Name, NetAddress.Any(), SceneManager.GetActiveScene().buildIndex, null);
-
     }
-
 }
 

@@ -47,6 +47,7 @@ public class UtilLobby : MonoBehaviour
 
         return data;
     }
+
     public Vector3 GetItemSpawnLocation()
     {
         ItemSpawnPointScript point = GetItemSpawnPoint();
@@ -60,5 +61,23 @@ public class UtilLobby : MonoBehaviour
         // pick random element
         ItemSpawnPointScript resultPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
         return resultPoint;
+    }
+
+    public List<positionData> GetAllItemSpawnData()
+    {
+        ItemSpawnPointScript[] points = GetItemSpawnPoints();
+        List<positionData> data = new List<positionData>();
+
+        foreach (ItemSpawnPointScript point in points)
+        {
+            data.Add(new positionData(point.place, point.angle));
+        }
+
+        return data;
+    }
+    public ItemSpawnPointScript[] GetItemSpawnPoints()
+    {
+        ItemSpawnPointScript[] spawnPoints = FindObjectsOfType<ItemSpawnPointScript>();
+        return spawnPoints;
     }
 }
