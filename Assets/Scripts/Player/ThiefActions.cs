@@ -98,9 +98,9 @@ public class ThiefActions : MonoBehaviour
         pocketMoney = 0;
 
         // reduce Points
-        scoring scorings = state.GetComponent<scoring>();
-        NetworkPlayer player = state.GetComponent<NetworkPlayer>();
-        scorings.addGettingCaughtPoints(player.nickName.ToString());
+        //scoring scorings = state.GetComponent<scoring>();
+        //NetworkPlayer player = state.GetComponent<NetworkPlayer>();
+        //scorings.addGettingCaughtPoints(player.nickName.ToString());
 
         return true;
     }

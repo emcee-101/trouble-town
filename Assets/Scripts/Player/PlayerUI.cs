@@ -8,6 +8,7 @@ public class PlayerUI : MonoBehaviour
     public TextMeshProUGUI cooldownText;
     public bool hasRecentlyStolen;
     public bool isCriminal;
+    public bool isBeingInvestigated;
     public bool isInPrison;
     public bool pocketMoneyHidden;
     public float stealCooldown;
@@ -20,6 +21,8 @@ public class PlayerUI : MonoBehaviour
     public float fadeSpeed;
     public float wantedStateDuration;
 
+    private NetworkPlayer netPlayer;
+    private ThiefActions thiefActions;
 
     [Header("LobbyUI")]
     [SerializeField]
@@ -47,6 +50,13 @@ public class PlayerUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if ((netPlayer == null) && GetComponentInParent<NetworkPlayer>() != null){
+            netPlayer = GetComponentInParent<NetworkPlayer>();
+        }
+        if ((thiefActions == null) && GetComponent<ThiefActions>() != null){
+            thiefActions = GetComponent<ThiefActions>();
+        }
+
         cooldownText.text = "";
         warnMessage.text = "";
         intenseOverlay.enabled = false;
@@ -68,7 +78,12 @@ public class PlayerUI : MonoBehaviour
             UpdateStealingCooldown();
         }
 
-        if (GetComponentInParent<NetworkPlayer>().getInvestigated) {
+        if (netPlayer.getInvestigated) {
+            thiefActions.getInvestigated();
+            netPlayer.getInvestigated = false;
+        }
+
+        if (isBeingInvestigated){
             warnMessage.text = "You are being investigated by policeman!";
             UpdateBeingInvestigated();
         }
@@ -157,7 +172,7 @@ public class PlayerUI : MonoBehaviour
         cooldownText.text = "Being investigated... " + guiTimer;
         if (durationTimerInvestigation < 0){
             durationTimerInvestigation = investigationDuration;
-            GetComponentInParent<NetworkPlayer>().getInvestigated = false;
+            isBeingInvestigated = false;
             cc.enabled = true;
         if (isCriminal){
             isInPrison = true;
