@@ -82,7 +82,7 @@ public class ThiefActions : MonoBehaviour
 
         // add Points
         scoring scorings = state.GetComponent<scoring>();
-        NetworkPlayer player = state.GetComponent<NetworkPlayer>();
+        NetworkPlayer player = gameObject.GetComponent<NetworkPlayer>();
         scorings.addStoringMoneyPoints(player.nickName.ToString());
 
         return true;

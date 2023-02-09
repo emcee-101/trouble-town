@@ -42,6 +42,7 @@ public class ScoreUI : MonoBehaviour
 
         foreach (Score score in scores)
         {
+            i++;
 
             //add objects anew to make sure the board is up to date
             RowUI currentRow = Instantiate(rowUI, transform).GetComponent<RowUI>();

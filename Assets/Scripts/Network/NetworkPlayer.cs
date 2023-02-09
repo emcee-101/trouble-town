@@ -120,10 +120,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
                 playerUI.updatePlayerCount(runner.SessionInfo.PlayerCount, runner.SessionInfo.MaxPlayers);
             }
 
-            // register Player for Scoring
-            GameObject obj = GameObject.FindGameObjectWithTag("State");
-            scoring Scores = obj.GetComponent<scoring>();
-            Scores.registerPlayer(nickName.ToString());
+
 
             Debug.Log("Spawned local player");
         }
@@ -226,6 +223,15 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         {
             lobbyUI.SetActive(true);
         }
+
+
+        // register Player for Scoring
+        GameObject obj = GameObject.FindGameObjectWithTag("State");
+        scoring Scores = obj.GetComponent<scoring>();
+        Scores.registerPlayer(nickName.ToString());
+
+
+
     }
 
     public void GameEnd()
