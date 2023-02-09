@@ -20,8 +20,8 @@ public class round_spawner : NetworkBehaviour
 
     public void Init()
     {
-        roundTimer = FindObjectOfType<round_timer>();
-        lobbyUtils = GameObject.FindGameObjectWithTag("State").GetComponent<UtilLobby>();
+        roundTimer = gameObject.GetComponent<round_timer>();
+        lobbyUtils = gameObject.GetComponent<UtilLobby>();
 
         secondsForItemWave1 = roundTimer.timeForOneRoundInSeconds - 5;
     }
