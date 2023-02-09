@@ -12,7 +12,7 @@ public class NetworkRunnerHandler : MonoBehaviour
 {
     public NetworkRunner networkRunnerPrefab;
 
-    NetworkRunner networkRunner;
+    public NetworkRunner networkRunner;
 
     private const string menuSceneName = "MenuScene";
     private const string lobbyID = "OurLobbyID";
