@@ -18,6 +18,8 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     public bool isHostAndPolice = false;
     public bool hasBlueRobberItem = false;
     public bool hasRedPoliceItem = false;
+    
+    public bool getInvestigated = false;
 
     public LocalCameraHandler localCameraHandler;
     public GameObject localUI;

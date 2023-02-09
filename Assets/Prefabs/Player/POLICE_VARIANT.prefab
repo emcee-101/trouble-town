@@ -223,6 +223,10 @@ PrefabInstance:
       propertyPath: playerModel
       value: 
       objectReference: {fileID: 8091601958621501599}
+    - target: {fileID: -2632763811948166320, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: isHostAndPolice
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 554730152060336761, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -278,6 +282,10 @@ PrefabInstance:
     - target: {fileID: 2717052772983868972, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2991245161320222033, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: mask.m_Bits
+      value: 1152
       objectReference: {fileID: 0}
     - target: {fileID: 3071583952176706105, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: m_Layer

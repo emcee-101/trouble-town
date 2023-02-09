@@ -8,7 +8,6 @@ public class PlayerUI : MonoBehaviour
     public TextMeshProUGUI cooldownText;
     public bool hasRecentlyStolen;
     public bool isCriminal;
-    public bool isBeingInvestigated;
     public bool isInPrison;
     public bool pocketMoneyHidden;
     public float stealCooldown;
@@ -169,16 +168,13 @@ public class PlayerUI : MonoBehaviour
         }
     }
     public void UpdateWhileInPrison(){
-        if (isInPrison)
-        {
-            durationTimerPrison -= Time.deltaTime;
-            string guiTimer = durationTimerPrison.ToString("0");
-            cooldownText.text = "Leaving the prison in " + guiTimer;
-            if (durationTimerPrison < 0){
-                durationTimerPrison = prisonTimeDuration;
-                isInPrison = false;
-                //transform.position = Utils.GetRandomSpawnPoint();
-            }
+        durationTimerPrison -= Time.deltaTime;
+        string guiTimer = durationTimerPrison.ToString("0");
+        cooldownText.text = "Leaving the prison in " + guiTimer;
+        if (durationTimerPrison < 0){
+            durationTimerPrison = prisonTimeDuration;
+            isInPrison = false;
+            //transform.position = Utils.GetRandomSpawnPoint();
         }
     }
 
