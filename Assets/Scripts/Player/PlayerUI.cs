@@ -69,7 +69,7 @@ public class PlayerUI : MonoBehaviour
             UpdateStealingCooldown();
         }
 
-        if (isBeingInvestigated) {
+        if (GetComponentInParent<NetworkPlayer>().getInvestigated) {
             warnMessage.text = "You are being investigated by policeman!";
             UpdateBeingInvestigated();
         }
@@ -151,24 +151,21 @@ public class PlayerUI : MonoBehaviour
         }
     }
     public void UpdateBeingInvestigated(){
-        if (isBeingInvestigated)
-        {
-            cc = GetComponentInParent<CharacterController>();
-            cc.enabled = false;
-            durationTimerInvestigation -= Time.deltaTime;
-            string guiTimer = durationTimerInvestigation.ToString("0");
-            cooldownText.text = "Being investigated... " + guiTimer;
-            if (durationTimerInvestigation < 0){
-                durationTimerInvestigation = investigationDuration;
-                isBeingInvestigated = false;
-                cc.enabled = true;
-            if (isCriminal){
-                isInPrison = true;
-                durationTimerPrison = prisonTimeDuration;
-                transform.position = new Vector3(43.915f,3.259f,13.179f);
-                isCriminal = false;
-            }
-            }
+        cc = GetComponentInParent<CharacterController>();
+        cc.enabled = false;
+        durationTimerInvestigation -= Time.deltaTime;
+        string guiTimer = durationTimerInvestigation.ToString("0");
+        cooldownText.text = "Being investigated... " + guiTimer;
+        if (durationTimerInvestigation < 0){
+            durationTimerInvestigation = investigationDuration;
+            GetComponentInParent<NetworkPlayer>().getInvestigated = false;
+            cc.enabled = true;
+        if (isCriminal){
+            isInPrison = true;
+            durationTimerPrison = prisonTimeDuration;
+            transform.position = new Vector3(43.915f,3.259f,13.179f);
+            isCriminal = false;
+        }
         }
     }
     public void UpdateWhileInPrison(){

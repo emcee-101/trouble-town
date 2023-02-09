@@ -11,7 +11,7 @@ public class PlayerInteract : MonoBehaviour
     private LayerMask mask;
     private PlayerUI playerUI;
     private ThiefActions thiefActions;
-
+    
     void Start() 
     {
         thiefActions = GetComponent<ThiefActions>();
@@ -22,9 +22,9 @@ public class PlayerInteract : MonoBehaviour
     {
         playerUI.UpdateText(string.Empty);
         // create invisible ray from the center of the camera, shooting outwards.
+        RaycastHit hitInfo;
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         Debug.DrawRay(ray.origin, ray.direction * rayDistance);
-        RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo, rayDistance, mask))
         {
             if (hitInfo.collider.GetComponent<Interactable>() != null)
@@ -34,26 +34,26 @@ public class PlayerInteract : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     interactable.BaseInteract();
-                    onInteractPlayerAction(interactable.interactableType);
+                    onInteractPlayerAction(hitInfo);
                     
                 }
             }
         }
     }
 
-    void onInteractPlayerAction(string interactableType){
-        switch (interactableType)
+    void onInteractPlayerAction(RaycastHit hitInfo){
+        Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
+        switch (interactable.interactableType)
         {
             case "bank":
                 bool rubbed_succesfully = thiefActions.rubBank();
-                if (rubbed_succesfully){
-                }
                 break;
             case "hideout":
                 thiefActions.hideMoney();
                 break;
             case "thief":
-                thiefActions.getInvestigated();
+                NetworkPlayer netPlayer = hitInfo.collider.GetComponent<NetworkPlayer>();
+                netPlayer.getInvestigated = true;
                 break;
 
         }
