@@ -113,8 +113,6 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
             RPC_SetNickName(PlayerPrefs.GetString("PlayerNickname"));
 
-
-
             foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
             {
                 NetworkRunner runner = FindObjectOfType<NetworkRunner>();

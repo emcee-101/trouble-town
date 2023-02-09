@@ -14,7 +14,7 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
     public List<NetworkPlayer> playerPolicePrefabs;
     public List<NetworkPlayer> playerRobberPrefabs;
 
-    UtilLobby lobbyUtilities;
+    round_spawner roundSpawner;
 
     CharacterInputHandler characterInputHandler;
     SessionListUIHandler sessionListUIHandler;
@@ -35,13 +35,8 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
         {
             Debug.Log($"OnPlayerJoined we are server. Spawning player");
 
-            NetworkPlayer spawnedNetworkPlayer = null;
-
-            if (lobbyUtilities == null)
-            {
-                GameObject obj = GameObject.FindGameObjectWithTag("State");
-                lobbyUtilities = obj.GetComponent<UtilLobby>();
-            }
+            GameObject obj = GameObject.FindGameObjectWithTag("State");
+            roundSpawner = obj.GetComponent<round_spawner>();
 
             bool isPolice = runner.ActivePlayers.Count() == 1;
 
@@ -51,16 +46,8 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
 
             playerPrefab.isHostAndPolice = isPolice;
 
-            if (lobbyUtilities != null)
-            {
-                positionData spawnData = lobbyUtilities.GetPlayerSpawnData();
-
-                // Spawning happens in PlayerPrefab->CharacterMovemetnHandler->Spawned() now
-                spawnedNetworkPlayer = runner.Spawn(playerPrefab, inputAuthority: player);
-            }
-            //else
-            //    spawnedNetworkPlayer = runner.Spawn(playerPrefab, Utils.GetRandomSpawnPoint(), Quaternion.identity, player);
-            
+            // Spawning happens in PlayerPrefab->CharacterMovemetnHandler->Spawned() now
+            runner.Spawn(playerPrefab, inputAuthority: player);
         }
         else Debug.Log("OnPlayerJoined");
     }

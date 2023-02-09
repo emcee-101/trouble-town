@@ -9,7 +9,7 @@ public class round_timer : NetworkBehaviour
 
     [Networked] public TickTimer timer { get; set; } 
 
-    private NetworkRunner networkRunnerInScene;
+    public NetworkRunner networkRunnerInScene;
 
     private void Start()
     {

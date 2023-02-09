@@ -1788,7 +1788,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 215377348}
   m_LocalRotation: {x: -0, y: 0.9848078, z: -0, w: 0.17364824}
-  m_LocalPosition: {x: 20.2, y: 1, z: 8.17}
+  m_LocalPosition: {x: 22.01, y: 1, z: 8.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3423,7 +3423,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608079899}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 20.2, y: 1, z: 8.17}
+  m_LocalPosition: {x: 23.01, y: 1, z: 14.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4658,6 +4658,7 @@ GameObject:
   - component: {fileID: 790916596}
   - component: {fileID: 790916597}
   - component: {fileID: 790916598}
+  - component: {fileID: 790916600}
   - component: {fileID: 790916599}
   m_Layer: 0
   m_Name: STATE
@@ -4706,6 +4707,7 @@ MonoBehaviour:
   - {fileID: 790916595}
   - {fileID: 790916597}
   - {fileID: 790916598}
+  - {fileID: 790916600}
   - {fileID: 790916599}
   SimulationBehaviours: []
 --- !u!114 &790916595
@@ -4765,7 +4767,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  timeForOneRoundInSeconds: 10
+  timeForOneRoundInSeconds: 601
+  networkRunnerInScene: {fileID: 0}
 --- !u!114 &790916599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4784,7 +4787,29 @@ MonoBehaviour:
   pointsForStoringMoney: 200
   pointsForCatchingRobber: 300
   _scorings:
-    _items: []
+    _items:
+    - Key: Herbert
+      Value: 10
+    - Key: Swagio
+      Value: 20
+--- !u!114 &790916600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790916592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d78f6b679b8291a4b91f04f7264b8ca7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  secondsForItemWave1: 0
+  blueRobberItemPrefab: {fileID: 7272017917490897340, guid: 9dd4fd221a9946646892142e2cdb9d37, type: 3}
+  redPoliceItemPrefab: {fileID: 5046828012129700722, guid: 571f7af530478f6499572e53072559dd, type: 3}
+  spawnedBlueRobberItems: []
+  spawnedRedPoliceItems: []
 --- !u!1001 &793162739
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7265,7 +7290,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299951895}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 20.2, y: 1, z: 8.17}
+  m_LocalPosition: {x: 15.59, y: 1, z: 8.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9379,7 +9404,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1547208720}
   m_LocalRotation: {x: -0, y: 0.9848078, z: -0, w: -0.17364821}
-  m_LocalPosition: {x: 20.2, y: 1, z: 8.17}
+  m_LocalPosition: {x: 20.2, y: 1, z: -3.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12435,7 +12460,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2070146784}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20.2, y: 1, z: 8.17}
+  m_LocalPosition: {x: 14.55, y: 1, z: 18.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
