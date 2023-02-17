@@ -399,6 +399,10 @@ PrefabInstance:
       propertyPath: investigationDuration
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8097377039037183750, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8208422331741472608, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -501,11 +505,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
---- !u!82 &1072651300990052968 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 799286407988898035, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
-  m_PrefabInstance: {fileID: 429372948754104987}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1899666228292261562 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2281504437514802209, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
@@ -540,5 +539,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stealAmount: 1000
-  ownAudio: {fileID: 1072651300990052968}
-  catchedByPolice: {fileID: 8300000, guid: a3de125833f89cb448679d4300d908b0, type: 3}

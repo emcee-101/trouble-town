@@ -211,6 +211,9 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public void GameStart()
     {
+        if (!Object.HasInputAuthority){
+            return;
+        }
         if (isGamePaused)
             toggleGamePausedState();
 
@@ -223,6 +226,9 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public void LobbyStart()
     {
+        if (!Object.HasInputAuthority){
+            return;
+        }
         if (isGamePaused)
             toggleGamePausedState();
 
