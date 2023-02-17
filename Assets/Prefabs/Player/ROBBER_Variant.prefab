@@ -99,12 +99,20 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3647261043369687862, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3878403340204717834, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4040712301530013850, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537050676606761498, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4579706146170681566, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
@@ -285,6 +293,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+--- !u!82 &1068399198145204292 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 799286407988898035, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+  m_PrefabInstance: {fileID: 415480877699053751}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8104861776398770867 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8484312688373783044, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
@@ -306,6 +319,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8320661125014528706, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
   m_PrefabInstance: {fileID: 415480877699053751}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7957839725186986795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8555986747217713781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37a1da9db07cac0478bc4806ea95545c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stealAmount: 1000
+  ownAudio: {fileID: 1068399198145204292}
+  catchedByPolice: {fileID: 8300000, guid: a3de125833f89cb448679d4300d908b0, type: 3}
 --- !u!114 &8923842330607666703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,7 +349,6 @@ MonoBehaviour:
   useEvents: 0
   interactableType: thief
   promptMessage: Investigate Now
-  nt: {fileID: 0}
 --- !u!1001 &5171102009558473466
 PrefabInstance:
   m_ObjectHideFlags: 0

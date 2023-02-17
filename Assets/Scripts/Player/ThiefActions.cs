@@ -7,94 +7,82 @@ using TMPro;
 public class ThiefActions : MonoBehaviour
 {
     [SerializeField]
-    public int currentMoney;
-    public int maxMoney;
-    public int stealAmount = 1000;
-
-    public Image frontBarMoney;
-    public Image backBarMoney;
-    public TextMeshProUGUI moneyText;
-    
+    private int stealAmount = 1000;
+    private int currentMoney;
     private int pocketMoney;
     private PlayerUI playerUI;
 
     private GameObject state;
+    private global_money globalMoney;
 
     // Start is called before the first frame update
     void Start()
     {   
-        pocketMoney = 0;
-        playerUI = GetComponentInParent<PlayerUI>();
-        frontBarMoney.fillAmount =  (float)currentMoney / (float)maxMoney;
-        backBarMoney.fillAmount =  (float)currentMoney / (float)maxMoney;
-
         state = GameObject.FindWithTag("State");
+        globalMoney = state.GetComponent<global_money>();
+        //totalPocketMoney = globalMoney.TotalPocketMoney;
+        currentMoney = 0;
+        pocketMoney = 0;
+        playerUI = GetComponent<PlayerUI>();
         if(state == null) { Debug.Log("State Object was not found because Niklas is stupid"); }
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentMoney = Mathf.Clamp(currentMoney, 0, maxMoney);
-        UpdateMoneyUI();
     }
-    private void UpdateMoneyUI()
-    {
-        frontBarMoney.fillAmount = currentMoney / maxMoney;
-        backBarMoney.color = Color.white;
-        backBarMoney.fillAmount = (currentMoney + pocketMoney) / maxMoney;
-        moneyText.text = Mathf.Round(currentMoney) + "+" + Mathf.Round(pocketMoney) + " $";
-
-    }
-    
     public bool rubBank()
     {
+        state = GameObject.FindWithTag("State");
+        globalMoney = state.GetComponent<global_money>();
         // check if cooldown exists
         if (playerUI.isOnStealCooldown()) 
         {
             Debug.Log("Steal Cooldown Running");
             return false;
         }
-
-
+        int stealAmountThisTime = stealAmount;
+        if (globalMoney.GlobalMoney < stealAmount)
+        {
+            if (globalMoney.GlobalMoney <= 0){
+                return false;
+            }
+            stealAmountThisTime = globalMoney.GlobalMoney;
+        }
         if (state != null)
         {
-            global_money statedata = state.GetComponent<global_money>();
-            statedata.GlobalMoney -= stealAmount;
-
+            globalMoney.GlobalMoney      -= stealAmount;
+            globalMoney.TotalPocketMoney += stealAmount;
             // add Points
-            scoring scorings = state.GetComponent<scoring>();
-            NetworkPlayer player = GetComponent<NetworkPlayer>();
-            scorings.addRobbingPoints(player.nickName.ToString());
-
+            //scoring scorings = state.GetComponent<scoring>();
+            //NetworkPlayer player = GetComponent<NetworkPlayer>();
+            //scorings.addRobbingPoints(player.nickName.ToString());
         }
         pocketMoney += stealAmount;
-        playerUI.hasRecentlyStolen = true;
+        playerUI.hasJustStolen = true;
+        Debug.Log("Stolen " + stealAmountThisTime.ToString());
         return true;
 
     }
     public bool hideMoney()
     {
-        // check if cooldown exists
-        internalReceiveFunds(pocketMoney);
+        globalMoney.TotalPocketMoney -= pocketMoney;
+        currentMoney                 += pocketMoney;
         pocketMoney = 0;
         playerUI.pocketMoneyHidden = true;
 
         // add Points
-        scoring scorings = state.GetComponent<scoring>();
-        NetworkPlayer player = gameObject.GetComponent<NetworkPlayer>();
-        scorings.addStoringMoneyPoints(player.nickName.ToString());
-
+        //scoring scorings = state.GetComponent<scoring>();
+        //NetworkPlayer player = gameObject.GetComponent<NetworkPlayer>();
+        //scorings.addStoringMoneyPoints(player.nickName.ToString());
+//
         return true;
 
     }
-    private void internalReceiveFunds(int amount){
-        currentMoney += amount;
-    }
-
     public bool getInvestigated(){
         playerUI.isBeingInvestigated = true;
-
+        
+        globalMoney.TotalPocketMoney += pocketMoney;
         pocketMoney = 0;
 
         // reduce Points
@@ -103,6 +91,11 @@ public class ThiefActions : MonoBehaviour
         //scorings.addGettingCaughtPoints(player.nickName.ToString());
 
         return true;
+    }
+
+    public int getPlayerSecuredMoney()
+    {
+        return currentMoney;
     }
 }
 

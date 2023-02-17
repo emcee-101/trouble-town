@@ -11,6 +11,7 @@ public class global_money : NetworkBehaviour
     public Boolean logStateAuthority = false;
     public int moneyStolenPerSteal = 1000;
     [Networked(OnChanged = nameof(onGlobalMoneyChanged))] public int GlobalMoney { get; set; } = 10000;
+    [Networked] public int TotalPocketMoney { get; set; } = 0;
 
 
     public static void onGlobalMoneyChanged(Changed<global_money> changed)

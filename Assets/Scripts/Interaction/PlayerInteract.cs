@@ -11,18 +11,18 @@ public class PlayerInteract : MonoBehaviour
     private LayerMask mask;
     private PlayerUI playerUI;
     private ThiefActions thiefActions;
+    private RaycastHit hitInfo;
     
     void Start() 
     {
-        thiefActions = GetComponent<ThiefActions>();
-        playerUI = GetComponent<PlayerUI>();
+        thiefActions = gameObject.GetComponent<ThiefActions>();
+        playerUI = gameObject.GetComponent<PlayerUI>();
     }
 
     void Update()
     {
-        playerUI.UpdateText(string.Empty);
+        playerUI.promptText.text = string.Empty;
         // create invisible ray from the center of the camera, shooting outwards.
-        RaycastHit hitInfo;
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         Debug.DrawRay(ray.origin, ray.direction * rayDistance);
         if (Physics.Raycast(ray, out hitInfo, rayDistance, mask))
@@ -30,30 +30,31 @@ public class PlayerInteract : MonoBehaviour
             if (hitInfo.collider.GetComponent<Interactable>() != null)
             {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
-                playerUI.UpdateText(interactable.promptMessage);
+                playerUI.promptText.text = interactable.promptMessage;
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     interactable.BaseInteract();
-                    onInteractPlayerAction(hitInfo);
+                    onInteractPlayerAction(hitInfo.collider);
                     
                 }
             }
         }
     }
 
-    void onInteractPlayerAction(RaycastHit hitInfo){
-        Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
+    void onInteractPlayerAction(Collider collider){
+
+        Interactable interactable = collider.GetComponent<Interactable>();
         switch (interactable.interactableType)
         {
             case "bank":
-                bool rubbed_succesfully = thiefActions.rubBank();
+                thiefActions.rubBank();
                 break;
             case "hideout":
                 thiefActions.hideMoney();
                 break;
             case "thief":
-                NetworkPlayer netPlayer = hitInfo.collider.GetComponent<NetworkPlayer>();
-                netPlayer.getInvestigated = true;
+                NetworkPlayer netPlayer = collider.GetComponent<NetworkPlayer>();
+                netPlayer.getInvestigated();
                 break;
 
         }

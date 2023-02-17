@@ -4730,6 +4730,7 @@ MonoBehaviour:
   logStateAuthority: 0
   moneyStolenPerSteal: 1000
   _GlobalMoney: 10000
+  _TotalPocketMoney: 0
 --- !u!114 &790916596
 MonoBehaviour:
   m_ObjectHideFlags: 0

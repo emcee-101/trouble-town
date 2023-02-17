@@ -19,8 +19,6 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     public bool hasBlueRobberItem = false;
     public bool hasRedPoliceItem = false;
     
-    public bool getInvestigated = false;
-
     public LocalCameraHandler localCameraHandler;
     public GameObject localUI;
 
@@ -36,6 +34,10 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     private miniMapScript miniMapCam;
 
     NetworkInGameMessages networkInGameMessages;
+
+    private ThiefActions thiefActions;
+
+    
 
     void Awake()
     {
@@ -67,7 +69,11 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             }
         }
     }
+    public void getInvestigated(){
+        thiefActions = GetComponent<ThiefActions>();
+        thiefActions.getInvestigated();
 
+    }
     public void toggleGamePausedState()
     {
         isGamePaused = !isGamePaused;
