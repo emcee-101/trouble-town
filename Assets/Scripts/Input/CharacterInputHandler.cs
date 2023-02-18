@@ -12,6 +12,7 @@ public class CharacterInputHandler : MonoBehaviour
     //Other components
     LocalCameraHandler localCameraHandler;
 
+
     private void Awake()
     {
         localCameraHandler = GetComponentInChildren<LocalCameraHandler>();
@@ -24,6 +25,8 @@ public class CharacterInputHandler : MonoBehaviour
         Cursor.visible = false;
 
         networkPlayer = GetComponentInParent<NetworkPlayer>();
+
+
     }
 
     // Update is called once per frame
@@ -38,6 +41,7 @@ public class CharacterInputHandler : MonoBehaviour
             //Move input
             moveInputVector.x = Input.GetAxis("Horizontal");
             moveInputVector.y = Input.GetAxis("Vertical");
+
 
             //Jump
             if (Input.GetButtonDown("Jump"))
