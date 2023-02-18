@@ -9,7 +9,7 @@ public class CharacterMovementHandler : NetworkBehaviour
     NetworkCharacterControllerPrototypeCustom networkCharacterControllerPrototypeCustom;
     NetworkInGameMessages networkInGameMessages;
     UtilLobby lobbyUtils = null;
-
+    Animator animator;
     private void Awake()
     {
         networkCharacterControllerPrototypeCustom = GetComponent<NetworkCharacterControllerPrototypeCustom>();
@@ -18,6 +18,8 @@ public class CharacterMovementHandler : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = gameObject.GetComponent<Animator>();
+
     }
 
     public override void FixedUpdateNetwork()
@@ -36,6 +38,15 @@ public class CharacterMovementHandler : NetworkBehaviour
             //Move
             Vector3 moveDirection = transform.forward * networkInputData.movementInput.y + transform.right * networkInputData.movementInput.x;
             moveDirection.Normalize();
+
+            if (moveDirection.x != 0.0f || moveDirection.y != 0.0f)
+            {
+                animator.SetBool("isWalking", true);
+            }
+            else
+            {
+                animator.SetBool("isWalking", false);
+            }
 
             networkCharacterControllerPrototypeCustom.Move(moveDirection);
 
