@@ -110,6 +110,7 @@ public class PlayerUI : MonoBehaviour
             UpdateWhileInPrison();
         }   
     }
+
     private void CheckEnterClickFromHost(){
         if (Input.GetKeyDown(KeyCode.Return) && GetComponentInParent<NetworkPlayer>().isHostAndPolice)
         {
@@ -131,6 +132,7 @@ public class PlayerUI : MonoBehaviour
             
         }
     }
+
     private void UpdateMoneyUI()
     {
         moneyLeft = globalMoney.GlobalMoney;
@@ -169,6 +171,7 @@ public class PlayerUI : MonoBehaviour
             cooldownText.text = cooldownText.text = "Steal Cooldown: " + guiTimer;
         }
     }
+
     public void UpdateIntenseOverlay()
     {
         // GUI loop for intense mode
@@ -196,6 +199,7 @@ public class PlayerUI : MonoBehaviour
         }
 
     }
+
     public void UpdateCriminalStatus(){
         if (thiefActions.pocketMoneyHidden && thiefActions.isCriminal)
         {
@@ -208,6 +212,7 @@ public class PlayerUI : MonoBehaviour
             }
         }
     }
+
     public void UpdateBeingInvestigated(){
         cc = GetComponentInParent<CharacterController>();
         cc.enabled = false;

@@ -59,17 +59,13 @@ public class game_state : NetworkBehaviour
 
         networkRunner.SessionInfo.IsOpen = false;
 
-        foreach (GameObject player in getAllNetworkPlayers())
+        foreach (NetworkPlayer networkPlayer in FindObjectsOfType<NetworkPlayer>())
         {
-            NetworkPlayer networkPlayer = player.GetComponent<NetworkPlayer>();
             networkPlayer.GameStart();
         }
 
-       
         // start the round timer
         gameObject.GetComponent<round_timer>().startTimer();
-
-        
 
         respawnAllPlayersInActiveMap();
     }
@@ -85,9 +81,8 @@ public class game_state : NetworkBehaviour
 
         gameObject.GetComponent<scoring>().initScores();
 
-        foreach (GameObject player in getAllNetworkPlayers())
+        foreach (NetworkPlayer networkPlayer in FindObjectsOfType<NetworkPlayer>())
         {
-            NetworkPlayer networkPlayer = player.GetComponent<NetworkPlayer>();
             networkPlayer.LobbyStart();
         }
         
@@ -118,20 +113,15 @@ public class game_state : NetworkBehaviour
 
         }
 
-        foreach (GameObject player in getAllNetworkPlayers())
+        foreach (NetworkPlayer networkPlayer in FindObjectsOfType<NetworkPlayer>())
         {
-            NetworkPlayer networkPlayer = player.GetComponent<NetworkPlayer>();
-
-            
             // decide winner
             if(networkPlayer.GetComponentInParent<ThiefActions>().getPlayerSecuredMoney() > biggestMoney) {
 
                 playerName = networkPlayer.nickName.ToString();
                 biggestMoney = networkPlayer.GetComponentInParent<ThiefActions>().getPlayerSecuredMoney();
-
             }
 
-            // Nothing happens here atm
             networkPlayer.GameEnd();
         }
 
@@ -140,18 +130,11 @@ public class game_state : NetworkBehaviour
 
     }
 
-
     private void respawnAllPlayersInActiveMap()
     {
-        foreach (GameObject player in getAllNetworkPlayers())
+        foreach (CharacterMovementHandler charMove in FindObjectsOfType<CharacterMovementHandler>())
         {
-            CharacterMovementHandler charMove = player.GetComponent<CharacterMovementHandler>();
             charMove.Respawn();
         }
-    }
-
-    private GameObject[] getAllNetworkPlayers()
-    {
-        return GameObject.FindGameObjectsWithTag("Player");
     }
 }

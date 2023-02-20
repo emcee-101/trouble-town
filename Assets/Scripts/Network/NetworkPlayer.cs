@@ -83,18 +83,21 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public void toggleGamePausedState()
     {
-        isGamePaused = !isGamePaused;
-
-        Cursor.visible = isGamePaused;
-        gamePausedBackgroundUI.SetActive(isGamePaused);
-
-        if (isGamePaused)
+        if (Object.HasInputAuthority)
         {
-            Cursor.lockState = CursorLockMode.None;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
+            isGamePaused = !isGamePaused;
+
+            Cursor.visible = isGamePaused;
+            gamePausedBackgroundUI.SetActive(isGamePaused);
+
+            if (isGamePaused)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
     }
 
@@ -146,6 +149,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
             // Disable UI for remote player
             localUI.SetActive(false);
+            HideUis();
 
             //Only 1 audio listner is allowed in the scene so disable remote players audio listner
             AudioListener audioListener = GetComponentInChildren<AudioListener>();
@@ -163,10 +167,6 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public void PlayerLeft(PlayerRef player)
     {
-
-        
-
-
         if (Object.HasStateAuthority)
         {
             GameObject.FindGameObjectWithTag("State").GetComponent<scoring>().removePlayer(nickName.ToString());
@@ -223,7 +223,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         HideAllMaps();
         map.SetActive(true);
 
-        HideUisAndSetGameUnPause();
+        HideUis();
         gameUI.SetActive(true);
         GetComponent<PlayerUI>().Init();
         if (scoreUI != null)
@@ -242,30 +242,30 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         HideAllMaps();
         preMap.SetActive(true);
 
-        HideUisAndSetGameUnPause();
+        HideUis();
         if (isHostAndPolice && Object.HasInputAuthority)
         {
             lobbyUI.SetActive(true);
             lobbyUIStartButton.interactable = false;
         }
-
-
-
-
     }
 
     public void GameEnd()
     {
+        if (!Object.HasInputAuthority)
+        {
+            return;
+        }
         if (!isGamePaused)
             toggleGamePausedState();
 
-        HideUisAndSetGameUnPause();
+        HideUis();
 
         endUI.SetActive(true);
         scoreUI.activated = false;
     }
 
-    private void HideUisAndSetGameUnPause()
+    private void HideUis()
     {
         lobbyUI.SetActive(false);
         gameUI.SetActive(false);
@@ -300,5 +300,4 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         ThiefActions tA = GetComponent<ThiefActions>();
         tA.getInvestigated();
     }
-    
 }
