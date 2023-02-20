@@ -46,10 +46,11 @@ public class PlayerUI : MonoBehaviour
         durationTimerStealCooldown = 0;
         intenseOverlay.color = new Color(intenseOverlay.color.r, intenseOverlay.color.g, intenseOverlay.color.b, 0.6f);
     }
-    private float fadeSpeed;
+    
+    private float fadeSpeed = 0.5f;
     private float durationTimerTransistionOnHold;
     private float durationTimerSceneTransition;
-    private float durationTimerAnimation;
+    private float durationTimerAnimation = 0;
 
     public  float durationTimerStealCooldown;
     public float durationTimerCriminalState;
@@ -138,7 +139,7 @@ public class PlayerUI : MonoBehaviour
         backBarMoney.color = Color.white;
         
         backBarMoney.fillAmount = (moneyLeft + totalPocketMoney) / moneyTotal;
-        moneyText.text = Mathf.Round(moneyLeft) + "+" + Mathf.Round(totalPocketMoney) + " $";
+        moneyText.text = Mathf.Round(moneyLeft) + "$ Left";
 
     }
 
@@ -199,6 +200,8 @@ public class PlayerUI : MonoBehaviour
         if (thiefActions.pocketMoneyHidden && thiefActions.isCriminal)
         {
             durationTimerCriminalState -= Time.deltaTime;
+            string guiTimer = durationTimerCriminalState.ToString("0");
+            cooldownText.text = "No longer criminal in " + guiTimer;
             if (durationTimerCriminalState <= 0){
                 thiefActions.isCriminal = false;
                 durationTimerCriminalState = thiefActions.wantedStateDuration;
