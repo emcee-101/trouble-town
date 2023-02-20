@@ -126,20 +126,22 @@ public class CharacterInputHandler : MonoBehaviour
         // transmit name - important for scores
         networkInputData.playerName = new Fusion.NetworkString<Fusion._16>();
 
-        if (networkPlayer != null)
 
-            networkInputData.playerName.Set(networkPlayer.nickName.ToString());
-
-        else
-
-            networkInputData.playerName = "FAILURE";
 
 
         // reflects data from Interactions with players
         networkInputData.globalMoneyChange = globalMoneyChange;
-        networkInputData.scoreChange = scoreChange;
         networkInputData.globalPocketMoneyChange = globalPocketMoneyChange;
 
+        if (networkPlayer != null)
+        {
+
+            networkInputData.playerName.Set(networkPlayer.nickName.ToString());
+            networkInputData.scoreChange = scoreChange;
+        }
+        else
+
+            networkInputData.playerName = "FAILURE";
 
         // set variables back to reflect consumption of change (so that no change is doubled)
         globalMoneyChange = 0;
