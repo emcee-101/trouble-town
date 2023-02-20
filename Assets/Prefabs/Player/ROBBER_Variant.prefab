@@ -195,6 +195,22 @@ PrefabInstance:
       propertyPath: cooldownText
       value: 
       objectReference: {fileID: 8165036363801342341}
+    - target: {fileID: 8081760661856977215, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: durationTimerPrison
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8081760661856977215, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: durationTimerCriminalState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8081760661856977215, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: durationTimerInvestigation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8081760661856977215, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: durationTimerStealCooldown
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8208422331741472608, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -293,11 +309,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
---- !u!82 &1068399198145204292 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 799286407988898035, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
-  m_PrefabInstance: {fileID: 415480877699053751}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8104861776398770867 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8484312688373783044, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
@@ -332,8 +343,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stealAmount: 1000
-  ownAudio: {fileID: 1068399198145204292}
-  catchedByPolice: {fileID: 8300000, guid: a3de125833f89cb448679d4300d908b0, type: 3}
+  hasJustStolen: 0
+  isCriminal: 0
+  isInPrison: 0
+  pocketMoneyHidden: 0
+  stealCooldown: 20
+  investigationDuration: 5
+  prisonTimeDuration: 20
+  wantedStateDuration: 10
 --- !u!114 &8923842330607666703
 MonoBehaviour:
   m_ObjectHideFlags: 0

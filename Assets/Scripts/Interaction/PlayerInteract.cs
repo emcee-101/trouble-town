@@ -11,11 +11,13 @@ public class PlayerInteract : MonoBehaviour
     private LayerMask mask;
     private PlayerUI playerUI;
     private ThiefActions thiefActions;
+    private PoliceActions policeActions;
     private RaycastHit hitInfo;
     
     void Start() 
     {
         thiefActions = gameObject.GetComponent<ThiefActions>();
+        policeActions = gameObject.GetComponent<PoliceActions>();
         playerUI = gameObject.GetComponent<PlayerUI>();
     }
 
@@ -54,7 +56,7 @@ public class PlayerInteract : MonoBehaviour
                 break;
             case "thief":
                 NetworkPlayer netPlayer = collider.GetComponent<NetworkPlayer>();
-                netPlayer.getInvestigated();
+                policeActions.investigatePlayer(netPlayer);
                 break;
 
         }

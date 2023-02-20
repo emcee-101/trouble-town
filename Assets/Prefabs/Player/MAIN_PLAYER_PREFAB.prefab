@@ -3294,7 +3294,8 @@ MonoBehaviour:
   isHostAndPolice: 0
   hasBlueRobberItem: 0
   hasRedPoliceItem: 0
-  _getInvestigated: 0
+  _isBeingInvestigated:
+    _value: 0
   localCameraHandler: {fileID: 6104833922207306215}
   localUI: {fileID: 3555256760894673365}
   lobbyUI: {fileID: 8097377039037183750}
@@ -3437,29 +3438,22 @@ MonoBehaviour:
   cooldownText: {fileID: 8400371057046751538}
   black: {fileID: 6667204092915444780}
   fadeSceneSwitchDuration: 5
+  animationDuration: 2
   moneyTotal: 0
   moneyLeft: 0
   totalPocketMoney: 0
-  hasJustStolen: 0
-  isCriminal: 0
-  isBeingInvestigated: 0
-  ownAudioPlaying: 0
-  isInPrison: 0
-  pocketMoneyHidden: 0
-  stealCooldown: 20
   intenseOverlay: {fileID: 7949378937108162228}
   warnMessage: {fileID: 2281504437514802209}
-  investigationDuration: 5
-  prisonTimeDuration: 20
-  duration: 1
-  fadeSpeed: 0.5
-  wantedStateDuration: 15
   frontBarMoney: {fileID: 6730733148261154328}
   backBarMoney: {fileID: 4105185178252245768}
   moneyText: {fileID: 5287749522341494087}
-  ownAudio: {fileID: 0}
-  catchedByPolice: {fileID: 0}
+  ownAudio: {fileID: 799286407988898035}
+  catchedByPolice: {fileID: 8300000, guid: a3de125833f89cb448679d4300d908b0, type: 3}
   playerCountText: {fileID: 8331207558226751238}
+  durationTimerStealCooldown: 0
+  durationTimerCriminalState: 0
+  durationTimerInvestigation: 0
+  durationTimerPrison: 0
 --- !u!1 &8440505826930676116
 GameObject:
   m_ObjectHideFlags: 0

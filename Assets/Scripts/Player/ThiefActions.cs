@@ -15,6 +15,14 @@ public class ThiefActions : MonoBehaviour
     private GameObject state;
     private global_money globalMoney;
 
+    public bool hasJustStolen;
+    public bool isCriminal;
+    public bool isInPrison;
+    public bool pocketMoneyHidden;
+    public float stealCooldown;
+    public float investigationDuration;
+    public float prisonTimeDuration;
+    public float wantedStateDuration;
     // Start is called before the first frame update
     void Start()
     {   
@@ -58,8 +66,12 @@ public class ThiefActions : MonoBehaviour
             //NetworkPlayer player = GetComponent<NetworkPlayer>();
             //scorings.addRobbingPoints(player.nickName.ToString());
         }
+        isCriminal = true;
+        pocketMoneyHidden = false;
+        playerUI.durationTimerStealCooldown = stealCooldown;
+        playerUI.durationTimerCriminalState = wantedStateDuration;
+        
         pocketMoney += stealAmount;
-        playerUI.hasJustStolen = true;
         Debug.Log("Stolen " + stealAmountThisTime.ToString());
         return true;
 
@@ -69,7 +81,7 @@ public class ThiefActions : MonoBehaviour
         globalMoney.TotalPocketMoney -= pocketMoney;
         currentMoney                 += pocketMoney;
         pocketMoney = 0;
-        playerUI.pocketMoneyHidden = true;
+        pocketMoneyHidden = true;
 
         // add Points
         //scoring scorings = state.GetComponent<scoring>();
@@ -80,7 +92,6 @@ public class ThiefActions : MonoBehaviour
 
     }
     public bool getInvestigated(){
-        playerUI.isBeingInvestigated = true;
         
         globalMoney.TotalPocketMoney += pocketMoney;
         pocketMoney = 0;
