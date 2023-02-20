@@ -38,7 +38,9 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
             GameObject obj = GameObject.FindGameObjectWithTag("State");
             roundSpawner = obj.GetComponent<round_spawner>();
 
-            bool isPolice = runner.ActivePlayers.Count() == 1;
+            int activePlayers = runner.ActivePlayers.Count();
+
+            bool isPolice = activePlayers == 1;
 
             NetworkPlayer playerPrefab = isPolice
                 ? playerPolicePrefabs[UnityEngine.Random.Range(0, playerPolicePrefabs.Count())]
@@ -47,7 +49,18 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
             playerPrefab.isHostAndPolice = isPolice;
 
             // Spawning happens in PlayerPrefab->CharacterMovemetnHandler->Spawned() now
-            runner.Spawn(playerPrefab, inputAuthority: player);
+            NetworkPlayer spawnedObject = runner.Spawn(playerPrefab, inputAuthority: player);
+
+            if (activePlayers >= runner.SessionInfo.MaxPlayers)
+            {
+                FindObjectOfType<game_state>().host.lobbyUIStartButton.interactable = true;
+            }
+
+            if (spawnedObject.isHostAndPolice)
+            {
+                FindObjectOfType<game_state>().host = spawnedObject;
+                FindObjectOfType<game_state>().hostID = player.PlayerId;
+            }            
         }
         else Debug.Log("OnPlayerJoined");
     }
@@ -63,7 +76,16 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
 
     // nessaccary Methods with logs
     public void OnConnectedToServer(NetworkRunner runner) { Debug.Log("OnConnectedToServer"); }
-    public void OnPlayerLeft(NetworkRunner runner, PlayerRef player) { }
+    public void OnPlayerLeft(NetworkRunner runner, PlayerRef player) {
+        if (runner.ActivePlayers.Count() < runner.SessionInfo.MaxPlayers)
+        {
+            FindObjectOfType<game_state>().host.lobbyUIStartButton.interactable = false;
+            if (FindObjectOfType<game_state>().hostID == player.PlayerId)
+            {
+                Debug.Log("HOST LEFT THE GAME");
+            }
+        }
+    }
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { Debug.Log("OnShutdown"); }
     public void OnDisconnectedFromServer(NetworkRunner runner) { Debug.Log("OnDisconnectedFromServer"); }

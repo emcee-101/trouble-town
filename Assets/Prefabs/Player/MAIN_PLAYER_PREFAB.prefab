@@ -3299,6 +3299,7 @@ MonoBehaviour:
   localCameraHandler: {fileID: 6104833922207306215}
   localUI: {fileID: 3555256760894673365}
   lobbyUI: {fileID: 8097377039037183750}
+  lobbyUIStartButton: {fileID: 5035527012873260421}
   gameUI: {fileID: 2245701287687838839}
   endUI: {fileID: 8680201404871176690}
   gamePausedBackgroundUI: {fileID: 4688906059814924726}

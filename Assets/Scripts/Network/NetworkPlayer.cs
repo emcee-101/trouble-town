@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 using TMPro;
+using UnityEngine.UI;
 
 public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 {
@@ -22,9 +23,13 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     [Networked(OnChanged = nameof(OnChangeBeingInvestigated))]
     public NetworkBool isBeingInvestigated { get; set; }
 
+    private GameObject map;
+    private GameObject preMap;
+
     public LocalCameraHandler localCameraHandler;
     public GameObject localUI;
     public GameObject lobbyUI;
+    public Button lobbyUIStartButton;
     public GameObject gameUI;
     public GameObject endUI;
     public GameObject gamePausedBackgroundUI;
@@ -47,7 +52,11 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     }
 
     // Start is called before the first frame update
-    private void Start() { }
+    private void Start()
+    {
+        map = FindObjectOfType<game_state>().map;
+        preMap = FindObjectOfType<game_state>().preMap;
+    }
     
     private void Update()
     {
@@ -211,6 +220,9 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         if (isGamePaused)
             toggleGamePausedState();
 
+        HideAllMaps();
+        map.SetActive(true);
+
         HideUisAndSetGameUnPause();
         gameUI.SetActive(true);
         GetComponent<PlayerUI>().Init();
@@ -223,13 +235,18 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         if (!Object.HasInputAuthority){
             return;
         }
+
         if (isGamePaused)
             toggleGamePausedState();
 
+        HideAllMaps();
+        preMap.SetActive(true);
+
         HideUisAndSetGameUnPause();
-        if (isHostAndPolice)
+        if (isHostAndPolice && Object.HasInputAuthority)
         {
             lobbyUI.SetActive(true);
+            lobbyUIStartButton.interactable = false;
         }
 
 
@@ -256,6 +273,17 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
         if (scoreUI != null)
             scoreUI.activated = false;
+    }
+
+    private void HideAllMaps()
+    {
+        if (map == null)
+        {
+            map = FindObjectOfType<game_state>().map;
+            preMap = FindObjectOfType<game_state>().preMap;
+        }
+        map.SetActive(false);
+        preMap.SetActive(false);
     }
 
     public bool HasInputAuthority(){

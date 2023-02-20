@@ -5159,6 +5159,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 3
+  host: {fileID: 0}
+  hostID: 0
   map: {fileID: 114076558}
   preMap: {fileID: 5973718489598144884}
   _gameState: 0
