@@ -57,7 +57,7 @@ public class CharacterMovementHandler : NetworkBehaviour
                 GameObject states = GameObject.FindGameObjectWithTag("State");
 
                 states.GetComponent<global_money>().GlobalMoney += networkInputData.globalMoneyChange;
-                Debug.Log(states.GetComponent<global_money>().GlobalMoney);
+                //Debug.Log(states.GetComponent<global_money>().GlobalMoney);
 
                 string name = networkInputData.playerName.ToString();
                 if (!states.GetComponent<scoring>().checkIfRegistered(name) && name != "" && name != "FAILURE")
@@ -70,7 +70,7 @@ public class CharacterMovementHandler : NetworkBehaviour
                 states.GetComponent<scoring>().addPoints(name, networkInputData.scoreChange);
 
             }
-            else Log.Info("not the StateAuthority :(");
+            //else Log.Info("not the StateAuthority :(");
 
 
 
