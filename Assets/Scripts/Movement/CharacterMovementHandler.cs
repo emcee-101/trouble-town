@@ -60,7 +60,7 @@ public class CharacterMovementHandler : NetworkBehaviour
                 Debug.Log(states.GetComponent<global_money>().GlobalMoney);
 
                 string name = networkInputData.playerName.ToString();
-                if (!states.GetComponent<scoring>().checkIfRegistered(name))
+                if (!states.GetComponent<scoring>().checkIfRegistered(name) && name != "" && name != "FAILURE")
                 {
 
                     states.GetComponent<scoring>().registerPlayer(name);

@@ -21,6 +21,9 @@ public class PoliceActions : MonoBehaviour
     {
         _np.isBeingInvestigated = true;
         //waiter(_np);
+
+        GetComponent<CharacterInputHandler>().addCatchingRobberPoints();
+
         return true;
     }
     
