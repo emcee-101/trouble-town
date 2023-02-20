@@ -15,12 +15,6 @@ public class CharacterMovementHandler : NetworkBehaviour
         networkCharacterControllerPrototypeCustom = GetComponent<NetworkCharacterControllerPrototypeCustom>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        animator = gameObject.GetComponent<Animator>();
-
-    }
 
     public override void FixedUpdateNetwork()
     {
@@ -54,6 +48,32 @@ public class CharacterMovementHandler : NetworkBehaviour
             if (networkInputData.isJumpPressed)
                 networkCharacterControllerPrototypeCustom.Jump();
 
+            // IF PLAYER == HOST -> change global values
+            NetworkObject netObj = gameObject.GetComponent<NetworkObject>();
+
+            if (netObj.HasStateAuthority)
+
+            {
+                GameObject states = GameObject.FindGameObjectWithTag("State");
+
+                states.GetComponent<global_money>().GlobalMoney += networkInputData.globalMoneyChange;
+                Debug.Log(states.GetComponent<global_money>().GlobalMoney);
+
+                string name = networkInputData.playerName.ToString();
+                if (!states.GetComponent<scoring>().checkIfRegistered(name) && name != "" && name != "FAILURE")
+                {
+
+                    states.GetComponent<scoring>().registerPlayer(name);
+
+                }
+                
+                states.GetComponent<scoring>().addPoints(name, networkInputData.scoreChange);
+
+            }
+            else Log.Info("not the StateAuthority :(");
+
+
+
             //Check if we've fallen off the world.
             CheckFallRespawn();
         }
@@ -69,7 +89,11 @@ public class CharacterMovementHandler : NetworkBehaviour
 
     override public void Spawned()
     {
-        FindObjectOfType<game_state>().gameState = GameState.pregame;
+        if(gameObject.GetComponent<NetworkObject>().HasStateAuthority) 
+            FindObjectOfType<game_state>().gameState = GameState.pregame;
+
+        animator = gameObject.GetComponent<Animator>();
+
         GetComponent<NetworkPlayer>().LobbyStart();
         FindObjectOfType<round_spawner>().Init();
         Respawn();

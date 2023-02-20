@@ -11,12 +11,10 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
+        
         scores = new List<Score>();
-        float test = 0.0f;
-
         scorings = GameObject.FindGameObjectWithTag("State").GetComponent<scoring>();
-        if (scorings == null) Debug.Log("Missing StateObject because Niklas did an Ooopsie");
-        if (!scorings.scorings.TryGet("hi", out test)) Debug.Log("Missing TestValue bc god knows");
+
     }
 
     private void Start()
