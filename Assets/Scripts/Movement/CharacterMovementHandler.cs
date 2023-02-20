@@ -15,7 +15,6 @@ public class CharacterMovementHandler : NetworkBehaviour
         networkCharacterControllerPrototypeCustom = GetComponent<NetworkCharacterControllerPrototypeCustom>();
     }
 
-
     public override void FixedUpdateNetwork()
     {
         //Get the input from the network
@@ -52,7 +51,6 @@ public class CharacterMovementHandler : NetworkBehaviour
             NetworkObject netObj = gameObject.GetComponent<NetworkObject>();
 
             if (netObj.HasStateAuthority)
-
             {
                 GameObject states = GameObject.FindGameObjectWithTag("State");
 
@@ -62,17 +60,10 @@ public class CharacterMovementHandler : NetworkBehaviour
                 string name = networkInputData.playerName.ToString();
                 if (!states.GetComponent<scoring>().checkIfRegistered(name) && name != "" && name != "FAILURE")
                 {
-
                     states.GetComponent<scoring>().registerPlayer(name);
-
                 }
-                
                 states.GetComponent<scoring>().addPoints(name, networkInputData.scoreChange);
-
             }
-            //else Log.Info("not the StateAuthority :(");
-
-
 
             //Check if we've fallen off the world.
             CheckFallRespawn();
@@ -89,12 +80,12 @@ public class CharacterMovementHandler : NetworkBehaviour
 
     override public void Spawned()
     {
-        if(gameObject.GetComponent<NetworkObject>().HasStateAuthority) 
+        if(gameObject.GetComponent<NetworkObject>().HasStateAuthority)
             FindObjectOfType<game_state>().gameState = GameState.pregame;
 
         animator = gameObject.GetComponent<Animator>();
 
-        GetComponent<NetworkPlayer>().LobbyStart();
+        GetComponentInParent<NetworkPlayer>().LobbyStart();
         FindObjectOfType<round_spawner>().Init();
         Respawn();
     }
@@ -103,11 +94,9 @@ public class CharacterMovementHandler : NetworkBehaviour
     {
         if (lobbyUtils == null)
         {
-
             GameObject obj = GameObject.FindGameObjectWithTag("State");
             lobbyUtils = obj.GetComponent<UtilLobby>();
         }
-
 
         if (lobbyUtils != null)
         {

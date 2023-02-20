@@ -24,11 +24,6 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
         sessionListUIHandler = FindObjectOfType<SessionListUIHandler>(true);
     }
 
-    void Start()
-    {
-
-    }
-
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         if (runner.IsServer)
