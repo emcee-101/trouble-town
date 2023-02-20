@@ -9,12 +9,14 @@ public class round_spawner : NetworkBehaviour
 
     public float secondsForItemWave1;
 
-    public BlueRobberItem blueRobberItemPrefab;
-    public RedPoliceItem redPoliceItemPrefab;
+    public MoneyBagItem MoneyBagItemPrefab;
+    public PhoneItem phoneItemPrefab;
+    public SpeedBoostItem speedBoostItemPrefab;
 
     UtilLobby lobbyUtils;
-    public List<BlueRobberItem> spawnedBlueRobberItems;
-    public List<RedPoliceItem> spawnedRedPoliceItems;
+    public List<MoneyBagItem> spawnedMoneyBagItems;
+    public List<PhoneItem> spawnedPhoneItems;
+    public List<SpeedBoostItem> spawnedSpeedBoostItems;
 
     bool itemWave1 = false;
 
@@ -48,7 +50,7 @@ public class round_spawner : NetworkBehaviour
             spawnPoint.returnPos().z
         );
 
-        spawnedRedPoliceItems.Add(roundTimer.networkRunnerInScene.Spawn(redPoliceItemPrefab, position));
+        spawnedMoneyBagItems.Add(roundTimer.networkRunnerInScene.Spawn(MoneyBagItemPrefab, position));
 
         spawnPoint = spawnPoints[0];
         spawnPoints.Remove(spawnPoint);
@@ -58,6 +60,16 @@ public class round_spawner : NetworkBehaviour
             spawnPoint.returnPos().z
         );
 
-        spawnedBlueRobberItems.Add(roundTimer.networkRunnerInScene.Spawn(blueRobberItemPrefab, position));
+        spawnedPhoneItems.Add(roundTimer.networkRunnerInScene.Spawn(phoneItemPrefab, position));
+
+        spawnPoint = spawnPoints[0];
+        spawnPoints.Remove(spawnPoint);
+        position = new Vector3(
+            spawnPoint.returnPos().x,
+            spawnPoint.returnPos().y,
+            spawnPoint.returnPos().z
+        );
+
+        spawnedSpeedBoostItems.Add(roundTimer.networkRunnerInScene.Spawn(speedBoostItemPrefab, position));
     }
 }

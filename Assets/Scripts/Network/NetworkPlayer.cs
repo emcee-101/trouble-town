@@ -17,9 +17,11 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     bool isPublicJoinMessageSent = false;
     public bool isHostAndPolice = false;
-    public bool hasBlueRobberItem = false;
-    public bool hasRedPoliceItem = false;
-    
+
+    public bool hasMoneyBagItem = false;
+    public bool hasPhoneItem = false;
+    public bool hasSpeedBoostItem = false;
+
     [Networked(OnChanged = nameof(OnChangeBeingInvestigated))]
     public NetworkBool isBeingInvestigated { get; set; }
 
