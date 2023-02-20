@@ -223,6 +223,10 @@ PrefabInstance:
       propertyPath: playerModel
       value: 
       objectReference: {fileID: 8091601958621501599}
+    - target: {fileID: -2632763811948166320, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: isHostAndPolice
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 554730152060336761, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -278,6 +282,10 @@ PrefabInstance:
     - target: {fileID: 2717052772983868972, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2991245161320222033, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: mask.m_Bits
+      value: 1152
       objectReference: {fileID: 0}
     - target: {fileID: 3071583952176706105, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: m_Layer
@@ -390,6 +398,10 @@ PrefabInstance:
     - target: {fileID: 8081760661856977215, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: investigationDuration
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097377039037183750, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8208422331741472608, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: m_Layer
@@ -509,3 +521,43 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8484312688373783044, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
   m_PrefabInstance: {fileID: 429372948754104987}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8542657075283632217 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8320661125014528706, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+  m_PrefabInstance: {fileID: 429372948754104987}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5133278239989875808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8542657075283632217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37a1da9db07cac0478bc4806ea95545c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stealAmount: 1000
+  hasJustStolen: 0
+  isCriminal: 0
+  isBeingInvestigated: 0
+  isInPrison: 0
+  pocketMoneyHidden: 0
+  stealCooldown: 0
+  investigationDuration: 0
+  prisonTimeDuration: 0
+  wantedStateDuration: 0
+--- !u!114 &7140897626168050295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8542657075283632217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d75897774d3010488075b17e812482a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  investigationDuration: 5

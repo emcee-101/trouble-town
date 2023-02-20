@@ -18,10 +18,12 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     public bool isHostAndPolice = false;
     public bool hasBlueRobberItem = false;
     public bool hasRedPoliceItem = false;
+    
+    [Networked(OnChanged = nameof(OnChangeBeingInvestigated))]
+    public NetworkBool isBeingInvestigated { get; set; }
 
     public LocalCameraHandler localCameraHandler;
     public GameObject localUI;
-
     public GameObject lobbyUI;
     public GameObject gameUI;
     public GameObject endUI;
@@ -34,6 +36,10 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     private miniMapScript miniMapCam;
 
     NetworkInGameMessages networkInGameMessages;
+
+    private ThiefActions thiefActions;
+
+    
 
     void Awake()
     {
@@ -88,7 +94,6 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         if (Object.HasInputAuthority)
         {
             Local = this;
-
             //Sets the layer of the local players model
             Utils.SetRenderLayerInChildren(playerModel, LayerMask.NameToLayer("LocalPlayerModel"));
                         
@@ -119,9 +124,6 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
                 PlayerUI playerUI = player.GetComponent<PlayerUI>();
                 playerUI.updatePlayerCount(runner.SessionInfo.PlayerCount, runner.SessionInfo.MaxPlayers);
             }
-
-
-
             Debug.Log("Spawned local player");
         }
         else
@@ -203,6 +205,9 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public void GameStart()
     {
+        if (!Object.HasInputAuthority){
+            return;
+        }
         if (isGamePaused)
             toggleGamePausedState();
 
@@ -215,6 +220,9 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public void LobbyStart()
     {
+        if (!Object.HasInputAuthority){
+            return;
+        }
         if (isGamePaused)
             toggleGamePausedState();
 
@@ -254,4 +262,20 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         if (scoreUI != null)
             scoreUI.activated = false;
     }
+
+    public bool HasInputAuthority(){
+        return Object.HasInputAuthority;
+    }
+
+    public static void OnChangeBeingInvestigated(Changed<NetworkPlayer> changed)
+    {
+        changed.Behaviour.OnChangeBeingInvestigated();
+    }
+    private void OnChangeBeingInvestigated()
+    {
+        //if (!isBeingInvestigated) return;
+        ThiefActions tA = GetComponent<ThiefActions>();
+        tA.getInvestigated();
+    }
+    
 }

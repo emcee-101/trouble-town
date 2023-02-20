@@ -6,21 +6,30 @@ public class PlayerUI : MonoBehaviour
 {
     public TextMeshProUGUI promptText;
     public TextMeshProUGUI cooldownText;
-    public bool hasRecentlyStolen;
-    public bool isCriminal;
-    public bool isBeingInvestigated;
-    public bool isInPrison;
-    public bool pocketMoneyHidden;
-    public float stealCooldown;
+    
+    public Image black;
+    public float fadeSceneSwitchDuration;
+    public float animationDuration = 2.0f;
+    public float moneyTotal;
+    public float moneyLeft;
+    public float totalPocketMoney;
+
     [Header("Intense Overlay")]
     public Image intenseOverlay;
     public TextMeshProUGUI warnMessage;
-    public float investigationDuration;
-    public float prisonTimeDuration;
-    public float duration;
-    public float fadeSpeed;
-    public float wantedStateDuration;
 
+    public Image frontBarMoney;
+    public Image backBarMoney;
+    public TextMeshProUGUI moneyText;
+
+    private NetworkPlayer netPlayer;
+    private ThiefActions thiefActions;
+
+    private GameObject state;
+    private global_money globalMoney;
+
+    public AudioSource ownAudio;
+    public AudioClip catchedByPolice;
 
     [Header("LobbyUI")]
     [SerializeField]
@@ -28,53 +37,74 @@ public class PlayerUI : MonoBehaviour
 
     public void Init()
     {
+        durationTimerTransistionOnHold = 2.0f;
+        durationTimerSceneTransition = fadeSceneSwitchDuration;
+        moneyTotal = globalMoney.GlobalMoney;
+        frontBarMoney.fillAmount =  1f;
+        backBarMoney.fillAmount  =  1f;
         warnMessage.enabled = true;
         durationTimerStealCooldown = 0;
-        durationTimerCriminalState = 0;
         intenseOverlay.color = new Color(intenseOverlay.color.r, intenseOverlay.color.g, intenseOverlay.color.b, 0.6f);
     }
-
+    private float fadeSpeed;
+    private float durationTimerTransistionOnHold;
+    private float durationTimerSceneTransition;
     private float durationTimerAnimation;
-    private float durationTimerStealCooldown;
-    private float durationTimerCriminalState;
-    private float durationTimerInvestigation;
-    private float durationTimerPrison;
+
+    public  float durationTimerStealCooldown;
+    public float durationTimerCriminalState;
+    public float durationTimerInvestigation;
+    public float durationTimerPrison;
+
     private CharacterController cc;
 
     void Start(){
+        state = GameObject.FindWithTag("State");
+        globalMoney = state.GetComponent<global_money>();
         //transform.position = new Vector3(-0.72f,2.07f,1.61f);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if ((netPlayer == null) && GetComponent<NetworkPlayer>() != null){
+            netPlayer = GetComponent<NetworkPlayer>();
+        }
+        if ((thiefActions == null) && GetComponent<ThiefActions>() != null){
+            thiefActions = GetComponent<ThiefActions>();
+        }
+        UpdateMoneyUI();
         cooldownText.text = "";
         warnMessage.text = "";
         intenseOverlay.enabled = false;
         
         CheckEnterClickFromHost();
 
-        if (hasRecentlyStolen){
-            isCriminal = true;
-            pocketMoneyHidden = false;
-            durationTimerStealCooldown = stealCooldown;
-            hasRecentlyStolen = false;
-        }
 
-        if (isCriminal) {
+        if (thiefActions.isCriminal && !thiefActions.isInPrison) {
+            ownAudio.PlayOneShot(catchedByPolice);
             intenseOverlay.enabled = true;
-            warnMessage.text = "Now you are criminal! Stay away from policemen";
+            warnMessage.text = "Now you are criminal! Stay away from policeman*in";
             UpdateIntenseOverlay();
             UpdateCriminalStatus();
+        }
+
+        if (durationTimerStealCooldown > 0) {
             UpdateStealingCooldown();
         }
 
-        if (isBeingInvestigated) {
+
+        if (netPlayer.isBeingInvestigated) {
             warnMessage.text = "You are being investigated by policeman!";
             UpdateBeingInvestigated();
         }
-
-        if (isInPrison) {
+        if (netPlayer.isBeingInvestigated && thiefActions.isCriminal){
+            ownAudio.PlayOneShot(catchedByPolice);
+            UpdateFadeToBlack();
+        }
+        if (thiefActions.isInPrison) {
+            black.color = new Color(255.0f, 255.0f, 255.0f, 0.0f);
+            ownAudio.Stop();
             warnMessage.text = "You are in prison!";
             UpdateWhileInPrison();
         }   
@@ -100,12 +130,37 @@ public class PlayerUI : MonoBehaviour
             
         }
     }
+    private void UpdateMoneyUI()
+    {
+        moneyLeft = globalMoney.GlobalMoney;
+        totalPocketMoney = globalMoney.TotalPocketMoney;
+        frontBarMoney.fillAmount = (float)(moneyLeft / moneyTotal);
+        backBarMoney.color = Color.white;
+        
+        backBarMoney.fillAmount = (moneyLeft + totalPocketMoney) / moneyTotal;
+        moneyText.text = Mathf.Round(moneyLeft) + "+" + Mathf.Round(totalPocketMoney) + " $";
+
+    }
+
+    private void UpdateFadeToBlack()
+    {
+        if (durationTimerSceneTransition < fadeSceneSwitchDuration){
+            durationTimerSceneTransition += Time.deltaTime;
+            black.color = new Color(255.0f, 255.0f, 255.0f, (durationTimerSceneTransition/fadeSceneSwitchDuration));
+            return;
+        }
+        else if (durationTimerSceneTransition < fadeSceneSwitchDuration + 2){
+            durationTimerSceneTransition += Time.deltaTime;
+            black.color = new Color(255.0f, 255.0f, 255.0f, 255.0f);
+            return;
+        }
+    }
 
     private void UpdateStealingCooldown()
     {
         // Reduce cooldown as time goes...
         //Debug.Log(currentStealCooldown);
-        if (durationTimerStealCooldown != 0) 
+        if (durationTimerStealCooldown > 0) 
         {
             durationTimerStealCooldown -= Time.deltaTime;
             durationTimerStealCooldown = Mathf.Clamp(durationTimerStealCooldown, 0, 999);
@@ -118,7 +173,7 @@ public class PlayerUI : MonoBehaviour
         // GUI loop for intense mode
         float factor = Time.deltaTime * fadeSpeed;
         durationTimerAnimation += Time.deltaTime;
-        if (duration > durationTimerAnimation)
+        if (animationDuration > durationTimerAnimation)
         {
             float tempAlpha = intenseOverlay.color.a;
             tempAlpha -= factor;
@@ -126,7 +181,7 @@ public class PlayerUI : MonoBehaviour
             
             warnMessage.transform.localScale += new Vector3(0.1f * factor, 0.1f * factor, 0.1f * factor);
         }
-        if (durationTimerAnimation > duration)
+        if (durationTimerAnimation > animationDuration)
         {
             float tempAlpha = intenseOverlay.color.a;
             tempAlpha += factor;
@@ -134,65 +189,53 @@ public class PlayerUI : MonoBehaviour
 
             warnMessage.transform.localScale -= new Vector3(0.1f * factor, 0.1f * factor, 0.1f * factor);
         }
-        if (durationTimerAnimation > duration * 2)
+        if (durationTimerAnimation > animationDuration * 2)
         {
             durationTimerAnimation = 0;
         }
 
     }
     public void UpdateCriminalStatus(){
-        if (pocketMoneyHidden && isCriminal)
+        if (thiefActions.pocketMoneyHidden && thiefActions.isCriminal)
         {
-            durationTimerCriminalState += Time.deltaTime;
-            if (durationTimerCriminalState > wantedStateDuration){
-                isCriminal = false;
-                durationTimerCriminalState = 0;
+            durationTimerCriminalState -= Time.deltaTime;
+            if (durationTimerCriminalState <= 0){
+                thiefActions.isCriminal = false;
+                durationTimerCriminalState = thiefActions.wantedStateDuration;
             }
         }
     }
     public void UpdateBeingInvestigated(){
-        if (isBeingInvestigated)
+        cc = GetComponentInParent<CharacterController>();
+        cc.enabled = false;
+        durationTimerInvestigation -= Time.deltaTime;
+        string guiTimer = durationTimerInvestigation.ToString("0");
+        cooldownText.text = "Being investigated... " + guiTimer;
+        if (durationTimerInvestigation < 0)
         {
-            cc = GetComponentInParent<CharacterController>();
-            cc.enabled = false;
-            durationTimerInvestigation -= Time.deltaTime;
-            string guiTimer = durationTimerInvestigation.ToString("0");
-            cooldownText.text = "Being investigated... " + guiTimer;
-            if (durationTimerInvestigation < 0){
-                durationTimerInvestigation = investigationDuration;
-                isBeingInvestigated = false;
-                cc.enabled = true;
-            if (isCriminal){
-                isInPrison = true;
-                durationTimerPrison = prisonTimeDuration;
+            if (thiefActions.isCriminal)
+            {
                 transform.position = new Vector3(43.915f,3.259f,13.179f);
-                isCriminal = false;
+                thiefActions.isInPrison = true;
+                durationTimerPrison = thiefActions.prisonTimeDuration;
+                black.color = new Color(255.0f, 255.0f, 255.0f, 0.0f);
             }
-            }
+            durationTimerInvestigation = thiefActions.investigationDuration;
+            netPlayer.isBeingInvestigated = false;
+            cc.enabled = true;
         }
     }
+
     public void UpdateWhileInPrison(){
-        if (isInPrison)
-        {
-            durationTimerPrison -= Time.deltaTime;
-            string guiTimer = durationTimerPrison.ToString("0");
-            cooldownText.text = "Leaving the prison in " + guiTimer;
-            if (durationTimerPrison < 0){
-                durationTimerPrison = prisonTimeDuration;
-                isInPrison = false;
-                //transform.position = Utils.GetRandomSpawnPoint();
-            }
+        durationTimerPrison -= Time.deltaTime;
+        string guiTimer = durationTimerPrison.ToString("0");
+        cooldownText.text = "Leaving the prison in " + guiTimer;
+        if (durationTimerPrison < 0){
+            durationTimerPrison = thiefActions.prisonTimeDuration;
+            thiefActions.isCriminal = false;
+            //transform.position = Utils.GetRandomSpawnPoint();
+            thiefActions.isInPrison = false;
         }
-    }
-
-    public void UpdateText(string promptMessage)
-    {
-        promptText.text = promptMessage;
-    }
-
-    public bool isOnStealCooldown()
-    {
-        return ( durationTimerStealCooldown > 0);
     }
 
     public void updatePlayerCount(int playerCount, int maxPlayers)
@@ -208,4 +251,8 @@ public class PlayerUI : MonoBehaviour
         gameState.gameState = GameState.game;
     }
 
+    public bool isOnStealCooldown()
+    {
+        return (durationTimerStealCooldown > 0);
+    }
 }
