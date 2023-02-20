@@ -27,7 +27,7 @@ public class scoring : NetworkBehaviour
         scorings.Set(playerName, scorings.Get(playerName) + pointsToAdd);
         if(scorings.Get(playerName) < 0.0f) { scorings.Set(playerName, 0.0f); }
 
-        Debug.Log("Current registered Players: " + scorings.Count);
+        //Debug.Log("Current registered Players: " + scorings.Count);
 
     }
 
