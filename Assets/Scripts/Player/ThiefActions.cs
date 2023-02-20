@@ -57,17 +57,13 @@ public class ThiefActions : MonoBehaviour
             }
             stealAmountThisTime = globalMoney.GlobalMoney;
         }
-        if (state != null)
-        {
-            GetComponent<CharacterInputHandler>().globalMoneyChange += stealAmount;
+    
+        GetComponent<CharacterInputHandler>().globalMoneyChange -= stealAmount;
+        GetComponent<CharacterInputHandler>().globalPocketMoneyChange += stealAmount;
 
-            //globalMoney.GlobalMoney      -= stealAmount;
-            globalMoney.TotalPocketMoney += stealAmount;
-            // add Points
-            //scoring scorings = state.GetComponent<scoring>();
-            //NetworkPlayer player = GetComponent<NetworkPlayer>();
-            //scorings.addRobbingPoints(player.nickName.ToString());
-        }
+        // add Points
+        GetComponent<CharacterInputHandler>().addRobbingPoints();
+        
         isCriminal = true;
         pocketMoneyHidden = false;
         playerUI.durationTimerStealCooldown = stealCooldown;
@@ -86,10 +82,8 @@ public class ThiefActions : MonoBehaviour
         pocketMoneyHidden = true;
 
         // add Points
-        //scoring scorings = state.GetComponent<scoring>();
-        //NetworkPlayer player = gameObject.GetComponent<NetworkPlayer>();
-        //scorings.addStoringMoneyPoints(player.nickName.ToString());
-//
+        GetComponent<CharacterInputHandler>().addStoringMoneyPoints();
+        
         return true;
 
     }
@@ -98,10 +92,9 @@ public class ThiefActions : MonoBehaviour
         globalMoney.TotalPocketMoney += pocketMoney;
         pocketMoney = 0;
 
-        // reduce Points
-        //scoring scorings = state.GetComponent<scoring>();
-        //NetworkPlayer player = state.GetComponent<NetworkPlayer>();
-        //scorings.addGettingCaughtPoints(player.nickName.ToString());
+        // add Points
+        GetComponent<CharacterInputHandler>().addGettingCaughtPoints();
+
 
         return true;
     }

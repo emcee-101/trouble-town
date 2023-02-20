@@ -11,8 +11,9 @@ public struct NetworkInputData : INetworkInput
 
     // custom data
     public NetworkString<_16> playerName;
-    public int scoreChange;
+    public float scoreChange;
     public int globalMoneyChange;
     public int globalPocketMoneyChange;
+
 
 }

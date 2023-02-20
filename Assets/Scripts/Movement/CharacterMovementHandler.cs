@@ -59,8 +59,15 @@ public class CharacterMovementHandler : NetworkBehaviour
                 states.GetComponent<global_money>().GlobalMoney += networkInputData.globalMoneyChange;
                 Debug.Log(states.GetComponent<global_money>().GlobalMoney);
 
-                //string name = networkInputData.playerName.ToString();
-                //stateObject.GetComponent<scoring>().addPoints(name, networkInputData.scoreChange);
+                string name = networkInputData.playerName.ToString();
+                if (!states.GetComponent<scoring>().checkIfRegistered(name))
+                {
+
+                    states.GetComponent<scoring>().registerPlayer(name);
+
+                }
+                
+                states.GetComponent<scoring>().addPoints(name, networkInputData.scoreChange);
 
             }
             else Log.Info("not the StateAuthority :(");

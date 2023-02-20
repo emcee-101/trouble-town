@@ -13,9 +13,11 @@ public class CharacterInputHandler : MonoBehaviour
     LocalCameraHandler localCameraHandler;
 
     //Values to be transmitted to the Server
-    public int scoreChange = 0;
+    public float scoreChange = 0;
     public int globalMoneyChange = 0;
     public int globalPocketMoneyChange = 0;
+
+    scoring scores;
 
 
     private void Awake()
@@ -62,6 +64,48 @@ public class CharacterInputHandler : MonoBehaviour
 
         }
     }
+    private void getScoresScript()
+    {
+        scores = GameObject.FindGameObjectWithTag("State").GetComponent<scoring>();
+
+    }
+
+    public void addRobbingPoints()
+    {
+        if (scores == null)
+            getScoresScript();
+
+        scoreChange += scores.pointsForRobbing;
+
+    }
+
+    public void addGettingCaughtPoints()
+    {
+        if (scores == null)
+            getScoresScript();
+
+        scoreChange += scores.pointsForGettingCaught;
+    }
+
+    public void addStoringMoneyPoints()
+    {
+        if (scores == null)
+            getScoresScript();
+
+
+        scoreChange += scores.pointsForStoringMoney;
+    }
+
+    public void addCatchingRobberPoints()
+    {
+        if (scores == null)
+            getScoresScript();
+
+
+        scoreChange += scores.pointsForCatchingRobber;
+    }
+
+
 
     public NetworkInputData GetNetworkInput()
     {
