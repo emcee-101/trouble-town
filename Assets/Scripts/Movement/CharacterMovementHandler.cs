@@ -15,12 +15,6 @@ public class CharacterMovementHandler : NetworkBehaviour
         networkCharacterControllerPrototypeCustom = GetComponent<NetworkCharacterControllerPrototypeCustom>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        animator = gameObject.GetComponent<Animator>();
-
-    }
 
     public override void FixedUpdateNetwork()
     {
@@ -54,6 +48,25 @@ public class CharacterMovementHandler : NetworkBehaviour
             if (networkInputData.isJumpPressed)
                 networkCharacterControllerPrototypeCustom.Jump();
 
+            // IF PLAYER == HOST -> change global values
+            NetworkObject netObj = gameObject.GetComponent<NetworkObject>();
+
+            if (netObj.HasStateAuthority)
+
+            {
+                GameObject states = GameObject.FindGameObjectWithTag("State");
+
+                states.GetComponent<global_money>().GlobalMoney += networkInputData.globalMoneyChange;
+                Debug.Log(states.GetComponent<global_money>().GlobalMoney);
+
+                //string name = networkInputData.playerName.ToString();
+                //stateObject.GetComponent<scoring>().addPoints(name, networkInputData.scoreChange);
+
+            }
+            else Log.Info("not the StateAuthority :(");
+
+
+
             //Check if we've fallen off the world.
             CheckFallRespawn();
         }
@@ -69,6 +82,8 @@ public class CharacterMovementHandler : NetworkBehaviour
 
     override public void Spawned()
     {
+        animator = gameObject.GetComponent<Animator>();
+
         GetComponent<NetworkPlayer>().LobbyStart();
         FindObjectOfType<round_spawner>().Init();
         Respawn();

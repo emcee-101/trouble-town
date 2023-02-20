@@ -59,7 +59,9 @@ public class ThiefActions : MonoBehaviour
         }
         if (state != null)
         {
-            globalMoney.GlobalMoney      -= stealAmount;
+            GetComponent<CharacterInputHandler>().globalMoneyChange += stealAmount;
+
+            //globalMoney.GlobalMoney      -= stealAmount;
             globalMoney.TotalPocketMoney += stealAmount;
             // add Points
             //scoring scorings = state.GetComponent<scoring>();
