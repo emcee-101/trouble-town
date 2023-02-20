@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RedPoliceItem : NetworkBehaviour
+public class PhoneItem : NetworkBehaviour
 {
     private round_spawner roundSpawner;
     private NetworkRunner runner;
@@ -20,13 +20,13 @@ public class RedPoliceItem : NetworkBehaviour
 
         if (networkPlayer != null && networkPlayer.isHostAndPolice)
         {
-            if (roundSpawner.spawnedRedPoliceItems.Contains(this))
+            if (roundSpawner.spawnedPhoneItems.Contains(this))
             {
-                roundSpawner.spawnedRedPoliceItems.Remove(this);
+                roundSpawner.spawnedPhoneItems.Remove(this);
                 runner.Despawn(GetComponent<NetworkObject>());
-                networkPlayer.hasRedPoliceItem = true;
+                networkPlayer.hasPhoneItem = true;
             }
-            
+
         }
     }
 }

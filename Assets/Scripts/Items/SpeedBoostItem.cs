@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlueRobberItem : NetworkBehaviour
+public class SpeedBoostItem : NetworkBehaviour
 {
     private round_spawner roundSpawner;
     private NetworkRunner runner;
@@ -13,17 +13,18 @@ public class BlueRobberItem : NetworkBehaviour
         roundSpawner = FindObjectOfType<round_spawner>();
         runner = FindObjectOfType<NetworkRunner>();
     }
+
     private void OnTriggerEnter(Collider other)
     {
         NetworkPlayer networkPlayer = other.GetComponent<NetworkPlayer>();
 
-        if (networkPlayer != null && !networkPlayer.isHostAndPolice)
+        if (networkPlayer != null)
         {
-            if (roundSpawner.spawnedBlueRobberItems.Contains(this))
+            if (roundSpawner.spawnedSpeedBoostItems.Contains(this))
             {
-                roundSpawner.spawnedBlueRobberItems.Remove(this);
+                roundSpawner.spawnedSpeedBoostItems.Remove(this);
                 runner.Despawn(GetComponent<NetworkObject>());
-                networkPlayer.hasBlueRobberItem = true;
+                networkPlayer.hasSpeedBoostItem = true;
             }
         }
     }
