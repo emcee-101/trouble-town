@@ -10,6 +10,8 @@ TagManager:
   - MainAndSettingsMenu
   - MAIN_MENU
   - SET_MENU
+  - map
+  - lobby
   layers:
   - Default
   - TransparentFX

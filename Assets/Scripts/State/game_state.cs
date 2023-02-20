@@ -8,10 +8,20 @@ public enum GameState { pregame, game, aftergame, defaultState };
 
 public class game_state : NetworkBehaviour
 {
+    private NetworkRunner networkRunner;
+    public NetworkPlayer host;
+    public int hostID;
+
     public GameObject map;
     public GameObject preMap;
 
     [Networked(OnChanged = nameof(onGameStateChanged))] public GameState gameState { get; set; } = GameState.defaultState;
+
+    private void Start()
+    {
+        FindObjectOfType<round_spawner>().Init();
+        networkRunner = FindObjectOfType<NetworkRunner>();
+    }
 
     public static void onGameStateChanged(Changed<game_state> changed)
     {
@@ -42,8 +52,12 @@ public class game_state : NetworkBehaviour
 
     private void startGame()
     {
-        HideAllMaps();
-        map.SetActive(true);
+        if (networkRunner == null)
+        {
+            networkRunner = FindObjectOfType<NetworkRunner>();
+        }
+
+        networkRunner.SessionInfo.IsOpen = false;
 
         foreach (GameObject player in getAllNetworkPlayers())
         {
@@ -62,8 +76,12 @@ public class game_state : NetworkBehaviour
 
     private void startLobby()
     {
-        HideAllMaps();
-        preMap.SetActive(true);
+        if (networkRunner == null)
+        {
+            networkRunner = FindObjectOfType<NetworkRunner>();
+        }
+
+        networkRunner.SessionInfo.IsOpen = true;
 
         gameObject.GetComponent<scoring>().initScores();
 
@@ -74,12 +92,6 @@ public class game_state : NetworkBehaviour
         }
         
         respawnAllPlayersInActiveMap();
-    }
-
-    private void HideAllMaps()
-    {
-        map.SetActive(false);
-        preMap.SetActive(false);
     }
 
     private void endGame()

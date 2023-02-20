@@ -1312,7 +1312,7 @@ GameObject:
   - component: {fileID: 114076559}
   m_Layer: 0
   m_Name: GameMap
-  m_TagString: Untagged
+  m_TagString: map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25911,7 +25911,7 @@ GameObject:
   - component: {fileID: 5973718489598144885}
   m_Layer: 0
   m_Name: PreGameMap
-  m_TagString: Untagged
+  m_TagString: lobby
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
