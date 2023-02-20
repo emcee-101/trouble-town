@@ -12,6 +12,11 @@ public class CharacterInputHandler : MonoBehaviour
     //Other components
     LocalCameraHandler localCameraHandler;
 
+    //Values to be transmitted to the Server
+    public int scoreChange = 0;
+    public int globalMoneyChange = 0;
+    public int globalPocketMoneyChange = 0;
+
 
     private void Awake()
     {
@@ -73,6 +78,31 @@ public class CharacterInputHandler : MonoBehaviour
 
         //Reset variables now that we have read their states
         isJumpButtonPressed = false;
+
+        // transmit name - important for scores
+        networkInputData.playerName = new Fusion.NetworkString<Fusion._16>();
+
+        if (networkPlayer != null)
+
+            networkInputData.playerName.Set(networkPlayer.nickName.ToString());
+
+        else
+
+            networkInputData.playerName = "FAILURE";
+
+
+        // reflects data from Interactions with players
+        networkInputData.globalMoneyChange = globalMoneyChange;
+        networkInputData.scoreChange = scoreChange;
+        networkInputData.globalPocketMoneyChange = globalPocketMoneyChange;
+
+
+        // set variables back to reflect consumption of change (so that no change is doubled)
+        globalMoneyChange = 0;
+        scoreChange = 0;
+        globalPocketMoneyChange = 0;
+
+
 
         return networkInputData;
     }
