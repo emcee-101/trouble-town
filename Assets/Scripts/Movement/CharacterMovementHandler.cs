@@ -89,7 +89,8 @@ public class CharacterMovementHandler : NetworkBehaviour
 
     override public void Spawned()
     {
-
+        if(gameObject.GetComponent<NetworkObject>().HasStateAuthority) 
+            FindObjectOfType<game_state>().gameState = GameState.pregame;
 
         animator = gameObject.GetComponent<Animator>();
 
