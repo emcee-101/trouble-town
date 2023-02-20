@@ -42,22 +42,11 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
 
             bool isPolice = activePlayers == 1;
 
-            NetworkPlayer playerPrefab;
-
-            if (isPolice)
-            {
-                playerPrefab = playerPolicePrefabs[UnityEngine.Random.Range(0, playerPolicePrefabs.Count())];
-            }
-            else
-            {
-                playerPrefab = playerRobberPrefabs[UnityEngine.Random.Range(0, playerRobberPrefabs.Count())];
-            }
+            NetworkPlayer playerPrefab = isPolice
+                ? playerPolicePrefabs[UnityEngine.Random.Range(0, playerPolicePrefabs.Count())]
+                : playerRobberPrefabs[UnityEngine.Random.Range(0, playerRobberPrefabs.Count())];
 
             playerPrefab.isHostAndPolice = isPolice;
-
-            Debug.Log("Activeplayers: " + activePlayers + " / " + runner.SessionInfo.MaxPlayers);
-
-            
 
             // Spawning happens in PlayerPrefab->CharacterMovemetnHandler->Spawned() now
             NetworkPlayer spawnedObject = runner.Spawn(playerPrefab, inputAuthority: player);
