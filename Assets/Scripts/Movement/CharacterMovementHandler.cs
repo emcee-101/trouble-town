@@ -89,6 +89,8 @@ public class CharacterMovementHandler : NetworkBehaviour
 
     override public void Spawned()
     {
+
+
         animator = gameObject.GetComponent<Animator>();
 
         GetComponent<NetworkPlayer>().LobbyStart();
