@@ -69,6 +69,7 @@ public class CharacterMovementHandler : NetworkBehaviour
 
     override public void Spawned()
     {
+        FindObjectOfType<game_state>().gameState = GameState.pregame;
         GetComponent<NetworkPlayer>().LobbyStart();
         FindObjectOfType<round_spawner>().Init();
         Respawn();
