@@ -164,14 +164,14 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     public void PlayerLeft(PlayerRef player)
     {
 
-        // deregister Player from Scoring
-        GameObject obj = GameObject.FindGameObjectWithTag("State");
-        scoring Scores = obj.GetComponent<scoring>();
-        Scores.removePlayer(nickName.ToString());
+        
 
 
         if (Object.HasStateAuthority)
         {
+            GameObject.FindGameObjectWithTag("State").GetComponent<scoring>().removePlayer(nickName.ToString());
+
+
             if (Runner.TryGetPlayerObject(player, out NetworkObject playerLeftNetworkObject))
             {
                 if (playerLeftNetworkObject == Object)
@@ -249,10 +249,9 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             lobbyUIStartButton.interactable = false;
         }
 
-        // register Player for Scoring
-        GameObject obj = GameObject.FindGameObjectWithTag("State");
-        scoring Scores = obj.GetComponent<scoring>();
-        Scores.registerPlayer(nickName.ToString());
+
+
+
     }
 
     public void GameEnd()
