@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Author: Mohammad Zidane
 public class Interactable : MonoBehaviour
 {
     // Add or remove an InteractionEvent component to this gameObject.

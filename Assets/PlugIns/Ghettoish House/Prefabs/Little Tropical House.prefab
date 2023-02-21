@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 132843723358960788}
   - component: {fileID: 443813024237542544}
   - component: {fileID: 2743274425150561796}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,4 +196,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   interactableType: hideout
-  promptMessage: hi there press e to stash money
+  promptMessage: Secure your pocket money

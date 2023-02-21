@@ -49,7 +49,7 @@ AudioMixerEffectController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name:
+  m_Name: 
   m_EffectID: 1062bb50ef29f6542a90fab3e7d64f87
   m_EffectName: Attenuation
   m_MixLevel: d17b0366efa6a0043855aabf7be83a96

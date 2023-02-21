@@ -1,7 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Author: Mohammad Zidane
 public class PlayerUI : MonoBehaviour
 {
     public TextMeshProUGUI promptText;
@@ -56,7 +59,8 @@ public class PlayerUI : MonoBehaviour
     public float durationTimerCriminalState;
     public float durationTimerInvestigation;
     public float durationTimerPrison;
-
+    
+    private bool currentlyPlayingCriminalCatched = false;
     private CharacterController cc;
 
     void Start(){
@@ -81,7 +85,14 @@ public class PlayerUI : MonoBehaviour
         
         CheckEnterClickFromHost();
 
+        if (!netPlayer.isHostAndPolice)
+        {
+            updateThiefUI();
+        }
+    }
 
+    private void updateThiefUI()
+    {
         if (thiefActions.isCriminal && !thiefActions.isInPrison) {
             ownAudio.PlayOneShot(catchedByPolice);
             intenseOverlay.enabled = true;
@@ -108,7 +119,7 @@ public class PlayerUI : MonoBehaviour
             ownAudio.Stop();
             warnMessage.text = "You are in prison!";
             UpdateWhileInPrison();
-        }   
+        }
     }
     private void CheckEnterClickFromHost(){
         if (Input.GetKeyDown(KeyCode.Return) && GetComponentInParent<NetworkPlayer>().isHostAndPolice)
@@ -218,6 +229,7 @@ public class PlayerUI : MonoBehaviour
         {
             if (thiefActions.isCriminal)
             {
+                StartCoroutine(playCriminalCatched());
                 transform.position = new Vector3(43.915f,3.259f,13.179f);
                 thiefActions.isInPrison = true;
                 durationTimerPrison = thiefActions.prisonTimeDuration;
@@ -258,4 +270,19 @@ public class PlayerUI : MonoBehaviour
     {
         return (durationTimerStealCooldown > 0);
     }
+
+    IEnumerator playCriminalCatched()
+     {
+         // Pick a random footstep sound to play
+         ownAudio.clip = catchedByPolice;
+ 
+         // Pick a random pitch to play it at
+         //int randomPitch = Random.Range(1, 3);
+         //footStepAudioSource.pitch = (int)randomPitch;
+ 
+         // Play the sound
+         ownAudio.Play();
+         yield return new WaitForSeconds(8.5f);
+         ownAudio.Stop();
+     }
 }
