@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+// Author: Mohammad Zidane
 public class ThiefActions : MonoBehaviour
 {
     [SerializeField]

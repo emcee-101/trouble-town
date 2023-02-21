@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
+// Author: Mohammad Zidane
 public class PlayerInteract : MonoBehaviour
 {
     public Camera cam;
@@ -27,19 +29,18 @@ public class PlayerInteract : MonoBehaviour
         // create invisible ray from the center of the camera, shooting outwards.
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         Debug.DrawRay(ray.origin, ray.direction * rayDistance);
-        if (Physics.Raycast(ray, out hitInfo, rayDistance, mask))
+        if (!Physics.Raycast(ray, out hitInfo, rayDistance, mask)){
+            return;
+        }
+        if (hitInfo.collider.GetComponent<Interactable>() == null){
+            return;
+        }
+        Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
+        playerUI.promptText.text = interactable.promptMessage;
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (hitInfo.collider.GetComponent<Interactable>() != null)
-            {
-                Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
-                playerUI.promptText.text = interactable.promptMessage;
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    interactable.BaseInteract();
-                    onInteractPlayerAction(hitInfo.collider);
-                    
-                }
-            }
+            interactable.BaseInteract();
+            onInteractPlayerAction(hitInfo.collider);
         }
     }
 
@@ -55,8 +56,8 @@ public class PlayerInteract : MonoBehaviour
                 thiefActions.hideMoney();
                 break;
             case "thief":
-                NetworkPlayer netPlayer = collider.GetComponent<NetworkPlayer>();
-                policeActions.investigatePlayer(netPlayer);
+                NetworkPlayer remoteNetPlayer = collider.GetComponent<NetworkPlayer>();
+                policeActions.investigatePlayer(remoteNetPlayer);
                 break;
 
         }

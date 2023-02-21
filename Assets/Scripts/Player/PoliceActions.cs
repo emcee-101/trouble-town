@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Author: Mohammad Zidane
 public class PoliceActions : MonoBehaviour
 {
     public float investigationDuration;
@@ -19,9 +20,9 @@ public class PoliceActions : MonoBehaviour
 
     public bool investigatePlayer(NetworkPlayer _np)
     {
-        _np.isBeingInvestigated = true;
-        //waiter(_np);
-
+        
+        StartCoroutine(waiter(_np));
+        
         GetComponent<CharacterInputHandler>().addCatchingRobberPoints();
 
         return true;
@@ -29,8 +30,11 @@ public class PoliceActions : MonoBehaviour
     
     IEnumerator waiter(NetworkPlayer _np)
     {
+        _np.isBeingInvestigated = true;
+        GetComponent<CharacterController>().enabled = false;
         //Wait for 5 seconds
         yield return new WaitForSeconds(investigationDuration);
+        GetComponent<CharacterController>().enabled = true;
         _np.isBeingInvestigated = false;
     }
 

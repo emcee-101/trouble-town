@@ -285,7 +285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2991245161320222033, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: mask.m_Bits
-      value: 1152
+      value: 5248
       objectReference: {fileID: 0}
     - target: {fileID: 3071583952176706105, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: m_Layer
@@ -315,6 +315,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5594361340946633643, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5594361340946633643, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: NetworkedBehaviours.Array.data[4]
+      value: 
+      objectReference: {fileID: 8192374104208790008}
     - target: {fileID: 5594361340946633643, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: NetworkGuid.RawGuidValue.Array.data[0]
       value: 3775804597739353947
@@ -521,6 +529,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8484312688373783044, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
   m_PrefabInstance: {fileID: 429372948754104987}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8192374104208790008 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8377918770133324643, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+  m_PrefabInstance: {fileID: 429372948754104987}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8542657075283632217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37383fe60580a4f4481b225801a84a06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8542657075283632217 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8320661125014528706, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
@@ -539,24 +558,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   investigationDuration: 5
---- !u!114 &8789321331093337500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8542657075283632217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37a1da9db07cac0478bc4806ea95545c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stealAmount: 1000
-  hasJustStolen: 0
-  isCriminal: 0
-  isInPrison: 0
-  pocketMoneyHidden: 0
-  stealCooldown: 20
-  investigationDuration: 5
-  prisonTimeDuration: 20
-  wantedStateDuration: 10
