@@ -8,34 +8,53 @@ public class Footsteps : NetworkBehaviour
 {
     public AudioSource footStepAudioSource;
     public AudioClip footstepsSound;
-    private NetworkBool currentlyPlaying = false;
-    
+    private bool currentlyPlaying;
+    private NetworkBool playFootstepSound;
+
+    void Spawned() 
+    {
+        currentlyPlaying = false;
+        playFootstepSound = false;
+        
+    }
     void Update()
     {
-        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        if (Object.HasInputAuthority)
+        {
+            if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+            {
+                playFootstepSound = true;
+            }
+            else
+            {
+                playFootstepSound = false;
+            }
+        }
+
+        if (playFootstepSound)
         {
             if (currentlyPlaying == false)
              {
                  StartCoroutine(playFootStep());
              }
-             return;
         }
-        footStepAudioSource.Stop();
-        currentlyPlaying = true;
+        else 
+        {
+            footStepAudioSource.Stop();
+            currentlyPlaying = false;
+        }
     }
     IEnumerator playFootStep()
      {
-         currentlyPlaying = true;
-         // Pick a random footstep sound to play
-         footStepAudioSource.clip = footstepsSound;
+        // Pick a footstep sound to play
+        footStepAudioSource.clip = footstepsSound;
+        //int randomPitch = Random.Range(1, 3);
+        //footStepAudioSource.pitch = (int)randomPitch;
  
-         // Pick a random pitch to play it at
-         //int randomPitch = Random.Range(1, 3);
-         //footStepAudioSource.pitch = (int)randomPitch;
- 
-         // Play the sound
-         footStepAudioSource.Play();
-         yield return new WaitForSeconds(footStepAudioSource.clip.length);
-         currentlyPlaying = false;
+        // Play the sound
+        footStepAudioSource.Play();
+        currentlyPlaying = true;
+        yield return new WaitForSeconds(footStepAudioSource.clip.length);
+        currentlyPlaying = false;
      }
 }

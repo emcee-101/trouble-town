@@ -35,7 +35,10 @@ public class PoliceActions : MonoBehaviour
         //Wait for 5 seconds
         yield return new WaitForSeconds(investigationDuration);
         GetComponent<CharacterController>().enabled = true;
-        _np.isBeingInvestigated = false;
+        _np.gameObject.transform.position = new Vector3(30.15f,76.95f,20.82f);
+        yield return new WaitForSeconds(15.0f);
+        _np.gameObject.transform.position = new Vector3(2000.11f,2.20f,3000.28f);
+        //_np.isBeingInvestigated = false;
     }
 
 }

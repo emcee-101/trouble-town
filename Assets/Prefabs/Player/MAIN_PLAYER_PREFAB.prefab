@@ -3422,8 +3422,9 @@ MonoBehaviour:
     _data:
       Data: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   isHostAndPolice: 0
-  hasBlueRobberItem: 0
-  hasRedPoliceItem: 0
+  hasMoneyBagItem: 0
+  hasPhoneItem: 0
+  hasSpeedBoostItem: 0
   _isBeingInvestigated:
     _value: 0
   localCameraHandler: {fileID: 6104833922207306215}
@@ -3494,7 +3495,7 @@ MonoBehaviour:
   jumpImpulse: 8
   acceleration: 50
   braking: 30
-  maxSpeed: 60
+  maxSpeed: 15
   rotationSpeed: 80
   viewUpDownRotationSpeed: 60
   _IsGrounded: 0
