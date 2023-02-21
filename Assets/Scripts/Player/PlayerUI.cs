@@ -94,7 +94,6 @@ public class PlayerUI : MonoBehaviour
     private void updateThiefUI()
     {
         if (thiefActions.isCriminal && !thiefActions.isInPrison) {
-            ownAudio.PlayOneShot(catchedByPolice);
             intenseOverlay.enabled = true;
             warnMessage.text = "Now you are criminal! Stay away from policeman*in";
             UpdateIntenseOverlay();
@@ -104,7 +103,6 @@ public class PlayerUI : MonoBehaviour
         if (durationTimerStealCooldown > 0) {
             UpdateStealingCooldown();
         }
-
 
         if (netPlayer.isBeingInvestigated) {
             warnMessage.text = "You are being investigated by policeman!";
@@ -235,7 +233,7 @@ public class PlayerUI : MonoBehaviour
             if (thiefActions.isCriminal)
             {
                 StartCoroutine(playCriminalCatched());
-                transform.position = new Vector3(43.915f,3.259f,13.179f);
+                //transform.position = new Vector3(30.15f,76.95f,20.82f);
                 thiefActions.isInPrison = true;
                 durationTimerPrison = thiefActions.prisonTimeDuration;
                 black.color = new Color(255.0f, 255.0f, 255.0f, 0.0f);
@@ -247,6 +245,7 @@ public class PlayerUI : MonoBehaviour
     }
 
     public void UpdateWhileInPrison(){
+        //cc.enabled = false;
         durationTimerPrison -= Time.deltaTime;
         string guiTimer = durationTimerPrison.ToString("0");
         cooldownText.text = "Leaving the prison in " + guiTimer;
@@ -255,6 +254,7 @@ public class PlayerUI : MonoBehaviour
             thiefActions.isCriminal = false;
             //transform.position = Utils.GetRandomSpawnPoint();
             thiefActions.isInPrison = false;
+            cc.enabled = true;
         }
     }
 
@@ -280,14 +280,9 @@ public class PlayerUI : MonoBehaviour
      {
          // Pick a random footstep sound to play
          ownAudio.clip = catchedByPolice;
- 
-         // Pick a random pitch to play it at
-         //int randomPitch = Random.Range(1, 3);
-         //footStepAudioSource.pitch = (int)randomPitch;
- 
          // Play the sound
          ownAudio.Play();
-         yield return new WaitForSeconds(8.5f);
+         yield return new WaitForSeconds(9);
          ownAudio.Stop();
      }
 }

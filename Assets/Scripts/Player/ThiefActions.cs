@@ -92,11 +92,8 @@ public class ThiefActions : MonoBehaviour
         
         globalMoney.TotalPocketMoney += pocketMoney;
         pocketMoney = 0;
-
         // add Points
         GetComponent<CharacterInputHandler>().addGettingCaughtPoints();
-
-
         return true;
     }
 

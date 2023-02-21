@@ -234,10 +234,6 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public void LobbyStart()
     {
-        if (!Object.HasInputAuthority){
-            return;
-        }
-
         if (isGamePaused)
             toggleGamePausedState();
 
