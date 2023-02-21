@@ -62,7 +62,8 @@ public class CharacterMovementHandler : NetworkBehaviour
                 {
                     states.GetComponent<scoring>().registerPlayer(name);
                 }
-                states.GetComponent<scoring>().addPoints(name, networkInputData.scoreChange);
+                if (name != "" && name != "FAILURE")
+                    states.GetComponent<scoring>().addPoints(name, networkInputData.scoreChange);
             }
 
             //Check if we've fallen off the world.
