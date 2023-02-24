@@ -9,11 +9,13 @@ public class CharacterMovementHandler : NetworkBehaviour
     NetworkCharacterControllerPrototypeCustom networkCharacterControllerPrototypeCustom;
     NetworkInGameMessages networkInGameMessages;
     UtilLobby lobbyUtils = null;
-    Animator animator;
-    private void Awake()
-    {
-        networkCharacterControllerPrototypeCustom = GetComponent<NetworkCharacterControllerPrototypeCustom>();
-    }
+    
+
+    [Networked]
+    NetworkBool isWalking { get; set; } = false;
+    private NetworkMecanimAnimator _networkAnimator;
+
+
 
     public override void FixedUpdateNetwork()
     {
@@ -32,14 +34,7 @@ public class CharacterMovementHandler : NetworkBehaviour
             Vector3 moveDirection = transform.forward * networkInputData.movementInput.y + transform.right * networkInputData.movementInput.x;
             moveDirection.Normalize();
 
-            if (moveDirection.x != 0.0f || moveDirection.y != 0.0f)
-            {
-                animator.SetBool("isWalking", true);
-            }
-            else
-            {
-                animator.SetBool("isWalking", false);
-            }
+
 
             networkCharacterControllerPrototypeCustom.Move(moveDirection);
 
@@ -52,6 +47,7 @@ public class CharacterMovementHandler : NetworkBehaviour
 
             if (netObj.HasStateAuthority)
             {
+
                 GameObject states = GameObject.FindGameObjectWithTag("State");
 
                 states.GetComponent<global_money>().GlobalMoney += networkInputData.globalMoneyChange;
@@ -65,6 +61,17 @@ public class CharacterMovementHandler : NetworkBehaviour
                 if (name != "" && name != "FAILURE")
                     states.GetComponent<scoring>().addPoints(name, networkInputData.scoreChange);
             }
+
+            // set Animation state -> is a synchronised value provided by the "Network Mecanim Animator" assigned to this instance
+            if ((moveDirection.x != 0.0f || moveDirection.y != 0.0f) && IsProxy != true)
+            {
+                _networkAnimator.Animator.SetBool("isWalking", true);
+            }
+            else
+            {
+                _networkAnimator.Animator.SetBool("isWalking", false);
+            }
+    
 
             //Check if we've fallen off the world.
             CheckFallRespawn();
@@ -81,10 +88,12 @@ public class CharacterMovementHandler : NetworkBehaviour
 
     override public void Spawned()
     {
-        if(gameObject.GetComponent<NetworkObject>().HasStateAuthority)
+        networkCharacterControllerPrototypeCustom = GetComponent<NetworkCharacterControllerPrototypeCustom>();
+
+        if (gameObject.GetComponent<NetworkObject>().HasStateAuthority)
             FindObjectOfType<game_state>().gameState = GameState.pregame;
 
-        animator = gameObject.GetComponent<Animator>();
+        _networkAnimator = GetComponent<NetworkMecanimAnimator>();
 
         GetComponentInParent<NetworkPlayer>().LobbyStart();
         FindObjectOfType<round_spawner>().Init();
