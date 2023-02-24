@@ -239,7 +239,10 @@ public class PlayerUI : MonoBehaviour
                 black.color = new Color(255.0f, 255.0f, 255.0f, 0.0f);
             }
             durationTimerInvestigation = thiefActions.investigationDuration;
-            netPlayer.isBeingInvestigated = false;
+
+            // wichtig - nicht von hier aus verändern - guck dir die PoliceActions Klasse an
+            // netPlayer.isBeingInvestigated = false;
+
             cc.enabled = true;
         }
     }

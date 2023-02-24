@@ -30,15 +30,20 @@ public class PoliceActions : MonoBehaviour
     
     IEnumerator waiter(NetworkPlayer _np)
     {
+
         _np.isBeingInvestigated = true;
+
         GetComponent<CharacterController>().enabled = false;
         //Wait for 5 seconds
         yield return new WaitForSeconds(investigationDuration);
         GetComponent<CharacterController>().enabled = true;
-        _np.gameObject.transform.position = new Vector3(30.15f,76.95f,20.82f);
+        _np.isBeingInvestigated = false;
+
+        _np.supposedToGoToPrison = true;
+
         yield return new WaitForSeconds(15.0f);
-        _np.gameObject.transform.position = new Vector3(2000.11f,2.20f,3000.28f);
-        //_np.isBeingInvestigated = false;
+
+        _np.supposedToGoToPrison = false;
     }
 
 }

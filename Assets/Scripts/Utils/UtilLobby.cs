@@ -10,27 +10,34 @@ public struct positionData
         place = pos;
     }
 
-
-
-
     public Vector3 returnPos() { return place; }
     public Quaternion returnAngle() { return rotation; }
 
     Quaternion rotation { get; set; }
     Vector3 place { get; set; }
 }
+
+public enum spawnType
+{
+    PRISON,
+    LOBBY,
+    GAME
+}
 public class UtilLobby : MonoBehaviour
 {
    
 
-    public positionData GetPlayerSpawnData(bool forLobby)
+    public positionData GetPlayerSpawnData(spawnType type)
     {
 
         IPlayerSpawnPointScript[] spawnPoints;
 
-        if (forLobby) { spawnPoints = (IPlayerSpawnPointScript[]) UnityEngine.Object.FindObjectsOfType<PlayerSpawnPointScriptForLobby>(); }
-        else { spawnPoints = (IPlayerSpawnPointScript[]) UnityEngine.Object.FindObjectsOfType<PlayerSpawnPointScriptForGame>(); }
+        if (type == spawnType.LOBBY) { spawnPoints = (IPlayerSpawnPointScript[]) UnityEngine.Object.FindObjectsOfType<PlayerSpawnPointScriptForLobby>(); }
+        else if(type == spawnType.GAME) { spawnPoints = (IPlayerSpawnPointScript[]) UnityEngine.Object.FindObjectsOfType<PlayerSpawnPointScriptForGame>(); }
+        else if(type == spawnType.PRISON) { spawnPoints = (IPlayerSpawnPointScript[])UnityEngine.Object.FindObjectsOfType<PlayerSpawnPointScriptForPrison>(); }
 
+        // default actíon
+        else { spawnPoints = (IPlayerSpawnPointScript[])UnityEngine.Object.FindObjectsOfType<PlayerSpawnPointScriptForGame>(); }
 
         // pick random element
         IPlayerSpawnPointScript resultPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];

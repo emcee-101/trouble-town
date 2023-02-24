@@ -124,7 +124,7 @@ public class CharacterMovementHandler : NetworkBehaviour
         if (states.GetComponent<game_state>().gameState == GameState.pregame)
         {
             // 1st spawn
-            spawnPoint = lobbyUtils.GetPlayerSpawnData(true);
+            spawnPoint = lobbyUtils.GetPlayerSpawnData(spawnType.LOBBY);
 
             //Debug.Log("point: " + spawnPoint.returnPos());
 
@@ -133,12 +133,36 @@ public class CharacterMovementHandler : NetworkBehaviour
 
         } else
         {
+
             // 2nd spawn when round starts....
-            destination = lobbyUtils.GetPlayerSpawnData(false);
-            wantsToTeleport = true;
+            teleport(lobbyUtils.GetPlayerSpawnData(spawnType.GAME));
 
         }
 
 
     }
+
+
+    public void teleport(positionData localVarDestination)
+    {
+        wantsToTeleport = true;
+        destination = localVarDestination;
+
+    }
+
+    // for policeactions
+    public void teleportToPrison()
+    {
+        wantsToTeleport = true;
+        destination = lobbyUtils.GetPlayerSpawnData(spawnType.PRISON);
+
+    }
+    public void teleportBackToMap()
+    {
+        wantsToTeleport = true;
+        destination = lobbyUtils.GetPlayerSpawnData(spawnType.GAME);
+
+    }
+
+
 }
