@@ -30,6 +30,7 @@ public class PoliceActions : MonoBehaviour
     
     IEnumerator waiter(NetworkPlayer _np)
     {
+
         _np.isBeingInvestigated = true;
 
         GetComponent<CharacterController>().enabled = false;
