@@ -7,7 +7,7 @@ public class endUI : MonoBehaviour
     public GameObject winPanel;
     public GameObject losePanel;
 
-    Init();
+ 
 
     // Start is called before the first frame update
     void Start()
