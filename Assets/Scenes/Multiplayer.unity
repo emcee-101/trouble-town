@@ -8714,7 +8714,7 @@ GameObject:
   m_Component:
   - component: {fileID: 564650520}
   m_Layer: 0
-  m_Name: PreGameMap (1)
+  m_Name: PRISON
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8734,6 +8734,7 @@ Transform:
   m_Children:
   - {fileID: 815098858}
   - {fileID: 1218118811}
+  - {fileID: 1278279937}
   m_Father: {fileID: 114076559}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19486,6 +19487,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1277091064}
   m_Mesh: {fileID: 831539257376824000, guid: 811bc4500dc54b14d94027a7f50cf234, type: 3}
+--- !u!1 &1278279936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1278279937}
+  - component: {fileID: 1278279938}
+  m_Layer: 9
+  m_Name: Player SpawnPoint 0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1278279937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278279936}
+  m_LocalRotation: {x: 0.000000011006084, y: 0.9848078, z: -0.00000000194067, w: 0.17364824}
+  m_LocalPosition: {x: 0.2361337, y: 6.24, z: -2.6814618}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 564650520}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1278279938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278279936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 846dcf15e9a177e4ba41883f2d1bd3c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1288533148
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,7 +23,11 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     public bool hasSpeedBoostItem = false;
 
     [Networked(OnChanged = nameof(OnChangeBeingInvestigated))]
-    public NetworkBool isBeingInvestigated { get; set; }
+    public NetworkBool isBeingInvestigated { get; set; } = false;
+
+    [Networked]
+    public NetworkBool supposedToGoToPrison { get; set; } = false;
+    bool isinPrison = false;
 
     private GameObject map;
     private GameObject preMap;
@@ -150,6 +154,8 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
                 playerUI.updatePlayerCount(runner.SessionInfo.PlayerCount, runner.SessionInfo.MaxPlayers);
             }
             Debug.Log("Spawned local player");
+
+
         }
         else
         {
@@ -205,6 +211,20 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             endUI.SetActive(false);
             scoreUI.activated = true;
 
+        }
+
+        // teleport to prison
+        if (!isinPrison && supposedToGoToPrison) {
+
+            gameObject.GetComponent<CharacterMovementHandler>().teleportToPrison();
+            isinPrison = true;
+            GetComponent<ThiefActions>().isInPrison = true;
+
+        } else if (isinPrison && !supposedToGoToPrison){
+
+            gameObject.GetComponent<CharacterMovementHandler>().teleportBackToMap();
+            isinPrison = false;
+            GetComponent<ThiefActions>().isInPrison = false;
         }
     }
 
