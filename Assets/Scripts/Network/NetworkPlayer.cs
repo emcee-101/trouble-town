@@ -46,7 +46,16 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     private ThiefActions thiefActions;
 
-    
+
+    // Information about the end of the game
+    [Networked]
+    public NetworkBool hasWon { get; set; } = false;
+    [Networked]
+    public NetworkBool policeWon { get; set; } = false;
+
+    [Networked]
+    public NetworkBool gameEnded { get; set; } = false;
+
 
     void Awake()
     {
@@ -167,6 +176,25 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         transform.name = $"Player_{Object.Id}";
 }
 
+    public override void FixedUpdateNetwork()
+    {
+        if (gameEnded && Object.HasInputAuthority)
+        {
+            //Debug.Log("game ended!!!");
+
+            if (!isGamePaused)
+                toggleGamePausedState();
+
+            HideUis();
+
+
+
+            endUI.SetActive(true);
+            scoreUI.activated = false;
+
+        }
+    }
+
     public void PlayerLeft(PlayerRef player)
     {
         if (Object.HasStateAuthority)
@@ -248,20 +276,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         }
     }
 
-    public void GameEnd()
-    {
-        if (!Object.HasInputAuthority)
-        {
-            return;
-        }
-        if (!isGamePaused)
-            toggleGamePausedState();
 
-        HideUis();
-
-        endUI.SetActive(true);
-        scoreUI.activated = false;
-    }
 
     private void HideUis()
     {

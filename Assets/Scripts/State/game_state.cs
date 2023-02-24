@@ -2,6 +2,7 @@ using Fusion;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum GameState { pregame, game, aftergame, defaultState };
@@ -91,41 +92,47 @@ public class game_state : NetworkBehaviour
 
     private void endGame()
     {
-        String playerName = "";
-        float biggestMoney = 0.0f;
-        bool policeWon;
+        float biggestScore = 0.0f;
+        bool policeWon = false;
+        NetworkPlayer winnerPlayer = null;
 
-        GameObject state = GameObject.FindGameObjectWithTag("State");
+        GameObject state = gameObject;
 
         state.GetComponent<round_timer>().stopTimer();
         
-        if (state.GetComponent<global_money>().GlobalMoney <= 0)
+        if ((state.GetComponent<global_money>().GlobalMoney > 0))
         {
 
-            Log.Info("Police lost - all the money's gone!!!");
-            policeWon = false;
-
-        } else
-        {
-
-            Log.Info("Theres still money in da Bank - Police won");
             policeWon = true;
 
+        } 
+
+        NetworkDictionary<string, float> list = state.GetComponent<scoring>().scorings;
+
+
+        foreach (NetworkPlayer networkPlayer in FindObjectsOfType<NetworkPlayer>())
+        {
+            string name = networkPlayer.nickName.ToString();
+            float score = list.Get(name);
+
+            // decide winner
+            if (score >= biggestScore) {
+
+                winnerPlayer = networkPlayer;
+                biggestScore = score;
+
+            }
         }
 
         foreach (NetworkPlayer networkPlayer in FindObjectsOfType<NetworkPlayer>())
         {
-            // decide winner
-            if(networkPlayer.GetComponentInParent<ThiefActions>().getPlayerSecuredMoney() > biggestMoney) {
+            if(networkPlayer.nickName.ToString() == winnerPlayer.nickName.ToString())
+                networkPlayer.hasWon = true;
 
-                playerName = networkPlayer.nickName.ToString();
-                biggestMoney = networkPlayer.GetComponentInParent<ThiefActions>().getPlayerSecuredMoney();
-            }
+            networkPlayer.policeWon = policeWon;
+            networkPlayer.gameEnded = true;
 
-            networkPlayer.GameEnd();
         }
-
-        Log.Info($"Player named {playerName} won with a money count of {biggestMoney}");
 
 
     }

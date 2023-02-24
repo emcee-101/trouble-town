@@ -11,11 +11,6 @@ public class round_timer : NetworkBehaviour
 
     public NetworkRunner networkRunnerInScene;
 
-    private void Start()
-    {
-        timeForOneRoundInSeconds = 600;
-    }
-
     public void startTimer()
     {
         networkRunnerInScene = FindObjectOfType<NetworkRunnerHandler>().networkRunner;
@@ -30,6 +25,9 @@ public class round_timer : NetworkBehaviour
     }
 
     public override void FixedUpdateNetwork() {
+
+        //if(!timer.Expired(networkRunnerInScene)) Debug.Log("has state auth: " + Object.HasStateAuthority + "  time left: " + timer.RemainingTime(networkRunnerInScene));
+
         // check if timer expired
         if (GetComponent<game_state>().gameState != GameState.aftergame && timer.Expired(networkRunnerInScene))
         {
