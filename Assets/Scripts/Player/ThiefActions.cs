@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 // Author: Mohammad Zidane
 public class ThiefActions : MonoBehaviour
@@ -15,10 +16,9 @@ public class ThiefActions : MonoBehaviour
 
     private GameObject state;
     private global_money globalMoney;
-
+    public bool isInPrison;
     public bool hasJustStolen;
     public bool isCriminal;
-    public bool isInPrison;
     public bool pocketMoneyHidden;
     public float stealCooldown;
     public float investigationDuration;

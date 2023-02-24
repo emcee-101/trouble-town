@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 public struct positionData
 {
@@ -15,28 +16,35 @@ public struct positionData
     Quaternion rotation { get; set; }
     Vector3 place { get; set; }
 }
+
+public enum spawnType
+{
+    PRISON,
+    LOBBY,
+    GAME
+}
 public class UtilLobby : MonoBehaviour
 {
-    public positionData GetPlayerSpawnData() {
+   
 
-        PlayerSpawnPointScript point = GetPlayerSpawnPoint();
-        positionData data = new positionData(point.place, point.angle);
+    public positionData GetPlayerSpawnData(spawnType type)
+    {
+
+        IPlayerSpawnPointScript[] spawnPoints;
+
+        if (type == spawnType.LOBBY) { spawnPoints = (IPlayerSpawnPointScript[]) UnityEngine.Object.FindObjectsOfType<PlayerSpawnPointScriptForLobby>(); }
+        else if(type == spawnType.GAME) { spawnPoints = (IPlayerSpawnPointScript[]) UnityEngine.Object.FindObjectsOfType<PlayerSpawnPointScriptForGame>(); }
+        else if(type == spawnType.PRISON) { spawnPoints = (IPlayerSpawnPointScript[])UnityEngine.Object.FindObjectsOfType<PlayerSpawnPointScriptForPrison>(); }
+
+        // default actíon
+        else { spawnPoints = (IPlayerSpawnPointScript[])UnityEngine.Object.FindObjectsOfType<PlayerSpawnPointScriptForGame>(); }
+
+        // pick random element
+        IPlayerSpawnPointScript resultPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+
+        positionData data = new positionData(resultPoint.place, resultPoint.angle);
 
         return data;
-    }
-    public Vector3 GetPlayerSpawnLocation()
-    {
-        PlayerSpawnPointScript point = GetPlayerSpawnPoint();
-
-        return point.place;
-    }
-
-    public PlayerSpawnPointScript GetPlayerSpawnPoint()
-    {
-        PlayerSpawnPointScript[] spawnPoints = UnityEngine.Object.FindObjectsOfType<PlayerSpawnPointScript>();
-        // pick random element
-        PlayerSpawnPointScript resultPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
-        return resultPoint;
     }
 
     public positionData GetItemSpawnData()

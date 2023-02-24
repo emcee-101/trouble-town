@@ -9,13 +9,15 @@ public class CharacterMovementHandler : NetworkBehaviour
     NetworkCharacterControllerPrototypeCustom networkCharacterControllerPrototypeCustom;
     NetworkInGameMessages networkInGameMessages;
     UtilLobby lobbyUtils = null;
+    GameObject states;
     
 
     [Networked]
     NetworkBool isWalking { get; set; } = false;
     private NetworkMecanimAnimator _networkAnimator;
 
-
+    bool wantsToTeleport = false;
+    positionData destination;
 
     public override void FixedUpdateNetwork()
     {
@@ -42,13 +44,21 @@ public class CharacterMovementHandler : NetworkBehaviour
             if (networkInputData.isJumpPressed)
                 networkCharacterControllerPrototypeCustom.Jump();
 
+            // teleport to spawn
+            if (wantsToTeleport)
+            {
+                wantsToTeleport = false;
+                networkCharacterControllerPrototypeCustom.teleport(destination);
+            }
+
+
             // IF PLAYER == HOST -> change global values
             NetworkObject netObj = gameObject.GetComponent<NetworkObject>();
 
             if (netObj.HasStateAuthority)
             {
 
-                GameObject states = GameObject.FindGameObjectWithTag("State");
+                if(states == null) states = GameObject.FindGameObjectWithTag("State");
 
                 states.GetComponent<global_money>().GlobalMoney += networkInputData.globalMoneyChange;
                 //Debug.Log(states.GetComponent<global_money>().GlobalMoney);
@@ -90,8 +100,10 @@ public class CharacterMovementHandler : NetworkBehaviour
     {
         networkCharacterControllerPrototypeCustom = GetComponent<NetworkCharacterControllerPrototypeCustom>();
 
+        if (states == null) states = GameObject.FindGameObjectWithTag("State");
+
         if (gameObject.GetComponent<NetworkObject>().HasStateAuthority)
-            FindObjectOfType<game_state>().gameState = GameState.pregame;
+            states.GetComponent<game_state>().gameState = GameState.pregame;
 
         _networkAnimator = GetComponent<NetworkMecanimAnimator>();
 
@@ -102,21 +114,55 @@ public class CharacterMovementHandler : NetworkBehaviour
 
     public void Respawn()
     {
-        if (lobbyUtils == null)
+        
+        
+         if (states == null) states = GameObject.FindGameObjectWithTag("State");
+         lobbyUtils = states.GetComponent<UtilLobby>();
+
+         positionData spawnPoint;
+
+        if (states.GetComponent<game_state>().gameState == GameState.pregame)
         {
-            GameObject obj = GameObject.FindGameObjectWithTag("State");
-            lobbyUtils = obj.GetComponent<UtilLobby>();
+            // 1st spawn
+            spawnPoint = lobbyUtils.GetPlayerSpawnData(spawnType.LOBBY);
+
+            //Debug.Log("point: " + spawnPoint.returnPos());
+
+            gameObject.GetComponent<NetworkCharacterControllerPrototypeCustom>().teleport(spawnPoint);
+
+
+        } else
+        {
+
+            // 2nd spawn when round starts....
+            teleport(lobbyUtils.GetPlayerSpawnData(spawnType.GAME));
+
         }
 
-        if (lobbyUtils != null)
-        {
-            positionData spawnPoint = lobbyUtils.GetPlayerSpawnData();
 
-            // lets test if this works better
-            transform.position = new Vector3(spawnPoint.returnPos().x, spawnPoint.returnPos().y, spawnPoint.returnPos().z);
-            // transform.position = spawnPoint.returnPos();
-            
-            transform.rotation = new Quaternion(spawnPoint.returnAngle().x, spawnPoint.returnAngle().y, spawnPoint.returnAngle().z, spawnPoint.returnAngle().w);
-        }
     }
+
+
+    public void teleport(positionData localVarDestination)
+    {
+        wantsToTeleport = true;
+        destination = localVarDestination;
+
+    }
+
+    // for policeactions
+    public void teleportToPrison()
+    {
+        wantsToTeleport = true;
+        destination = lobbyUtils.GetPlayerSpawnData(spawnType.PRISON);
+
+    }
+    public void teleportBackToMap()
+    {
+        wantsToTeleport = true;
+        destination = lobbyUtils.GetPlayerSpawnData(spawnType.GAME);
+
+    }
+
+
 }

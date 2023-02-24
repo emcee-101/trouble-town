@@ -23,7 +23,11 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     public bool hasSpeedBoostItem = false;
 
     [Networked(OnChanged = nameof(OnChangeBeingInvestigated))]
-    public NetworkBool isBeingInvestigated { get; set; }
+    public NetworkBool isBeingInvestigated { get; set; } = false;
+
+    [Networked]
+    public NetworkBool supposedToGoToPrison { get; set; } = false;
+    bool isinPrison = false;
 
     private GameObject map;
     private GameObject preMap;
@@ -139,6 +143,8 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
                 playerUI.updatePlayerCount(runner.SessionInfo.PlayerCount, runner.SessionInfo.MaxPlayers);
             }
             Debug.Log("Spawned local player");
+
+
         }
         else
         {
@@ -166,6 +172,50 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         //Make it easier to tell which player is which.
         transform.name = $"Player_{Object.Id}";
 }
+
+    public override void FixedUpdateNetwork()
+    {
+        if (gameEnded && Object.HasInputAuthority)
+        {
+            //Debug.Log("game ended!!!");
+
+            if (!isGamePaused)
+                toggleGamePausedState();
+
+            if(!endUIactivated)
+            {
+                endUIactivated = true;
+                HideUis();
+                endUI.SetActive(true);
+                scoreUI.activated = false;
+
+            }   
+
+        } 
+        // Deactivates endUI appropriately
+        else if (endUIactivated)
+        {
+            endUIactivated = false;
+            HideUis();
+            endUI.SetActive(false);
+            scoreUI.activated = true;
+
+        }
+
+        // teleport to prison
+        if (!isinPrison && supposedToGoToPrison) {
+
+            gameObject.GetComponent<CharacterMovementHandler>().teleportToPrison();
+            isinPrison = true;
+            GetComponent<ThiefActions>().isInPrison = true;
+
+        } else if (isinPrison && !supposedToGoToPrison){
+
+            gameObject.GetComponent<CharacterMovementHandler>().teleportBackToMap();
+            isinPrison = false;
+            GetComponent<ThiefActions>().isInPrison = false;
+        }
+    }
 
     public void PlayerLeft(PlayerRef player)
     {
@@ -234,6 +284,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public void LobbyStart()
     {
+        gameEnded = false;
         if (isGamePaused)
             toggleGamePausedState();
 
@@ -248,40 +299,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         }
     }
 
-    public void GameEnd()
-    {
-        if (!Object.HasInputAuthority)
-        {
-            return;
-        }
-        if (!isGamePaused)
-            toggleGamePausedState();
-
-        HideUis();
-
-        endUI.SetActive(true);
-        scoreUI.activated = false;
-
-        if (isHostAndPolice == true && policeWon == true)
-        {
-            endUI.winPanel;
-        }
-        else if (isHostAndPolice == true && policeWon == false)
-        {
-            endUI.losePanel;
-        }
-        else if (isHostAndPolice == false && hasWon == true)
-        {
-            endUI.winPanel;
-        }
-        else
-        {
-            endUI.losePanel;
-        }
-
-
-
-        private void HideUis()
+    private void HideUis()
     {
         lobbyUI.SetActive(false);
         gameUI.SetActive(false);
