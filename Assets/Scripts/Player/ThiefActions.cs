@@ -35,7 +35,7 @@ public class ThiefActions : MonoBehaviour
         currentMoney = 0;
         pocketMoney = 0;
         playerUI = GetComponent<PlayerUI>();
-        networkPlayer = playerUI.GetComponentInParent<NetworkPlayer>();
+        networkPlayer = playerUI.GetComponent<NetworkPlayer>();
         if(state == null) { Debug.Log("State Object was not found"); }
     }
 
