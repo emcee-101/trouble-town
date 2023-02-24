@@ -3328,6 +3328,7 @@ GameObject:
   - component: {fileID: 2991245161320222033}
   - component: {fileID: 8081760661856977215}
   - component: {fileID: 8377918770133324643}
+  - component: {fileID: 8855801947773541029}
   m_Layer: 0
   m_Name: MAIN_PLAYER_PREFAB
   m_TagString: Untagged
@@ -3462,6 +3463,7 @@ MonoBehaviour:
   - {fileID: -105599642972362508}
   - {fileID: 4647258651629774482}
   - {fileID: 8377918770133324643}
+  - {fileID: 8855801947773541029}
   SimulationBehaviours: []
 --- !u!114 &5207029591257464947
 MonoBehaviour:
@@ -3605,6 +3607,36 @@ MonoBehaviour:
   _interpolationDataSource: 0
   footStepAudioSource: {fileID: 9137981622932814774}
   footstepsSound: {fileID: 8300000, guid: ccb61ced7b70dcb4eba94ac9b4f09e8b, type: 3}
+--- !u!114 &8855801947773541029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8320661125014528706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 3
+  Animator: {fileID: 8320661125007266020}
+  TotalWords: 1
+  SyncSettings: 79
+  FloatAccuracy:
+    _value: 0
+    _inverse: 0
+    _hash: -814817977
+  TimeAccuracy:
+    _value: 0
+    _inverse: 0
+    _hash: 1061325578
+  WeightAccuracy:
+    _value: 0
+    _inverse: 0
+    _hash: -814817977
+  StateHashes: 00000000af0d0cbbb59c3651c726d99b4569951e
+  TriggerHashes: 00000000
 --- !u!1 &8440505826930676116
 GameObject:
   m_ObjectHideFlags: 0

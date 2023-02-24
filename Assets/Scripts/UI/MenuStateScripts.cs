@@ -13,16 +13,12 @@ public interface IMenu
 public class MenuStateScripts : MonoBehaviour
 {
 
-    MainMenuUIHandler mainMenu;
-    SettingMenuScript settingsMenu;
+    public MainMenuUIHandler mainMenu;
+    public SettingMenuScript settingsMenu;
     
 
     public void Start()
     {
-        mainMenu = GameObject.FindGameObjectWithTag("MAIN_MENU").GetComponent<MainMenuUIHandler>();
-        settingsMenu = GameObject.FindGameObjectWithTag("SET_MENU").GetComponent<SettingMenuScript>();
-
-
         mainMenu.enabled = true;
         settingsMenu.enabled = false;
     }

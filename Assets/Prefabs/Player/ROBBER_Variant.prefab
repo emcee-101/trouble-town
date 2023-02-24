@@ -125,12 +125,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5594361340946633643, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: NetworkedBehaviours.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5594361340946633643, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: NetworkedBehaviours.Array.data[4]
       value: 
       objectReference: {fileID: 8178621669802765268}
+    - target: {fileID: 5594361340946633643, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: NetworkedBehaviours.Array.data[5]
+      value: 
+      objectReference: {fileID: 9160943260145361426}
     - target: {fileID: 5594361340946633643, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: NetworkGuid.RawGuidValue.Array.data[0]
       value: 6064783129199697816
@@ -385,6 +389,17 @@ MonoBehaviour:
   useEvents: 0
   interactableType: thief
   promptMessage: Investigate Now
+--- !u!114 &9160943260145361426 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8855801947773541029, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+  m_PrefabInstance: {fileID: 415480877699053751}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8555986747217713781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5171102009558473466
 PrefabInstance:
   m_ObjectHideFlags: 0

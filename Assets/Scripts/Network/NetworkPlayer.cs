@@ -262,25 +262,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         endUI.SetActive(true);
         scoreUI.activated = false;
 
-        //game endScreen in work
-        if (isHostAndPolice == true && policeWon == true)
-        {
-            endUI.winPanel;
-        }
-        else if(isHostAndPolice == true && policeWon == false)
-        {
-            endUI.losePanel;
-        }
-        else if (isHostAndPolice == false && hasWon == true)
-        {
-            endUI.winPanel;
-        }
-        else 
-        {
-            endUI.losePanel;
-        }
-
-    }
+       
 
     private void HideUis()
     {
