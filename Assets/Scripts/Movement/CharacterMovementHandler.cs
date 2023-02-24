@@ -9,6 +9,7 @@ public class CharacterMovementHandler : NetworkBehaviour
     NetworkCharacterControllerPrototypeCustom networkCharacterControllerPrototypeCustom;
     NetworkInGameMessages networkInGameMessages;
     UtilLobby lobbyUtils = null;
+    GameObject states;
     
 
     [Networked]
@@ -48,7 +49,7 @@ public class CharacterMovementHandler : NetworkBehaviour
             if (netObj.HasStateAuthority)
             {
 
-                GameObject states = GameObject.FindGameObjectWithTag("State");
+                if(states == null) states = GameObject.FindGameObjectWithTag("State");
 
                 states.GetComponent<global_money>().GlobalMoney += networkInputData.globalMoneyChange;
                 //Debug.Log(states.GetComponent<global_money>().GlobalMoney);
@@ -90,8 +91,10 @@ public class CharacterMovementHandler : NetworkBehaviour
     {
         networkCharacterControllerPrototypeCustom = GetComponent<NetworkCharacterControllerPrototypeCustom>();
 
+        if (states == null) states = GameObject.FindGameObjectWithTag("State");
+
         if (gameObject.GetComponent<NetworkObject>().HasStateAuthority)
-            FindObjectOfType<game_state>().gameState = GameState.pregame;
+            states.GetComponent<game_state>().gameState = GameState.pregame;
 
         _networkAnimator = GetComponent<NetworkMecanimAnimator>();
 
@@ -102,21 +105,26 @@ public class CharacterMovementHandler : NetworkBehaviour
 
     public void Respawn()
     {
-        if (lobbyUtils == null)
+        
+        
+         if (states == null) states = GameObject.FindGameObjectWithTag("State");
+         lobbyUtils = states.GetComponent<UtilLobby>();
+
+         positionData spawnPoint;
+
+        if (states.GetComponent<game_state>().gameState == GameState.pregame)
         {
-            GameObject obj = GameObject.FindGameObjectWithTag("State");
-            lobbyUtils = obj.GetComponent<UtilLobby>();
+
+            spawnPoint = lobbyUtils.GetPlayerSpawnData(true);
+
+        } else
+        {
+            spawnPoint = lobbyUtils.GetPlayerSpawnData(false);
+
         }
 
-        if (lobbyUtils != null)
-        {
-            positionData spawnPoint = lobbyUtils.GetPlayerSpawnData();
+        Debug.Log("point: " + spawnPoint.returnPos());
+        gameObject.GetComponent<NetworkCharacterControllerPrototypeCustom>().teleport(spawnPoint.returnPos(), spawnPoint.returnAngle());
 
-            // lets test if this works better
-            transform.position = new Vector3(spawnPoint.returnPos().x, spawnPoint.returnPos().y, spawnPoint.returnPos().z);
-            // transform.position = spawnPoint.returnPos();
-            
-            transform.rotation = new Quaternion(spawnPoint.returnAngle().x, spawnPoint.returnAngle().y, spawnPoint.returnAngle().z, spawnPoint.returnAngle().w);
-        }
     }
 }

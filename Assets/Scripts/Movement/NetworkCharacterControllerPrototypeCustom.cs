@@ -130,9 +130,17 @@ public class NetworkCharacterControllerPrototypeCustom : NetworkTransform
         moveVelocity.z = horizontalVel.z;
 
         Controller.Move(moveVelocity * deltaTime);
+       
 
         Velocity = (transform.position - previousPos) * Runner.Simulation.Config.TickRate;
         IsGrounded = Controller.isGrounded;
+    }
+
+    public void teleport(Vector3 destination, Quaternion angle)
+    {
+        Debug.Log("teleport called lol");
+        TeleportToPositionRotation(destination, angle);
+
     }
 
     public void Rotate(float rotationY)
