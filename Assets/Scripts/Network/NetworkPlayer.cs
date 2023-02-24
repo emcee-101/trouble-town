@@ -295,6 +295,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public void LobbyStart()
     {
+        gameEnded = false;
         if (isGamePaused)
             toggleGamePausedState();
 
@@ -308,8 +309,6 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             lobbyUIStartButton.interactable = false;
         }
     }
-
-
 
     private void HideUis()
     {
