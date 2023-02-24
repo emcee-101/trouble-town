@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 public struct positionData
 {
@@ -9,6 +10,9 @@ public struct positionData
         place = pos;
     }
 
+
+
+
     public Vector3 returnPos() { return place; }
     public Quaternion returnAngle() { return rotation; }
 
@@ -17,26 +21,23 @@ public struct positionData
 }
 public class UtilLobby : MonoBehaviour
 {
-    public positionData GetPlayerSpawnData() {
+   
 
-        PlayerSpawnPointScript point = GetPlayerSpawnPoint();
-        positionData data = new positionData(point.place, point.angle);
+    public positionData GetPlayerSpawnData(bool forLobby)
+    {
+
+        IPlayerSpawnPointScript[] spawnPoints;
+
+        if (forLobby) { spawnPoints = (IPlayerSpawnPointScript[]) UnityEngine.Object.FindObjectsOfType<PlayerSpawnPointScriptForLobby>(); }
+        else { spawnPoints = (IPlayerSpawnPointScript[]) UnityEngine.Object.FindObjectsOfType<PlayerSpawnPointScriptForGame>(); }
+
+
+        // pick random element
+        IPlayerSpawnPointScript resultPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+
+        positionData data = new positionData(resultPoint.place, resultPoint.angle);
 
         return data;
-    }
-    public Vector3 GetPlayerSpawnLocation()
-    {
-        PlayerSpawnPointScript point = GetPlayerSpawnPoint();
-
-        return point.place;
-    }
-
-    public PlayerSpawnPointScript GetPlayerSpawnPoint()
-    {
-        PlayerSpawnPointScript[] spawnPoints = UnityEngine.Object.FindObjectsOfType<PlayerSpawnPointScript>();
-        // pick random element
-        PlayerSpawnPointScript resultPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
-        return resultPoint;
     }
 
     public positionData GetItemSpawnData()

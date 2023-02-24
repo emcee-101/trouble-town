@@ -25,6 +25,8 @@ public class NetworkCharacterControllerPrototypeCustom : NetworkTransform
     [HideInInspector]
     public Vector3 Velocity { get; set; }
 
+
+
     /// <summary>
     /// Sets the default teleport interpolation velocity to be the CC's current velocity.
     /// For more details on how this field is used, see <see cref="NetworkTransform.TeleportToPosition"/>.
@@ -130,9 +132,18 @@ public class NetworkCharacterControllerPrototypeCustom : NetworkTransform
         moveVelocity.z = horizontalVel.z;
 
         Controller.Move(moveVelocity * deltaTime);
+       
 
         Velocity = (transform.position - previousPos) * Runner.Simulation.Config.TickRate;
         IsGrounded = Controller.isGrounded;
+    }
+
+    public void teleport(positionData destination)
+    {
+        //Debug.Log("called respawn");
+        TeleportToPositionRotation(destination.returnPos(), destination.returnAngle());
+
+
     }
 
     public void Rotate(float rotationY)
