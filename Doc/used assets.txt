@@ -1,0 +1,30 @@
+Verwendete Assets:
+
+    https://assetstore.unity.com/packages/3d/environments/urban/toony-tiny-city-168925
+
+    https://assetstore.unity.com/packages/3d/characters/toony-tiny-people-demo-113188
+
+    https://sketchfab.com/3d-models/low-poly-building-a7ea9379362244319e13dc8b22c460c6
+
+    https://sketchfab.com/3d-models/isometric-bank-4a7cb2a009ba4f149d59af5b9b45d4c4
+
+    https://assetstore.unity.com/packages/3d/cola-can-96659
+
+    https://assetstore.unity.com/packages/3d/props/lowpoly-fantasy-bags-156997#content (Bag 2)
+
+    https://assetstore.unity.com/packages/3d/props/free-phone-181455
+
+    https://assetstore.unity.com/packages/3d/environments/urban/little-tropical-house-114021
+
+    https://assetstore.unity.com/packages/3d/vehicles/land/low-poly-police-car-01-142826#content
+
+    https://assetstore.unity.com/packages/3d/environments/urban/rusty-barricade-with-pbr-materials-2k-4k-217901
+
+    https://assetstore.unity.com/packages/3d/props/money-pack-84433#content
+
+
+    nicht verwendet, aber im git:
+
+        https://sketchfab.com/3d-models/wild-west-bank-4f9dc37047b240a79c7c1ed582a2701d
+        https://sketchfab.com/3d-models/police-officer-redford-proto-series-free-640fb510c1f248219dbb3baf452bb4d2
+        https://sketchfab.com/3d-models/bank-0d7a7d543b9040b88f0f52d2edc929b9
