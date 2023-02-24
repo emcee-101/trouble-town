@@ -46,6 +46,8 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     private ThiefActions thiefActions;
 
+    private bool endUIactivated = false;
+
 
     // Information about the end of the game
     [Networked]
@@ -185,12 +187,23 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             if (!isGamePaused)
                 toggleGamePausedState();
 
+            if(!endUIactivated)
+            {
+                endUIactivated = true;
+                HideUis();
+                endUI.SetActive(true);
+                scoreUI.activated = false;
+
+            }   
+
+        } 
+        // Deactivates endUI appropriately
+        else if (endUIactivated)
+        {
+            endUIactivated = false;
             HideUis();
-
-
-
-            endUI.SetActive(true);
-            scoreUI.activated = false;
+            endUI.SetActive(false);
+            scoreUI.activated = true;
 
         }
     }
