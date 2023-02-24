@@ -3752,6 +3752,7 @@ GameObject:
   - component: {fileID: 3165372808980919202}
   - component: {fileID: 5078818085723115877}
   - component: {fileID: 2359437242209726973}
+  - component: {fileID: 8229671621274568422}
   m_Layer: 5
   m_Name: EndUI
   m_TagString: Untagged
@@ -3842,6 +3843,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8229671621274568422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8680201404871176690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7624fe9ddf0b647ac2d4f7f14fbb54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winPanel: {fileID: 4472354615383729058, guid: fb3adec710cbb1b45bfd0330316fabf5, type: 3}
+  losePanel: {fileID: 4344319661458241242, guid: a50a5d5d6a6362341ac5ab93a62532aa, type: 3}
 --- !u!1 &8751546129615340304
 GameObject:
   m_ObjectHideFlags: 0
