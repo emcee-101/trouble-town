@@ -16,7 +16,8 @@ public class CharacterMovementHandler : NetworkBehaviour
     NetworkBool isWalking { get; set; } = false;
     private NetworkMecanimAnimator _networkAnimator;
 
-
+    bool wantsToTeleport = false;
+    positionData destination;
 
     public override void FixedUpdateNetwork()
     {
@@ -42,6 +43,14 @@ public class CharacterMovementHandler : NetworkBehaviour
             //Jump
             if (networkInputData.isJumpPressed)
                 networkCharacterControllerPrototypeCustom.Jump();
+
+            // teleport to spawn
+            if (wantsToTeleport)
+            {
+                wantsToTeleport = false;
+                networkCharacterControllerPrototypeCustom.teleport(destination);
+            }
+
 
             // IF PLAYER == HOST -> change global values
             NetworkObject netObj = gameObject.GetComponent<NetworkObject>();
@@ -114,17 +123,22 @@ public class CharacterMovementHandler : NetworkBehaviour
 
         if (states.GetComponent<game_state>().gameState == GameState.pregame)
         {
-
+            // 1st spawn
             spawnPoint = lobbyUtils.GetPlayerSpawnData(true);
+
+            //Debug.Log("point: " + spawnPoint.returnPos());
+
+            gameObject.GetComponent<NetworkCharacterControllerPrototypeCustom>().teleport(spawnPoint);
+
 
         } else
         {
-            spawnPoint = lobbyUtils.GetPlayerSpawnData(false);
+            // 2nd spawn when round starts....
+            destination = lobbyUtils.GetPlayerSpawnData(false);
+            wantsToTeleport = true;
 
         }
 
-        Debug.Log("point: " + spawnPoint.returnPos());
-        gameObject.GetComponent<NetworkCharacterControllerPrototypeCustom>().teleport(spawnPoint.returnPos(), spawnPoint.returnAngle());
 
     }
 }
