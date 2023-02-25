@@ -34,6 +34,12 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     private GameObject map;
     private GameObject preMap;
 
+    public GameObject myHideout = null;
+    private GameObject state;
+
+    [Networked]
+    public int playerNumber { get; set; } = -1 ;
+
     public LocalCameraHandler localCameraHandler;
     public GameObject localUI;
     public GameObject lobbyUI;
@@ -52,8 +58,8 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     private ThiefActions thiefActions;
 
-    private bool endUIactivated = false;
 
+    private bool endUIactivated = false;
 
     // Information about the end of the game
     [Networked]
@@ -155,6 +161,9 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
                 PlayerUI playerUI = player.GetComponent<PlayerUI>();
                 playerUI.updatePlayerCount(runner.SessionInfo.PlayerCount, runner.SessionInfo.MaxPlayers);
             }
+
+
+
             Debug.Log("Spawned local player");
 
 
@@ -188,6 +197,12 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public override void FixedUpdateNetwork()
     {
+        if (hasSpeedBoostItem)
+        {
+            NetworkCharacterControllerPrototypeCustom nCCPC = GetComponent<NetworkCharacterControllerPrototypeCustom>();
+            nCCPC.maxSpeed *= 1.5f;
+            hasSpeedBoostItem = false;
+        }
         if (gameEnded && Object.HasInputAuthority)
         {
             //Debug.Log("game ended!!!");
@@ -202,7 +217,9 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
                 endUI.SetActive(true);
                 scoreUI.activated = false;
 
-            }   
+                endUI.GetComponent<endUI>().showEndUIValues(hasWon, policeWon, gameEnded);
+
+            }
 
         } 
         // Deactivates endUI appropriately
@@ -215,6 +232,17 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
         }
 
+        if (Object.HasInputAuthority && playerNumber != -1 && myHideout == null && !isHostAndPolice)
+        {
+            //Debug.Log("i was called correctly");
+            state = GameObject.FindGameObjectWithTag("State");
+            //if (state == null) { Debug.Log("state is null for some reason"); };
+            // Player gets his/her own Hideout
+            myHideout = state.GetComponent<hideoout_dispatcher>().dispatchHideout(playerNumber);
+            myHideout.SetActive(true);
+        }
+
+
         // teleport to prison
         if (!isInPrison && supposedToGoToPrison) {
 
@@ -226,6 +254,9 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             gameObject.GetComponent<CharacterMovementHandler>().teleportBackToMap();
             isInPrison = false;
         }
+
+
+
     }
 
     public void PlayerLeft(PlayerRef player)

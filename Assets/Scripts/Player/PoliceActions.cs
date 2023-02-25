@@ -5,17 +5,13 @@ using UnityEngine;
 // Author: Mohammad Zidane
 public class PoliceActions : MonoBehaviour
 {
-    public float investigationDuration;
-    // Start is called before the first frame update
+    public float investigationDurationDefault = 5.0f;
+    public float investigationDurationDifferenceWithPhoneItem = 2.5f;
+    private NetworkPlayer ownNetworkPlayer;
+
     void Start()
     {
-        investigationDuration = 5.0f;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        ownNetworkPlayer = GetComponent<NetworkPlayer>();
     }
 
     public bool investigatePlayer(NetworkPlayer _np)
@@ -30,6 +26,12 @@ public class PoliceActions : MonoBehaviour
     
     IEnumerator waiter(NetworkPlayer _np)
     {
+        float investigationDuration = investigationDurationDefault;
+        if (ownNetworkPlayer.hasPhoneItem)
+        {
+            investigationDuration -= investigationDurationDifferenceWithPhoneItem;
+            ownNetworkPlayer.hasPhoneItem = false;
+        }
 
         _np.isBeingInvestigated = true;
 

@@ -9,10 +9,13 @@ using Unity.VisualScripting;
 public class ThiefActions : MonoBehaviour
 {
     [SerializeField]
-    private int stealAmount = 1000;
+
+    private int stealAmountDefault = 1000;
+    private int stealAmountExtraWithBagItem = 500;
     public int currentMoney;
     public int pocketMoney;
     private PlayerUI playerUI;
+    private NetworkPlayer networkPlayer;
 
     private GameObject state;
     private global_money globalMoney;
@@ -31,7 +34,8 @@ public class ThiefActions : MonoBehaviour
         currentMoney = 0;
         pocketMoney = 0;
         playerUI = GetComponent<PlayerUI>();
-        if(state == null) { Debug.Log("State Object was not found because Niklas is stupid"); }
+        networkPlayer = playerUI.GetComponent<NetworkPlayer>();
+        if(state == null) { Debug.Log("State Object was not found"); }
     }
 
     // Update is called once per frame
@@ -40,6 +44,12 @@ public class ThiefActions : MonoBehaviour
     }
     public bool rubBank()
     {
+        int stealAmount = stealAmountDefault;
+        if (networkPlayer.hasMoneyBagItem)
+        {
+            stealAmount += stealAmountExtraWithBagItem;
+            networkPlayer.hasMoneyBagItem = false;
+        }
         state = GameObject.FindWithTag("State");
         globalMoney = state.GetComponent<global_money>();
         // check if cooldown exists

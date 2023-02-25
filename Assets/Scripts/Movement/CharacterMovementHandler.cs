@@ -67,7 +67,8 @@ public class CharacterMovementHandler : NetworkBehaviour
                 string name = networkInputData.playerName.ToString();
                 if (!states.GetComponent<scoring>().checkIfRegistered(name) && name != "" && name != "FAILURE")
                 {
-                    states.GetComponent<scoring>().registerPlayer(name);
+                    int playerNumber = states.GetComponent<scoring>().registerPlayer(name);
+                    GetComponent<NetworkPlayer>().playerNumber = playerNumber;
                 }
                 if (name != "" && name != "FAILURE")
                     states.GetComponent<scoring>().addPoints(name, networkInputData.scoreChange);
