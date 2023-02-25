@@ -10,8 +10,9 @@ public class scoring : NetworkBehaviour
     public float pointsForGettingCaught = -100;
     public float pointsForStoringMoney = 200;
     public float pointsForCatchingRobber = 300;
-   
 
+    [Networked]
+    public int numPlayers { get; private set; } = 0;
 
     [Networked, Capacity(10)]
     public NetworkDictionary<string, float> scorings { get; }
@@ -34,13 +35,15 @@ public class scoring : NetworkBehaviour
     public bool checkIfRegistered(string name)
     {
 
-        return (scorings.ContainsKey("name"));
+        return (scorings.ContainsKey(name));
 
     }
 
-    public void registerPlayer(string playerName)
+    public int registerPlayer(string playerName)
     {
         scorings.Add(playerName, 0.0f);
+        numPlayers++;
+        return numPlayers;
 
     }
 

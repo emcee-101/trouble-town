@@ -10,6 +10,7 @@ TagManager:
   - MainAndSettingsMenu
   - MAIN_MENU
   - SET_MENU
+  - Hideout
   layers:
   - Default
   - TransparentFX
