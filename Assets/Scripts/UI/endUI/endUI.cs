@@ -6,42 +6,23 @@ public class endUI : MonoBehaviour
 {
     public GameObject winPanel;
     public GameObject losePanel;
-    public GameObject Panel;
+  
 
     public void showEndUIValues(bool hasWon, bool policeWon, bool gameEnded)
     {
-        winPanel = GameObject.Find("winPanel");
-        losePanel = GameObject.Find("losePanel");
-        Panel = GameObject.Find("Panel");
-        
-        if (gameEnded==true)
-      {
-            
+        if (gameEnded == true)
+        {
 
-            if (policeWon == true)
+            if (hasWon)
             {
-               
-
-                Panel=winPanel;
-            }
-            else if (policeWon == false)
-            {
-                
-                Panel= losePanel;
-            }
-            else if (hasWon == true)
-            {
-                
-                Panel= winPanel;
-
+                Instantiate(winPanel);
             }
             else
             {
-                
-                Panel=losePanel;
+                Instantiate(losePanel);
             }
-      }  
-        
+        }
+
 
     }
 }
