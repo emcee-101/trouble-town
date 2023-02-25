@@ -16,6 +16,7 @@ public class CharacterInputHandler : MonoBehaviour
     public float scoreChange = 0;
     public int globalMoneyChange = 0;
     public int globalPocketMoneyChange = 0;
+    public bool criminalStatus;
 
     scoring scores;
 
@@ -122,7 +123,10 @@ public class CharacterInputHandler : MonoBehaviour
 
         //Reset variables now that we have read their states
         isJumpButtonPressed = false;
-
+        
+        // become criminal data
+        networkInputData.criminalStatus = criminalStatus;
+        
         // transmit name - important for scores
         networkInputData.playerName = new Fusion.NetworkString<Fusion._16>();
 

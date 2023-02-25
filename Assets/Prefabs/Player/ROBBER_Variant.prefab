@@ -367,8 +367,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stealAmount: 1000
   hasJustStolen: 0
-  isCriminal: 0
-  isInPrison: 0
   pocketMoneyHidden: 0
   stealCooldown: 20
   investigationDuration: 5
