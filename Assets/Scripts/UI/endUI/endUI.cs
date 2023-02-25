@@ -7,17 +7,10 @@ public class endUI : MonoBehaviour
     public GameObject winPanel;
     public GameObject losePanel;
 
- 
-
-    // Start is called before the first frame update
-    void Start()
+    public void showEndUIValues(bool hasWon, bool policeWon, bool gameEnded)
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // do something
+
     }
 }
