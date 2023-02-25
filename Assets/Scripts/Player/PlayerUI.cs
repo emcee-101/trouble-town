@@ -9,6 +9,8 @@ public class PlayerUI : MonoBehaviour
 {
     public TextMeshProUGUI promptText;
     public TextMeshProUGUI cooldownText;
+    public TextMeshProUGUI introText;
+    public TextMeshProUGUI introSubText;
     public Animator fadeAnimator;
     public bool animatorRunning;
 
@@ -17,6 +19,10 @@ public class PlayerUI : MonoBehaviour
     public float moneyTotal;
     public float moneyLeft;
     public float totalPocketMoney;
+
+    public TextMeshProUGUI thiefPocketMoney;
+    public TextMeshProUGUI thiefSecuredMoney;
+    
 
     [Header("Intense Overlay")]
     public Image intenseOverlay;
@@ -34,6 +40,8 @@ public class PlayerUI : MonoBehaviour
 
     public AudioSource ownAudio;
     public AudioClip catchedByPolice;
+
+    public MissionWaypoint waypoints;
 
     [Header("LobbyUI")]
     [SerializeField]
@@ -67,18 +75,28 @@ public class PlayerUI : MonoBehaviour
     void Start(){
         state = GameObject.FindWithTag("State");
         globalMoney = state.GetComponent<global_money>();
-        //transform.position = new Vector3(-0.72f,2.07f,1.61f);
+        // police text. Will be changed later if player is a thief
+        introText.text = "You Are Policeman";
+        introSubText.text = "Keep your eyes on thiefs & protect the banks";
     }
 
-    // Update is called once per frame
     void Update()
     {
+        CheckEnterClickFromHost();
+
+        if (waypoints == null && GetComponentInChildren<MissionWaypoint>() != null){
+            waypoints = GetComponentInChildren<MissionWaypoint>();
+        }
+
         if ((netPlayer == null) && GetComponent<NetworkPlayer>() != null){
             netPlayer = GetComponent<NetworkPlayer>();
         }
         if ((thiefActions == null) && GetComponent<ThiefActions>() != null){
             thiefActions = GetComponent<ThiefActions>();
+            introText.text = "You Are Thief";
+            introSubText.text = "Rob banks, hide the cash and be stay away from police";
         }
+
         if (cc == null) {
             cc = GetComponentInParent<CharacterController>();
         }
@@ -86,7 +104,6 @@ public class PlayerUI : MonoBehaviour
         cooldownText.text = "";
         warnMessage.text = "";
         intenseOverlay.enabled = false;
-        CheckEnterClickFromHost();
 
         if (!netPlayer.isHostAndPolice)
         {
@@ -96,8 +113,15 @@ public class PlayerUI : MonoBehaviour
 
     private void updateThiefUI()
     {
+        thiefPocketMoney.text = string.Format("Pocket Money: {0}$.", thiefActions.pocketMoney);
+        thiefSecuredMoney.text = string.Format("Secured Money: {0}$.", thiefActions.currentMoney);
+
+        waypoints.setWaypointType("bank");
+        waypoints.setWayPointPosition(new Vector3(-30.1200f,3.81f,89.03f));
         cc.enabled = true;
         if (netPlayer.isCriminal && !netPlayer.isInPrison) {
+            waypoints.setWaypointType("hideout");
+            waypoints.setWayPointPosition(new Vector3(-30.1200f,3.81f,89.03f));
             cc.enabled = true;
             intenseOverlay.enabled = true;
             warnMessage.text = "Now you are criminal! Stay away from policeman*in";

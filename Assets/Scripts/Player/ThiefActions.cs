@@ -10,8 +10,8 @@ public class ThiefActions : MonoBehaviour
 {
     [SerializeField]
     private int stealAmount = 1000;
-    private int currentMoney;
-    private int pocketMoney;
+    public int currentMoney;
+    public int pocketMoney;
     private PlayerUI playerUI;
 
     private GameObject state;
@@ -94,10 +94,6 @@ public class ThiefActions : MonoBehaviour
         return true;
     }
 
-    public int getPlayerSecuredMoney()
-    {
-        return currentMoney;
-    }
     public void setCriminal(bool criminalStatus){
         GetComponent<CharacterInputHandler>().criminalStatus = criminalStatus;
     }
