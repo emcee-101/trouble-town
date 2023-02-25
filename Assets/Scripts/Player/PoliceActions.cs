@@ -41,11 +41,12 @@ public class PoliceActions : MonoBehaviour
         GetComponent<CharacterController>().enabled = true;
         _np.isBeingInvestigated = false;
 
-        _np.supposedToGoToPrison = true;
-
-        yield return new WaitForSeconds(15.0f);
-
-        _np.supposedToGoToPrison = false;
+        if (_np.isCriminal){
+            _np.supposedToGoToPrison = true;
+            yield return new WaitForSeconds(20.0f);
+            _np.supposedToGoToPrison = false;
+        }
+        
     }
 
 }

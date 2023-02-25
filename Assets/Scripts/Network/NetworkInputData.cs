@@ -14,6 +14,7 @@ public struct NetworkInputData : INetworkInput
     public float scoreChange;
     public int globalMoneyChange;
     public int globalPocketMoneyChange;
+    public NetworkBool criminalStatus;
 
 
 }

@@ -9,18 +9,17 @@ using Unity.VisualScripting;
 public class ThiefActions : MonoBehaviour
 {
     [SerializeField]
+
     private int stealAmountDefault = 1000;
     private int stealAmountExtraWithBagItem = 500;
-    private int currentMoney;
-    private int pocketMoney;
+    public int currentMoney;
+    public int pocketMoney;
     private PlayerUI playerUI;
     private NetworkPlayer networkPlayer;
 
     private GameObject state;
     private global_money globalMoney;
-    public bool isInPrison;
     public bool hasJustStolen;
-    public bool isCriminal;
     public bool pocketMoneyHidden;
     public float stealCooldown;
     public float investigationDuration;
@@ -73,8 +72,7 @@ public class ThiefActions : MonoBehaviour
 
         // add Points
         handler.addRobbingPoints();
-        
-        isCriminal = true;
+        setCriminal(true);
         pocketMoneyHidden = false;
         playerUI.durationTimerStealCooldown = stealCooldown;
         playerUI.durationTimerCriminalState = wantedStateDuration;
@@ -106,9 +104,8 @@ public class ThiefActions : MonoBehaviour
         return true;
     }
 
-    public int getPlayerSecuredMoney()
-    {
-        return currentMoney;
+    public void setCriminal(bool criminalStatus){
+        GetComponent<CharacterInputHandler>().criminalStatus = criminalStatus;
     }
 }
 

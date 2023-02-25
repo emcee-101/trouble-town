@@ -27,7 +27,9 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     [Networked]
     public NetworkBool supposedToGoToPrison { get; set; } = false;
-    bool isinPrison = false;
+    [Networked]
+    public NetworkBool isCriminal { get; set; } = false;
+    public bool isInPrison = false;
 
     private GameObject map;
     private GameObject preMap;
@@ -242,17 +244,15 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
 
         // teleport to prison
-        if (!isinPrison && supposedToGoToPrison) {
+        if (!isInPrison && supposedToGoToPrison) {
 
             gameObject.GetComponent<CharacterMovementHandler>().teleportToPrison();
-            isinPrison = true;
-            GetComponent<ThiefActions>().isInPrison = true;
+            isInPrison = true;
 
-        } else if (isinPrison && !supposedToGoToPrison){
+        } else if (isInPrison && !supposedToGoToPrison){
 
             gameObject.GetComponent<CharacterMovementHandler>().teleportBackToMap();
-            isinPrison = false;
-            GetComponent<ThiefActions>().isInPrison = false;
+            isInPrison = false;
         }
 
 

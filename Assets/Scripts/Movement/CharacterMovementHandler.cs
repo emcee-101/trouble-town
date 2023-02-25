@@ -36,7 +36,7 @@ public class CharacterMovementHandler : NetworkBehaviour
             Vector3 moveDirection = transform.forward * networkInputData.movementInput.y + transform.right * networkInputData.movementInput.x;
             moveDirection.Normalize();
 
-
+            GetComponent<NetworkPlayer>().isCriminal = networkInputData.criminalStatus;
 
             networkCharacterControllerPrototypeCustom.Move(moveDirection);
 
@@ -50,6 +50,7 @@ public class CharacterMovementHandler : NetworkBehaviour
                 wantsToTeleport = false;
                 networkCharacterControllerPrototypeCustom.teleport(destination);
             }
+
 
 
             // IF PLAYER == HOST -> change global values
@@ -162,6 +163,10 @@ public class CharacterMovementHandler : NetworkBehaviour
     {
         wantsToTeleport = true;
         destination = lobbyUtils.GetPlayerSpawnData(spawnType.GAME);
+
+    }
+    public void becomeCriminal()
+    {
 
     }
 
