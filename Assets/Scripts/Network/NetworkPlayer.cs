@@ -50,8 +50,8 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     private ThiefActions thiefActions;
 
-    private bool endUIactivated = false;
 
+    private bool endUIactivated = false;
 
     // Information about the end of the game
     [Networked]
@@ -199,6 +199,8 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
                 HideUis();
                 endUI.SetActive(true);
                 scoreUI.activated = false;
+
+                endUI.GetComponent<endUI>().showEndUIValues(hasWon, policeWon, gameEnded);
 
             }   
 
