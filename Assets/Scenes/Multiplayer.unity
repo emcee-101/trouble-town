@@ -14151,7 +14151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  timeForOneRoundInSeconds: 10
+  timeForOneRoundInSeconds: 600
   networkRunnerInScene: {fileID: 0}
 --- !u!114 &790916599
 MonoBehaviour:
