@@ -109,7 +109,6 @@ public class PlayerUI : MonoBehaviour
             UpdateBeingInvestigated();
         }
         if (netPlayer.isBeingInvestigated && thiefActions.isCriminal){
-            ownAudio.PlayOneShot(catchedByPolice);
             UpdateFadeToBlack();
         }
         if (thiefActions.isInPrison) {
@@ -228,7 +227,7 @@ public class PlayerUI : MonoBehaviour
         durationTimerInvestigation -= Time.deltaTime;
         string guiTimer = durationTimerInvestigation.ToString("0");
         cooldownText.text = "Being investigated... " + guiTimer;
-        if (durationTimerInvestigation < 0)
+        if (durationTimerInvestigation > 0)
         {
             if (thiefActions.isCriminal)
             {
@@ -239,12 +238,20 @@ public class PlayerUI : MonoBehaviour
                 black.color = new Color(255.0f, 255.0f, 255.0f, 0.0f);
             }
             durationTimerInvestigation = thiefActions.investigationDuration;
-
-            // wichtig - nicht von hier aus verändern - guck dir die PoliceActions Klasse an
-            // netPlayer.isBeingInvestigated = false;
-
             cc.enabled = true;
         }
+        if (thiefActions.isCriminal)
+        {
+            StartCoroutine(playCriminalCatched());
+            //transform.position = new Vector3(30.15f,76.95f,20.82f);
+            thiefActions.isInPrison = true;
+            durationTimerPrison = thiefActions.prisonTimeDuration;
+            black.color = new Color(255.0f, 255.0f, 255.0f, 0.0f);
+        }
+        durationTimerInvestigation = thiefActions.investigationDuration;
+        netPlayer.isBeingInvestigated = false;
+        cc.enabled = true;
+
     }
 
     public void UpdateWhileInPrison(){
