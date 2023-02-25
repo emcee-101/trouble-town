@@ -13,7 +13,7 @@ public class NetworkCharacterControllerPrototypeCustom : NetworkTransform
     public float jumpImpulse = 8.0f;
     public float acceleration = 50.0f;
     public float braking = 30.0f;
-    public float maxSpeed = 6.0f;
+    public float maxSpeed = 15.0f;
     public float rotationSpeed = 80.0f;
     public float viewUpDownRotationSpeed = 60.0f;
 
