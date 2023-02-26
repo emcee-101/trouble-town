@@ -18,7 +18,7 @@ public class HandcuffsItem : NetworkBehaviour
     {
         NetworkPlayer networkPlayer = other.GetComponent<NetworkPlayer>();
 
-        if (networkPlayer != null)
+        if (networkPlayer != null && networkPlayer.isHostAndPolice)
         {
             if (roundSpawner.spawnedHandcuffsItems.Contains(this))
             {
