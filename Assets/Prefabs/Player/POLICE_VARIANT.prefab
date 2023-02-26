@@ -235,6 +235,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1129394487277328819, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1129394487277328820, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: near clip plane
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 1129394487277328822, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -265,6 +273,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1629064965516171228, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644534567567578329, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2021736218597710207, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
@@ -310,6 +322,10 @@ PrefabInstance:
     - target: {fileID: 4040712301530013850, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4560804149067574799, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4579706146170681566, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
       propertyPath: m_Layer
@@ -561,7 +577,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d75897774d3010488075b17e812482a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  investigationDuration: 5
+  investigationDurationDefault: 5
+  investigationDurationReductionWithPhoneItem: 3.5
+  prisonTimeDurationDefault: 20
+  prisonTimeDurationAdditionWithHandcuffsItem: 15
 --- !u!114 &9156751113702578238 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8855801947773541029, guid: dd4fa2289bca7df4b8350e7f5126e980, type: 3}
