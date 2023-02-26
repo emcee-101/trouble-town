@@ -726,7 +726,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2914103673029521826}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5372004591319002125}
+        m_TargetAssemblyTypeName: additionEndScripts, Assembly-CSharp
+        m_MethodName: quitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8324985608840401120
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,6 +748,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6227251063799020166}
+  - component: {fileID: 5372004591319002125}
   m_Layer: 0
   m_Name: end
   m_TagString: Untagged
@@ -759,6 +772,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5372004591319002125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8324985608840401120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e817b6c4d084cc44a855f8f25e383790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9195962291717262711
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,6 +896,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5568018918043607198}
     m_Modifications:
+    - target: {fileID: 1287849606002109971, guid: 294a1c634f8a9124994ea7e7c6df3008, type: 3}
+      propertyPath: m_Color.g
+      value: 0.73447526
+      objectReference: {fileID: 0}
+    - target: {fileID: 1287849606002109971, guid: 294a1c634f8a9124994ea7e7c6df3008, type: 3}
+      propertyPath: m_Color.r
+      value: 0.05098039
+      objectReference: {fileID: 0}
     - target: {fileID: 1964688499099446133, guid: 294a1c634f8a9124994ea7e7c6df3008, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -926,6 +959,10 @@ PrefabInstance:
     - target: {fileID: 3503521522981519586, guid: 294a1c634f8a9124994ea7e7c6df3008, type: 3}
       propertyPath: m_SizeDelta.y
       value: 38.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3503521522981519586, guid: 294a1c634f8a9124994ea7e7c6df3008, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 3503521522981519586, guid: 294a1c634f8a9124994ea7e7c6df3008, type: 3}
       propertyPath: m_AnchoredPosition.y
