@@ -7,10 +7,6 @@ public class PoliceActions : MonoBehaviour
 {
     public float investigationDurationDefault = 5.0f;
     public float investigationDurationDifferenceWithPhoneItem = 2.5f;
-
-    public float prisonTimeDefault = 20.0f;
-    public float prisonTimeBuffWithHandcuffsItem = 10.0f;
-
     private NetworkPlayer ownNetworkPlayer;
 
     void Start()
@@ -37,13 +33,6 @@ public class PoliceActions : MonoBehaviour
             ownNetworkPlayer.hasPhoneItem = false;
         }
 
-        float prisonTime = prisonTimeDefault;
-        if (ownNetworkPlayer.hasHandcuffsItem)
-        {
-            prisonTime += prisonTimeBuffWithHandcuffsItem;
-            ownNetworkPlayer.hasHandcuffsItem = false;
-        }
-
         _np.isBeingInvestigated = true;
 
         GetComponent<CharacterController>().enabled = false;
@@ -54,8 +43,9 @@ public class PoliceActions : MonoBehaviour
 
         if (_np.isCriminal){
             _np.supposedToGoToPrison = true;
-            yield return new WaitForSeconds(prisonTime);
+            yield return new WaitForSeconds(20.0f);
             _np.supposedToGoToPrison = false;
+
         }   
     }
 }
