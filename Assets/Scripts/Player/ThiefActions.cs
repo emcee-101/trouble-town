@@ -125,8 +125,13 @@ public class ThiefActions : MonoBehaviour
         if (pocketMoney == 0) {
             return false;
         }
-        globalMoney.TotalPocketMoney -= pocketMoney;
+
+        CharacterInputHandler handler = GetComponent<CharacterInputHandler>();
+        handler.globalPocketMoneyChange -= pocketMoney;
+
         currentMoney                 += pocketMoney;
+
+
         pocketMoney = 0;
         pocketMoneyHidden = true;
 
@@ -137,9 +142,12 @@ public class ThiefActions : MonoBehaviour
 
         return true;
     }
-    public bool getInvestigated()
-    {
-        globalMoney.TotalPocketMoney += pocketMoney;
+    public bool getInvestigated(){
+        
+        CharacterInputHandler handler = GetComponent<CharacterInputHandler>();
+        handler.globalMoneyChange += pocketMoney;
+        handler.globalPocketMoneyChange -= pocketMoney;
+
         pocketMoney = 0;
         // add Points
         GetComponent<CharacterInputHandler>().addGettingCaughtPoints();

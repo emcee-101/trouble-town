@@ -40,7 +40,7 @@ public class PoliceActions : MonoBehaviour
         }
         StartCoroutine(waiter(_np));
         
-        GetComponent<CharacterInputHandler>().addCatchingRobberPoints();
+        
 
         return true;
     }
@@ -58,6 +58,9 @@ public class PoliceActions : MonoBehaviour
         _np.isBeingInvestigated = false;
 
         if (_np.isCriminal){
+
+            GetComponent<CharacterInputHandler>().addCatchingRobberPoints();
+
             // If police has Handcuffs item, it should be consumed at this point
             netPlayer.hasHandcuffsItem = false;
 
