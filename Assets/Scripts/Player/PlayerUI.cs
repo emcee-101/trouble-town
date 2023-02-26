@@ -152,7 +152,6 @@ public class PlayerUI : MonoBehaviour
             // Reseting prison timer
             currentTimerPrison = 0.0f;
             UpdateIntenseOverlay();
-            UpdateCriminalStatus();
         }
 
         // If player has hidden their stolen money, remove Criminal status after
