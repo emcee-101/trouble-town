@@ -91,7 +91,6 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     
     private void Update()
     {
-        
         if (FindObjectOfType<game_state>().gameState == GameState.pregame)
         {
             //Update LobbyUI for HostAndPolice
@@ -206,12 +205,6 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public override void FixedUpdateNetwork()
     {
-        if (hasSpeedBoostItem)
-        {
-            NetworkCharacterControllerPrototypeCustom nCCPC = GetComponent<NetworkCharacterControllerPrototypeCustom>();
-            nCCPC.maxSpeed *= 1.5f;
-            hasSpeedBoostItem = false;
-        }
         if (gameEnded && Object.HasInputAuthority)
         {
             //Debug.Log("game ended!!!");
