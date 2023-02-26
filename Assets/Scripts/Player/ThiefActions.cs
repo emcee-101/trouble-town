@@ -8,31 +8,32 @@ using Unity.VisualScripting;
 // Author: Mohammad Zidane
 public class ThiefActions : MonoBehaviour
 {
+    [Header("Balancing Values")]
     [SerializeField] private int stealAmountDefault = 1000;
     [SerializeField] private int stealAmountExtraWithBagItem = 500;
-    public int currentMoney;
-    public int pocketMoney;
+    [SerializeField] private float criminalStateDurationAfterMoneyIsHidden;
+    [SerializeField] private float speedBoostDuration = 20.0f;
     
+    [Header("Audio Clips")]
+    [SerializeField] public  AudioClip catchedByPolice;
+    [SerializeField] private AudioClip stolenTheBank;
+    [SerializeField] private AudioClip secureTheMoney;
+
+    [HideInInspector] public int currentMoney;
+    [HideInInspector] public int pocketMoney;
     [HideInInspector] public float currentStealCooldown = 0.0f;
     [HideInInspector] public float currentTimerCriminalState;
+    [HideInInspector] public bool pocketMoneyHidden;
 
     private PlayerUI playerUI;
     private NetworkPlayer netPlayer;
-
     private GameObject state;
     private global_money globalMoney;
-    public bool pocketMoneyHidden;
-    public float stealCooldown;
-    public float investigationDuration;
-    public float prisonTimeDuration;
-    public float criminalStateDurationAfterMoneyIsHidden;
-
-    [SerializeField]
-    private float speedBoostDuration = 20.0f;
+    private float stealCooldown;
     private float currentSpeedBoostDuration = 0.0f;
-
     private PlayerAudio playerAudio;
-    // Start is called before the first frame update
+
+
     void Start()
     {   
         state = GameObject.FindWithTag("State");
@@ -61,7 +62,7 @@ public class ThiefActions : MonoBehaviour
         if (netPlayer.isCriminal && pocketMoneyHidden)
         {
             currentTimerCriminalState -= Time.deltaTime;
-            if (currentTimerCriminalState <= 0){
+            if (currentTimerCriminalState < 0){
                 setCriminal(false);
             }
         }
@@ -118,7 +119,7 @@ public class ThiefActions : MonoBehaviour
         
         pocketMoney += stealAmountThisTime;
          // Play SFX
-        playerAudio.ownAudio.PlayOneShot(playerAudio.stolenTheBank);
+        playerAudio.ownAudio.PlayOneShot(stolenTheBank);
         return true;
 
     }
@@ -131,17 +132,15 @@ public class ThiefActions : MonoBehaviour
 
         CharacterInputHandler handler = GetComponent<CharacterInputHandler>();
         handler.globalPocketMoneyChange -= pocketMoney;
-
-        currentMoney                 += pocketMoney;
-
-
+        
+        currentMoney += pocketMoney;
         pocketMoney = 0;
         pocketMoneyHidden = true;
 
         // add Points
         GetComponent<CharacterInputHandler>().addStoringMoneyPoints();
         // Play SFX
-        playerAudio.ownAudio.PlayOneShot(playerAudio.secureTheMoney);
+        playerAudio.ownAudio.PlayOneShot(secureTheMoney);
 
         return true;
     }

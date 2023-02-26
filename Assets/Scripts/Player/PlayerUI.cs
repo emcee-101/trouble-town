@@ -7,30 +7,36 @@ using UnityEngine.UI;
 // Author: Mohammad Zidane
 public class PlayerUI : MonoBehaviour
 {
+    [Header("Text Elements")]
     public TextMeshProUGUI promptText;
-    public TextMeshProUGUI cooldownText;
-    public TextMeshProUGUI introText;
-    public TextMeshProUGUI introSubText;
-    public Animator fadeAnimator;
-    public bool animatorRunning;
-
-    public float fadeSceneSwitchDuration;
-    public float animationDuration = 2.0f;
-    public float moneyTotal;
-    public float moneyLeft;
-    public float totalPocketMoney;
-
-    public TextMeshProUGUI thiefPocketMoney;
-    public TextMeshProUGUI thiefSecuredMoney;
+    [SerializeField] private TextMeshProUGUI warnMessage;
+    [SerializeField] private TextMeshProUGUI cooldownText;
+    [SerializeField] private TextMeshProUGUI introText;
+    [SerializeField] private TextMeshProUGUI introSubText;
+    [SerializeField] private TextMeshProUGUI thiefPocketMoney;
+    [SerializeField] private TextMeshProUGUI thiefSecuredMoney;
+    [SerializeField] private MissionWaypoint waypoints;
     
+    [Header("Animator")]
+    [SerializeField] private  Animator fadeAnimator;
 
     [Header("Intense Overlay")]
-    public Image intenseOverlay;
-    public TextMeshProUGUI warnMessage;
+    [SerializeField] private Image intenseOverlay;
 
-    public Image frontBarMoney;
-    public Image backBarMoney;
-    public TextMeshProUGUI moneyText;
+    [Header("Money Bar")]
+    [SerializeField] private Image frontBarMoney;
+    [SerializeField] private Image backBarMoney;
+    [SerializeField] private TextMeshProUGUI moneyText;
+
+    [Header("LobbyUI")]
+    [SerializeField] public TextMeshProUGUI playerCountText;
+
+    private bool animatorRunning;
+    private float fadeSceneSwitchDuration;
+    private float animationDuration = 2.0f;
+    private float moneyTotal;
+    private float moneyLeft;
+    private float totalPocketMoney;
 
     private NetworkPlayer netPlayer;
     private ThiefActions thiefActions;
@@ -39,12 +45,9 @@ public class PlayerUI : MonoBehaviour
     private GameObject state;
     private global_money globalMoney;
 
-    public MissionWaypoint waypoints;
     private Vector3 ownHideoutLocation;
+    private Vector3 bankLocation;
 
-    [Header("LobbyUI")]
-    [SerializeField]
-    public TextMeshProUGUI playerCountText;
 
     public void Init()
     {
@@ -68,6 +71,7 @@ public class PlayerUI : MonoBehaviour
     void Start(){
         state = GameObject.FindWithTag("State");
         globalMoney = state.GetComponent<global_money>();
+        bankLocation = new Vector3(-30.1200f,3.81f,89.03f);
         // Police text. Will be changed later if player is a thief
         introText.text = "You Are Policeman";
         introSubText.text = "Keep your eyes on thiefs & protect the banks";
@@ -110,6 +114,10 @@ public class PlayerUI : MonoBehaviour
 
     private void updateThiefUI()
     {
+
+        // Some UI element are overritten multple times here, as higher priority events are 
+        // intentionally placed at the bottom after lower priority once
+
         // Workaround : Get the hideout location for once and store it in a variable
         if (ownHideoutLocation == Vector3.zero && netPlayer.myHideout != null){
             ownHideoutLocation = netPlayer.myHideout.transform.position;
@@ -118,14 +126,11 @@ public class PlayerUI : MonoBehaviour
         thiefSecuredMoney.text = string.Format("Secured Money: {0}$.", thiefActions.currentMoney);
 
         waypoints.setWaypointType("bank");
-
-
-        waypoints.setWayPointPosition(new Vector3(-30.1200f,3.81f,89.03f));
-
+        waypoints.setWayPointPosition(bankLocation);
 
         cc.enabled = true;
 
-        // If the player has stolen & not in prison.
+        // If the player has stolen (is Criminal) & not in prison.
         if (netPlayer.isCriminal && !netPlayer.isInPrison) {
 
             Debug.Log(netPlayer.myHideout.transform.position);
@@ -137,7 +142,6 @@ public class PlayerUI : MonoBehaviour
                 ownHideoutLocation = new Vector3(netPlayer.myHideout.transform.position.x, netPlayer.myHideout.transform.position.y, netPlayer.myHideout.transform.position.z);
 
             }
-
 
             // change waypoint indicator icon and position to player's hideout
             waypoints.setWaypointType("hideout");
@@ -157,7 +161,7 @@ public class PlayerUI : MonoBehaviour
         {
             // change waypoint indicator icon and position back to the bank
             waypoints.setWaypointType("bank");
-            waypoints.setWayPointPosition(new Vector3(-30.1200f,3.81f,89.03f));
+            waypoints.setWayPointPosition(bankLocation);
             cooldownText.text = "No longer criminal in " + thiefActions.currentTimerCriminalState.ToString("0");
         }
     	
@@ -241,10 +245,6 @@ public class PlayerUI : MonoBehaviour
 
     }
 
-    public void UpdateCriminalStatus(){
-        
-    }
-
     public void updatePlayerCount(int playerCount, int maxPlayers)
     {
         playerCountText.text = $"{playerCount}/{maxPlayers} Player";
@@ -264,7 +264,7 @@ public class PlayerUI : MonoBehaviour
          if (!currentlyPlayingCriminalCatched)
          {
             currentlyPlayingCriminalCatched = true;
-            playerAudio.ownAudio.clip = playerAudio.catchedByPolice;
+            playerAudio.ownAudio.clip = thiefActions.catchedByPolice;
             // Play the sound
             playerAudio.ownAudio.Play();
             fadeAnimator.SetTrigger("FadeToBlack");

@@ -6,8 +6,5 @@ using UnityEngine;
 public class PlayerAudio : MonoBehaviour
 {
     public AudioSource ownAudio;
-    public AudioClip catchedByPolice;
-    public AudioClip stolenTheBank;
-    public AudioClip secureTheMoney;
 
 }
