@@ -31,6 +31,8 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     public NetworkBool supposedToGoToPrison { get; set; } = false;
     [Networked]
     public NetworkBool isCriminal { get; set; } = false;
+    [Networked]
+    public float prisonTimeDuration { get; set; } = 20;
     public bool isInPrison = false;
 
     private GameObject map;
