@@ -106,8 +106,8 @@ public class ThiefActions : MonoBehaviour
             stealAmountThisTime = globalMoney.GlobalMoney;
         }
         CharacterInputHandler handler = GetComponent<CharacterInputHandler>();
-        handler.globalMoneyChange -= stealAmountThisTime;
         handler.globalPocketMoneyChange += stealAmountThisTime;
+        handler.globalMoneyChange -= stealAmountThisTime;
 
         // add Points
         handler.addRobbingPoints();

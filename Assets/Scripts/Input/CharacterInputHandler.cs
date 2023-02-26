@@ -134,8 +134,8 @@ public class CharacterInputHandler : MonoBehaviour
 
 
         // reflects data from Interactions with players
-        networkInputData.globalMoneyChange = globalMoneyChange;
         networkInputData.globalPocketMoneyChange = globalPocketMoneyChange;
+        networkInputData.globalMoneyChange = globalMoneyChange;
 
         if (networkPlayer != null)
         {
