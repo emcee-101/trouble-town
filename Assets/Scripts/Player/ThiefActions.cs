@@ -23,12 +23,14 @@ public class ThiefActions : MonoBehaviour
     public bool pocketMoneyHidden;
     public float stealCooldownDefault = 20.0f;
     public float stealCooldownDifferenceWithCrowbarItem = 10.0f;
+    public float prisonTimeDuration;
     public float investigationDuration = 5.0f;
     public float wantedStateDuration = 20.0f;
 
     // Start is called before the first frame update
     void Start()
     {   
+
         state = GameObject.FindWithTag("State");
         globalMoney = state.GetComponent<global_money>();
         //totalPocketMoney = globalMoney.TotalPocketMoney;
