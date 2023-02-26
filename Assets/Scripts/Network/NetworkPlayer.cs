@@ -364,10 +364,6 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         preMap.SetActive(false);
     }
 
-    public bool HasInputAuthority(){
-        return Object.HasInputAuthority;
-    }
-
     public static void OnChangeBeingInvestigated(Changed<NetworkPlayer> changed)
     {
         changed.Behaviour.OnChangeBeingInvestigated();

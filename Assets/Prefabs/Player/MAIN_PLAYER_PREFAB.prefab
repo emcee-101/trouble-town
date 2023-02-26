@@ -41,11 +41,11 @@ AudioSource:
   m_GameObject: {fileID: 521381102848927882}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 0201e326131db374c947781210af79d3, type: 2}
+  OutputAudioMixerGroup: {fileID: 75921599542968138, guid: ad75b9a78920e0245840ef62a626849f, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 0.82569605
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -53,9 +53,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 60
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -63,16 +63,34 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      time: 0.10935262
+      value: 0.8997383
+      inSlope: -2.7162988
+      outSlope: -2.7162988
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.1259533
+    - serializedVersion: 3
+      time: 0.45463684
+      value: 0.3395701
+      inSlope: -1.0176215
+      outSlope: -1.0176215
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.3388124
+      outWeight: 0.15429606
+    - serializedVersion: 3
+      time: 0.8607358
+      value: 0.04785668
+      inSlope: -0.50524753
+      outSlope: -0.50524753
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
+      time: 0.9570923
       value: 0
       inSlope: 0
       outSlope: 0
@@ -88,7 +106,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -103,7 +121,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.083333336
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1818,7 +1836,7 @@ AudioSource:
   m_GameObject: {fileID: 3510641347565005610}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 0201e326131db374c947781210af79d3, type: 2}
+  OutputAudioMixerGroup: {fileID: 6457747065337638286, guid: ad75b9a78920e0245840ef62a626849f, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -3645,6 +3663,7 @@ GameObject:
   - component: {fileID: 8081760661856977215}
   - component: {fileID: 8377918770133324643}
   - component: {fileID: 8855801947773541029}
+  - component: {fileID: 8320078590897466142}
   m_Layer: 0
   m_Name: MAIN_PLAYER_PREFAB
   m_TagString: Untagged
@@ -3920,13 +3939,9 @@ MonoBehaviour:
   frontBarMoney: {fileID: 6730733148261154328}
   backBarMoney: {fileID: 4105185178252245768}
   moneyText: {fileID: 5287749522341494087}
-  ownAudio: {fileID: 799286407988898035}
-  catchedByPolice: {fileID: 8300000, guid: a3de125833f89cb448679d4300d908b0, type: 3}
   waypoints: {fileID: 1412586668972440843}
   playerCountText: {fileID: 8331207558226751238}
-  durationTimerStealCooldown: 0
   durationTimerCriminalState: 0
-  durationTimerInvestigation: 0
   durationTimerPrison: 0
 --- !u!114 &8377918770133324643
 MonoBehaviour:
@@ -3942,7 +3957,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   footStepAudioSource: {fileID: 9137981622932814774}
-  footstepsSound: {fileID: 8300000, guid: ccb61ced7b70dcb4eba94ac9b4f09e8b, type: 3}
+  footStepAudioClips:
+  - {fileID: 8300000, guid: a4b395adb3643aa4d8205bfe139db8ec, type: 3}
+  - {fileID: 8300000, guid: 6b5722e0943d0cd42a3850bac9af0561, type: 3}
+  - {fileID: 8300000, guid: 01c4bcb36aa100d45ab9c9486b80fbb7, type: 3}
+  - {fileID: 8300000, guid: f32e121f8194181419a87a85e97979cd, type: 3}
+  playFootstepSound:
+    _value: 0
 --- !u!114 &8855801947773541029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3973,6 +3994,22 @@ MonoBehaviour:
     _hash: -814817977
   StateHashes: 00000000af0d0cbbb59c3651c726d99b4569951ef096008932e4c12b95c2d4bad66ce7b9
   TriggerHashes: 00000000
+--- !u!114 &8320078590897466142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8320661125014528706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 025483946b4fcb04a812e1a0d7a75abb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownAudio: {fileID: 799286407988898035}
+  catchedByPolice: {fileID: 8300000, guid: a3de125833f89cb448679d4300d908b0, type: 3}
+  stolenTheBank: {fileID: 8300000, guid: 82966cda3acf330409423f56a33bdd18, type: 3}
+  secureTheMoney: {fileID: 8300000, guid: 79f1aaa5c5b9fb940bd75769ad87b526, type: 3}
 --- !u!1 &8329819827382698335
 GameObject:
   m_ObjectHideFlags: 0

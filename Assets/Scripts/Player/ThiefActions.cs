@@ -14,6 +14,8 @@ public class ThiefActions : MonoBehaviour
     private int stealAmountExtraWithBagItem = 500;
     public int currentMoney;
     public int pocketMoney;
+    [HideInInspector]
+    public float currentStealCooldown = 0.0f;
     private PlayerUI playerUI;
     private NetworkPlayer networkPlayer;
 
@@ -25,7 +27,7 @@ public class ThiefActions : MonoBehaviour
     public float investigationDuration;
     public float prisonTimeDuration;
     public float wantedStateDuration;
-
+    private PlayerAudio playerAudio;
     // Start is called before the first frame update
     void Start()
     {   
@@ -35,14 +37,23 @@ public class ThiefActions : MonoBehaviour
         currentMoney = 0;
         pocketMoney = 0;
         playerUI = GetComponent<PlayerUI>();
-        networkPlayer = playerUI.GetComponent<NetworkPlayer>();
+        networkPlayer = GetComponent<NetworkPlayer>();
+        playerAudio = GetComponent<PlayerAudio>();
         if(state == null) { Debug.Log("State Object was not found"); }
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Reduce cooldown as time goes...
+        if (currentStealCooldown > 0) 
+        {
+            currentStealCooldown -= Time.deltaTime;
+            currentStealCooldown = Mathf.Clamp(currentStealCooldown, 0, 999);
+        }
+
     }
+
     public bool rubBank()
     {
         int stealAmount = stealAmountDefault;
@@ -54,7 +65,7 @@ public class ThiefActions : MonoBehaviour
         state = GameObject.FindWithTag("State");
         globalMoney = state.GetComponent<global_money>();
         // check if cooldown exists
-        if (playerUI.isOnStealCooldown()) 
+        if ((currentStealCooldown > 0)) 
         {
             Debug.Log("Steal Cooldown Running");
             return false;
@@ -75,17 +86,21 @@ public class ThiefActions : MonoBehaviour
         handler.addRobbingPoints();
         setCriminal(true);
         pocketMoneyHidden = false;
-
-        playerUI.durationTimerStealCooldown = stealCooldown;
+        currentStealCooldown = stealCooldown;
         playerUI.durationTimerCriminalState = wantedStateDuration;
         
         pocketMoney += stealAmount;
-        Debug.Log("Stolen " + stealAmountThisTime.ToString());
+         // Play SFX
+        playerAudio.ownAudio.PlayOneShot(playerAudio.stolenTheBank);
         return true;
 
     }
+
     public bool hideMoney()
-    {
+    {   
+        if (pocketMoney == 0) {
+            return false;
+        }
         globalMoney.TotalPocketMoney -= pocketMoney;
         currentMoney                 += pocketMoney;
         pocketMoney = 0;
@@ -93,9 +108,10 @@ public class ThiefActions : MonoBehaviour
 
         // add Points
         GetComponent<CharacterInputHandler>().addStoringMoneyPoints();
-        
-        return true;
+        // Play SFX
+        playerAudio.ownAudio.PlayOneShot(playerAudio.secureTheMoney);
 
+        return true;
     }
     public bool getInvestigated(){
         
