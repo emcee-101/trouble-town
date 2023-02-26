@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedBoostItem : NetworkBehaviour
+public class HandcuffsItem : NetworkBehaviour
 {
     private round_spawner roundSpawner;
     private NetworkRunner runner;
@@ -20,11 +20,11 @@ public class SpeedBoostItem : NetworkBehaviour
 
         if (networkPlayer != null)
         {
-            if (roundSpawner.spawnedSpeedBoostItems.Contains(this))
+            if (roundSpawner.spawnedHandcuffsItems.Contains(this))
             {
                 Despawn();
-                roundSpawner.spawnedSpeedBoostItems.Remove(this);
-                networkPlayer.hasSpeedBoostItem = true;
+                roundSpawner.spawnedHandcuffsItems.Remove(this);
+                networkPlayer.hasHandcuffsItem = true;
             }
         }
     }

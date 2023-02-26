@@ -23,6 +23,7 @@ public class MoneyBagItem : NetworkBehaviour
             if (roundSpawner.spawnedMoneyBagItems.Contains(this))
             {
                 Despawn();
+                roundSpawner.spawnedMoneyBagItems.Remove(this);
                 networkPlayer.hasMoneyBagItem = true;
             }
 
@@ -31,7 +32,6 @@ public class MoneyBagItem : NetworkBehaviour
 
     public void Despawn()
     {
-        roundSpawner.spawnedMoneyBagItems.Remove(this);
         runner.Despawn(GetComponent<NetworkObject>());
     }
 }

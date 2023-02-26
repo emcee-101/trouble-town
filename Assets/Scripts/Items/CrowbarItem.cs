@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedBoostItem : NetworkBehaviour
+public class CrowbarItem : NetworkBehaviour
 {
     private round_spawner roundSpawner;
     private NetworkRunner runner;
@@ -20,11 +20,11 @@ public class SpeedBoostItem : NetworkBehaviour
 
         if (networkPlayer != null)
         {
-            if (roundSpawner.spawnedSpeedBoostItems.Contains(this))
+            if (roundSpawner.spawnedCrowbarItems.Contains(this))
             {
                 Despawn();
-                roundSpawner.spawnedSpeedBoostItems.Remove(this);
-                networkPlayer.hasSpeedBoostItem = true;
+                roundSpawner.spawnedCrowbarItems.Remove(this);
+                networkPlayer.hasCrowbarItem = true;
             }
         }
     }

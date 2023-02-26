@@ -23,6 +23,7 @@ public class PhoneItem : NetworkBehaviour
             if (roundSpawner.spawnedPhoneItems.Contains(this))
             {
                 Despawn();
+                roundSpawner.spawnedPhoneItems.Remove(this);
                 networkPlayer.hasPhoneItem = true;
             }
 
@@ -30,7 +31,6 @@ public class PhoneItem : NetworkBehaviour
     }
     public void Despawn()
     {
-        roundSpawner.spawnedPhoneItems.Remove(this);
         runner.Despawn(GetComponent<NetworkObject>());
     }
 }
