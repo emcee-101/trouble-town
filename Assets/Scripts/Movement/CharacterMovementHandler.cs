@@ -36,6 +36,9 @@ public class CharacterMovementHandler : NetworkBehaviour
             Vector3 moveDirection = transform.forward * networkInputData.movementInput.y + transform.right * networkInputData.movementInput.x;
             moveDirection.Normalize();
 
+            // Decide weather footstep audio should be played
+            GetComponent<Footsteps>().playFootstepSound = (moveDirection == new Vector3(0,0,0)) ? false : true;
+
             GetComponent<NetworkPlayer>().isCriminal = networkInputData.criminalStatus;
 
             networkCharacterControllerPrototypeCustom.Move(moveDirection);

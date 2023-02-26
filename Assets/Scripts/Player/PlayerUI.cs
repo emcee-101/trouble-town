@@ -34,12 +34,10 @@ public class PlayerUI : MonoBehaviour
 
     private NetworkPlayer netPlayer;
     private ThiefActions thiefActions;
+    private PlayerAudio playerAudio;
 
     private GameObject state;
     private global_money globalMoney;
-
-    public AudioSource ownAudio;
-    public AudioClip catchedByPolice;
 
     public MissionWaypoint waypoints;
 
@@ -49,24 +47,19 @@ public class PlayerUI : MonoBehaviour
 
     public void Init()
     {
-        durationTimerTransistionOnHold = 2.0f;
         durationTimerSceneTransition = fadeSceneSwitchDuration;
         moneyTotal = globalMoney.GlobalMoney;
         frontBarMoney.fillAmount =  1f;
         backBarMoney.fillAmount  =  1f;
         warnMessage.enabled = true;
-        durationTimerStealCooldown = 0;
         intenseOverlay.color = new Color(intenseOverlay.color.r, intenseOverlay.color.g, intenseOverlay.color.b, 0.6f);
     }
     
     private float fadeSpeed = 0.5f;
-    private float durationTimerTransistionOnHold;
     private float durationTimerSceneTransition;
     private float durationTimerAnimation = 0;
 
-    public  float durationTimerStealCooldown;
     public float durationTimerCriminalState;
-    public float durationTimerInvestigation;
     public float durationTimerPrison;
     
     private bool currentlyPlayingCriminalCatched = false;
@@ -75,7 +68,7 @@ public class PlayerUI : MonoBehaviour
     void Start(){
         state = GameObject.FindWithTag("State");
         globalMoney = state.GetComponent<global_money>();
-        // police text. Will be changed later if player is a thief
+        // Police text. Will be changed later if player is a thief
         introText.text = "You Are Policeman";
         introSubText.text = "Keep your eyes on thiefs & protect the banks";
     }
@@ -84,6 +77,7 @@ public class PlayerUI : MonoBehaviour
     {
         CheckEnterClickFromHost();
 
+        // Work around
         if (waypoints == null && GetComponentInChildren<MissionWaypoint>() != null){
             waypoints = GetComponentInChildren<MissionWaypoint>();
         }
@@ -95,6 +89,9 @@ public class PlayerUI : MonoBehaviour
             thiefActions = GetComponent<ThiefActions>();
             introText.text = "You Are Thief";
             introSubText.text = "Rob banks, hide the cash and be stay away from police";
+        }
+        if ((playerAudio == null) && GetComponent<PlayerAudio>() != null){
+            playerAudio = GetComponent<PlayerAudio>();
         }
 
         if (cc == null) {
@@ -119,40 +116,42 @@ public class PlayerUI : MonoBehaviour
         waypoints.setWaypointType("bank");
         waypoints.setWayPointPosition(new Vector3(-30.1200f,3.81f,89.03f));
         cc.enabled = true;
+        // If the player has stolen & not in prison.
         if (netPlayer.isCriminal && !netPlayer.isInPrison) {
+            // change waypoint indicator icon and position to player's hideout
             waypoints.setWaypointType("hideout");
             waypoints.setWayPointPosition(new Vector3(-30.1200f,3.81f,89.03f));
-            cc.enabled = true;
+            // Let the player know that they're wanted
             intenseOverlay.enabled = true;
             warnMessage.text = "Now you are criminal! Stay away from policeman*in";
             UpdateIntenseOverlay();
             UpdateCriminalStatus();
         }
-
-        if (durationTimerStealCooldown > 0) {
-            UpdateStealingCooldown();
+    	
+        // Show steal cooldown if it exists
+        if (thiefActions.currentStealCooldown > 0) {
+            string guiTimer = thiefActions.currentStealCooldown.ToString("0");
+            cooldownText.text = cooldownText.text = "Steal Cooldown: " + guiTimer;
         }
 
         if (netPlayer.isBeingInvestigated) {
-            // disable character controller so the player cannot move meanwhile
+            // disable character controller so the player cannot move while being investigated
             cc.enabled = false;
             warnMessage.text = "You are being investigated by policeman!";
-            UpdateBeingInvestigated();
         }
+        // play some fun stuff if the player being investigated is indeed criminal
         if (netPlayer.isBeingInvestigated && netPlayer.isCriminal){
             StartCoroutine(playCriminalCatched());
         }
         if (netPlayer.isInPrison) {
-            cc.enabled = true;
             thiefActions.setCriminal(false);
-            //black.color = new Color(255.0f, 255.0f, 255.0f, 0.0f);
-            //ownAudio.Stop();
             warnMessage.text = "You are in prison!";
             UpdateWhileInPrison();
         }
     }
 
     private void CheckEnterClickFromHost(){
+        // Christopher
         if (Input.GetKeyDown(KeyCode.Return) && GetComponentInParent<NetworkPlayer>().isHostAndPolice)
         {
             GameObject obj = GameObject.FindGameObjectWithTag("State");
@@ -186,22 +185,9 @@ public class PlayerUI : MonoBehaviour
 
     }
 
-    private void UpdateStealingCooldown()
-    {
-        // Reduce cooldown as time goes...
-        //Debug.Log(currentStealCooldown);
-        if (durationTimerStealCooldown > 0) 
-        {
-            durationTimerStealCooldown -= Time.deltaTime;
-            durationTimerStealCooldown = Mathf.Clamp(durationTimerStealCooldown, 0, 999);
-            string guiTimer = durationTimerStealCooldown.ToString("0");
-            cooldownText.text = cooldownText.text = "Steal Cooldown: " + guiTimer;
-        }
-    }
-
     public void UpdateIntenseOverlay()
     {
-        // GUI loop for intense mode
+        // GUI loop for IntenseOverlay
         float factor = Time.deltaTime * fadeSpeed;
         durationTimerAnimation += Time.deltaTime;
         if (animationDuration > durationTimerAnimation)
@@ -228,6 +214,8 @@ public class PlayerUI : MonoBehaviour
     }
 
     public void UpdateCriminalStatus(){
+        // If player has hidden their stolen money, remove Criminal status after
+        // certain time has passed
         if (thiefActions.pocketMoneyHidden && netPlayer.isCriminal)
         {
             durationTimerCriminalState -= Time.deltaTime;
@@ -238,12 +226,6 @@ public class PlayerUI : MonoBehaviour
                 durationTimerCriminalState = thiefActions.wantedStateDuration;
             }
         }
-    }
-
-    public void UpdateBeingInvestigated()
-    {
-        durationTimerInvestigation -= Time.deltaTime;
-        cooldownText.text = "Being investigated... ";
     }
 
     public void UpdateWhileInPrison(){
@@ -270,23 +252,18 @@ public class PlayerUI : MonoBehaviour
         gameState.gameState = GameState.game;
     }
 
-    public bool isOnStealCooldown()
-    {
-        return (durationTimerStealCooldown > 0);
-    }
-
     IEnumerator playCriminalCatched()
      {
          
          if (!currentlyPlayingCriminalCatched)
          {
             currentlyPlayingCriminalCatched = true;
-            ownAudio.clip = catchedByPolice;
+            playerAudio.ownAudio.clip = playerAudio.catchedByPolice;
             // Play the sound
-            ownAudio.Play();
+            playerAudio.ownAudio.Play();
             fadeAnimator.SetTrigger("FadeToBlack");
             yield return new WaitForSeconds(9);
-            ownAudio.Stop();
+            playerAudio.ownAudio.Stop();
             fadeAnimator.SetTrigger("FadeBack");
             currentlyPlayingCriminalCatched = false;
          }

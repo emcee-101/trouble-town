@@ -7,30 +7,19 @@ using Fusion;
 public class Footsteps : NetworkBehaviour 
 {
     public AudioSource footStepAudioSource;
-    public AudioClip footstepsSound;
+    public AudioClip[] footStepAudioClips;
     private bool currentlyPlaying;
-    private NetworkBool playFootstepSound;
+    public NetworkBool playFootstepSound;
+    private int randomFootStep;
 
-    void Spawned() 
+    public override void Spawned() 
     {
         currentlyPlaying = false;
         playFootstepSound = false;
         
     }
     void Update()
-    {
-        if (Object.HasInputAuthority)
-        {
-            if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
-            {
-                playFootstepSound = true;
-            }
-            else
-            {
-                playFootstepSound = false;
-            }
-        }
-
+    {   
         if (playFootstepSound)
         {
             if (currentlyPlaying == false)
@@ -38,23 +27,19 @@ public class Footsteps : NetworkBehaviour
                  StartCoroutine(playFootStep());
              }
         }
-        else 
-        {
-            footStepAudioSource.Stop();
-            currentlyPlaying = false;
-        }
     }
     IEnumerator playFootStep()
      {
-        // Pick a footstep sound to play
-        footStepAudioSource.clip = footstepsSound;
-        //int randomPitch = Random.Range(1, 3);
-        //footStepAudioSource.pitch = (int)randomPitch;
+        // Pick a random footstep sound to play
+        randomFootStep = (int)Mathf.Floor(Random.Range(0, footStepAudioClips.Length));
+        footStepAudioSource.clip = footStepAudioClips[randomFootStep];
+        footStepAudioSource.pitch = Random.Range(0.8f, 1.1f);
  
         // Play the sound
         footStepAudioSource.Play();
         currentlyPlaying = true;
-        yield return new WaitForSeconds(footStepAudioSource.clip.length);
+        yield return new WaitForSeconds(0.4f);
+        footStepAudioSource.Stop();
         currentlyPlaying = false;
      }
 }
