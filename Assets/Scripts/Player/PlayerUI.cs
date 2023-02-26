@@ -121,7 +121,7 @@ public class PlayerUI : MonoBehaviour
         if (netPlayer.isCriminal && !netPlayer.isInPrison) {
             // change waypoint indicator icon and position to player's hideout
             waypoints.setWaypointType("hideout");
-            waypoints.setWayPointPosition(new Vector3(-30.1200f,3.81f,89.03f));
+            waypoints.setWayPointPosition(netPlayer.myHideout.transform.position);
             // Let the player know that they're wanted
             intenseOverlay.enabled = true;
             warnMessage.text = "Now you are criminal! Stay away from policeman*in";
