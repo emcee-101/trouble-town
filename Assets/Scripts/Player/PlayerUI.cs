@@ -110,19 +110,34 @@ public class PlayerUI : MonoBehaviour
 
     private void updateThiefUI()
     {
-        // Workaround : Get the hideout location for once and store it in a variable
-        if (ownHideoutLocation == null && netPlayer.myHideout.transform.position != null){
-            ownHideoutLocation = netPlayer.myHideout.transform.position;
-        }
+
+
+
         thiefPocketMoney.text = string.Format("Pocket Money: {0}$.", thiefActions.pocketMoney);
         thiefSecuredMoney.text = string.Format("Secured Money: {0}$.", thiefActions.currentMoney);
 
         waypoints.setWaypointType("bank");
+
+
         waypoints.setWayPointPosition(new Vector3(-30.1200f,3.81f,89.03f));
+
+
         cc.enabled = true;
 
         // If the player has stolen & not in prison.
         if (netPlayer.isCriminal && !netPlayer.isInPrison) {
+
+            Debug.Log(netPlayer.myHideout.transform.position);
+            Debug.Log(ownHideoutLocation);
+
+            // Workaround : Get the hideout location for once and store it in a variable
+            if (ownHideoutLocation == null && netPlayer.myHideout.transform.position != null)
+            {
+                ownHideoutLocation = new Vector3(netPlayer.myHideout.transform.position.x, netPlayer.myHideout.transform.position.y, netPlayer.myHideout.transform.position.z);
+
+            }
+
+
             // change waypoint indicator icon and position to player's hideout
             waypoints.setWaypointType("hideout");
             waypoints.setWayPointPosition(ownHideoutLocation);
