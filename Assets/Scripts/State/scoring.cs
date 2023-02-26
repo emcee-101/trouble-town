@@ -51,6 +51,7 @@ public class scoring : NetworkBehaviour
     {
 
         scorings.Remove(playerName);
+        numPlayers--;
 
     }
 

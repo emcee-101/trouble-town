@@ -241,7 +241,11 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             //if (state == null) { Debug.Log("state is null for some reason"); };
             // Player gets his/her own Hideout
             myHideout = state.GetComponent<hideoout_dispatcher>().dispatchHideout(playerNumber);
-            myHideout.SetActive(true);
+
+            if(myHideout == null)
+            { Debug.Log("Hideout not set correctly"); }
+            else 
+               myHideout.SetActive(true);
         }
 
 
