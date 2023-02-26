@@ -40,6 +40,7 @@ public class PlayerUI : MonoBehaviour
     private global_money globalMoney;
 
     public MissionWaypoint waypoints;
+    private Vector3 ownHideoutLocation;
 
     [Header("LobbyUI")]
     [SerializeField]
@@ -59,8 +60,7 @@ public class PlayerUI : MonoBehaviour
     private float durationTimerSceneTransition;
     private float durationTimerAnimation = 0;
 
-    public float durationTimerCriminalState;
-    public float durationTimerPrison;
+    private float currentTimerPrison = 0.0f;
     
     private bool currentlyPlayingCriminalCatched = false;
     private CharacterController cc;
@@ -110,6 +110,10 @@ public class PlayerUI : MonoBehaviour
 
     private void updateThiefUI()
     {
+        // Workaround : Get the hideout location for once and store it in a variable
+        if (ownHideoutLocation == null && netPlayer.myHideout.transform.position != null){
+            ownHideoutLocation = netPlayer.myHideout.transform.position;
+        }
         thiefPocketMoney.text = string.Format("Pocket Money: {0}$.", thiefActions.pocketMoney);
         thiefSecuredMoney.text = string.Format("Secured Money: {0}$.", thiefActions.currentMoney);
 
@@ -121,10 +125,12 @@ public class PlayerUI : MonoBehaviour
         if (netPlayer.isCriminal && !netPlayer.isInPrison) {
             // change waypoint indicator icon and position to player's hideout
             waypoints.setWaypointType("hideout");
-            waypoints.setWayPointPosition(netPlayer.myHideout.transform.position);
+            waypoints.setWayPointPosition(ownHideoutLocation);
             // Let the player know that they're wanted
             intenseOverlay.enabled = true;
             warnMessage.text = "Now you are criminal! Stay away from policeman*in";
+            // Reseting prison timer
+            currentTimerPrison = 0.0f;
             UpdateIntenseOverlay();
             UpdateCriminalStatus();
         }
@@ -136,20 +142,12 @@ public class PlayerUI : MonoBehaviour
             // change waypoint indicator icon and position back to the bank
             waypoints.setWaypointType("bank");
             waypoints.setWayPointPosition(new Vector3(-30.1200f,3.81f,89.03f));
-
-            durationTimerCriminalState -= Time.deltaTime;
-            string guiTimer = durationTimerCriminalState.ToString("0");
-            cooldownText.text = "No longer criminal in " + guiTimer;
-            if (durationTimerCriminalState <= 0){
-                thiefActions.setCriminal(false);
-                durationTimerCriminalState = thiefActions.wantedStateDuration;
-            }
+            cooldownText.text = "No longer criminal in " + thiefActions.currentTimerCriminalState.ToString("0");
         }
     	
         // Show steal cooldown if it exists
         if (thiefActions.currentStealCooldown > 0) {
-            string guiTimer = thiefActions.currentStealCooldown.ToString("0");
-            cooldownText.text = cooldownText.text = "Steal Cooldown: " + guiTimer;
+            cooldownText.text = cooldownText.text = "Steal Cooldown: " + thiefActions.currentStealCooldown.ToString("0");
         }
 
         if (netPlayer.isBeingInvestigated) {
@@ -164,7 +162,8 @@ public class PlayerUI : MonoBehaviour
         if (netPlayer.isInPrison) {
             thiefActions.setCriminal(false);
             warnMessage.text = "You are in prison!";
-            UpdateWhileInPrison();
+            currentTimerPrison += Time.deltaTime;
+            cooldownText.text = "Leaving the prison in " + (netPlayer.prisonTimeDuration - currentTimerPrison).ToString("0");
         }
     }
 
@@ -198,7 +197,7 @@ public class PlayerUI : MonoBehaviour
         frontBarMoney.fillAmount = (float)(moneyLeft / moneyTotal);
         backBarMoney.color = Color.white;
         
-        backBarMoney.fillAmount = (moneyLeft + totalPocketMoney) / moneyTotal;
+        backBarMoney.fillAmount = (float)(moneyLeft + totalPocketMoney) / moneyTotal;
         moneyText.text = Mathf.Round(moneyLeft) + "$ Left";
 
     }
@@ -233,17 +232,6 @@ public class PlayerUI : MonoBehaviour
 
     public void UpdateCriminalStatus(){
         
-    }
-
-    public void UpdateWhileInPrison(){
-        durationTimerPrison -= Time.deltaTime;
-        string guiTimer = durationTimerPrison.ToString("0");
-        cooldownText.text = "Leaving the prison in " + guiTimer;
-        if (durationTimerPrison < 0){
-            durationTimerPrison = thiefActions.prisonTimeDuration;
-            //transform.position = Utils.GetRandomSpawnPoint();
-            cc.enabled = true;
-        }
     }
 
     public void updatePlayerCount(int playerCount, int maxPlayers)
