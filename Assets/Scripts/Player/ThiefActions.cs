@@ -17,7 +17,7 @@ public class ThiefActions : MonoBehaviour
     [HideInInspector]
     public float currentStealCooldown = 0.0f;
     private PlayerUI playerUI;
-    private NetworkPlayer networkPlayer;
+    private NetworkPlayer netPlayer;
 
     private GameObject state;
     private global_money globalMoney;
@@ -37,7 +37,7 @@ public class ThiefActions : MonoBehaviour
         currentMoney = 0;
         pocketMoney = 0;
         playerUI = GetComponent<PlayerUI>();
-        networkPlayer = GetComponent<NetworkPlayer>();
+        netPlayer = GetComponent<NetworkPlayer>();
         playerAudio = GetComponent<PlayerAudio>();
         if(state == null) { Debug.Log("State Object was not found"); }
     }
@@ -57,10 +57,10 @@ public class ThiefActions : MonoBehaviour
     public bool rubBank()
     {
         int stealAmount = stealAmountDefault;
-        if (networkPlayer.hasMoneyBagItem)
+        if (netPlayer.hasMoneyBagItem)
         {
             stealAmount += stealAmountExtraWithBagItem;
-            networkPlayer.hasMoneyBagItem = false;
+            netPlayer.hasMoneyBagItem = false;
         }
         state = GameObject.FindWithTag("State");
         globalMoney = state.GetComponent<global_money>();
