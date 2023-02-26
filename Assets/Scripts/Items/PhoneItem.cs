@@ -31,6 +31,9 @@ public class PhoneItem : NetworkBehaviour
     }
     public void Despawn()
     {
-        runner.Despawn(GetComponent<NetworkObject>());
+        if (GetComponent<NetworkObject>())
+        {
+            runner.Despawn(GetComponent<NetworkObject>());
+        }
     }
 }

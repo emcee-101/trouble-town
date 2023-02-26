@@ -87,31 +87,46 @@ public class round_spawner : NetworkBehaviour
     {
         foreach (MoneyBagItem item in spawnedMoneyBagItems)
         {
-            item.Despawn();
+            if (item)
+            {
+                item.Despawn();
+            }
         }
         spawnedMoneyBagItems.Clear();
 
         foreach (CrowbarItem item in spawnedCrowbarItems)
         {
-            item.Despawn();
+            if (item)
+            {
+                item.Despawn();
+            }
         }
         spawnedCrowbarItems.Clear();
 
         foreach (HandcuffsItem item in spawnedHandcuffsItems)
         {
-            item.Despawn();
+            if (item)
+            {
+                item.Despawn();
+            }
         }
         spawnedHandcuffsItems.Clear();
 
         foreach (SpeedBoostItem item in spawnedSpeedBoostItems)
         {
-            item.Despawn();
+            if (item)
+            {
+                item.Despawn();
+            }
         }
         spawnedSpeedBoostItems.Clear();
 
         foreach (PhoneItem item in spawnedPhoneItems)
         {
-            item.Despawn();
+            if (item)
+            {
+                item.Despawn();
+            }
         }
         spawnedPhoneItems.Clear();
     }
