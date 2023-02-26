@@ -62,7 +62,7 @@ public class ThiefActions : MonoBehaviour
         if (netPlayer.isCriminal && pocketMoneyHidden)
         {
             currentTimerCriminalState -= Time.deltaTime;
-            if (currentTimerCriminalState <= 0){
+            if (currentTimerCriminalState < 0){
                 setCriminal(false);
             }
         }
@@ -132,10 +132,8 @@ public class ThiefActions : MonoBehaviour
 
         CharacterInputHandler handler = GetComponent<CharacterInputHandler>();
         handler.globalPocketMoneyChange -= pocketMoney;
-
-        currentMoney                 += pocketMoney;
-
-
+        
+        currentMoney += pocketMoney;
         pocketMoney = 0;
         pocketMoneyHidden = true;
 

@@ -700,7 +700,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stealAmountDefault: 1000
   stealAmountExtraWithBagItem: 500
-  criminalStateDurationAfterMoneyIsHidden: 0
+  criminalStateDurationAfterMoneyIsHidden: 10
   speedBoostDuration: 20
   catchedByPolice: {fileID: 8300000, guid: a3de125833f89cb448679d4300d908b0, type: 3}
   stolenTheBank: {fileID: 8300000, guid: 82966cda3acf330409423f56a33bdd18, type: 3}

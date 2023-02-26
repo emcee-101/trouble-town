@@ -12025,12 +12025,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 632646083}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cd93a2100a74da4298f8b71c6f2575b, type: 3}
+  m_Script: {fileID: 11500000, guid: 12cb9316eb25ce4489b6afc5e6e46be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   useEvents: 0
   interactableType: bank
-  promptMessage: Press E to rob Bank
+  promptMessage: Rob This Bank
 --- !u!64 &632646086
 MeshCollider:
   m_ObjectHideFlags: 0

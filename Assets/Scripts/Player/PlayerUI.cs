@@ -16,7 +16,8 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI thiefPocketMoney;
     [SerializeField] private TextMeshProUGUI thiefSecuredMoney;
     [SerializeField] private MissionWaypoint waypoints;
-
+    
+    [Header("Animator")]
     [SerializeField] private  Animator fadeAnimator;
 
     [Header("Intense Overlay")]
@@ -45,6 +46,7 @@ public class PlayerUI : MonoBehaviour
     private global_money globalMoney;
 
     private Vector3 ownHideoutLocation;
+    private Vector3 bankLocation;
 
 
     public void Init()
@@ -69,6 +71,7 @@ public class PlayerUI : MonoBehaviour
     void Start(){
         state = GameObject.FindWithTag("State");
         globalMoney = state.GetComponent<global_money>();
+        bankLocation = new Vector3(-30.1200f,3.81f,89.03f);
         // Police text. Will be changed later if player is a thief
         introText.text = "You Are Policeman";
         introSubText.text = "Keep your eyes on thiefs & protect the banks";
@@ -111,6 +114,10 @@ public class PlayerUI : MonoBehaviour
 
     private void updateThiefUI()
     {
+
+        // Some UI element are overritten multple times here, as higher priority events are 
+        // intentionally placed at the bottom after lower priority once
+
         // Workaround : Get the hideout location for once and store it in a variable
         if (ownHideoutLocation == Vector3.zero && netPlayer.myHideout != null){
             ownHideoutLocation = netPlayer.myHideout.transform.position;
@@ -119,14 +126,11 @@ public class PlayerUI : MonoBehaviour
         thiefSecuredMoney.text = string.Format("Secured Money: {0}$.", thiefActions.currentMoney);
 
         waypoints.setWaypointType("bank");
-
-
-        waypoints.setWayPointPosition(new Vector3(-30.1200f,3.81f,89.03f));
-
+        waypoints.setWayPointPosition(bankLocation);
 
         cc.enabled = true;
 
-        // If the player has stolen & not in prison.
+        // If the player has stolen (is Criminal) & not in prison.
         if (netPlayer.isCriminal && !netPlayer.isInPrison) {
 
             Debug.Log(netPlayer.myHideout.transform.position);
@@ -138,7 +142,6 @@ public class PlayerUI : MonoBehaviour
                 ownHideoutLocation = new Vector3(netPlayer.myHideout.transform.position.x, netPlayer.myHideout.transform.position.y, netPlayer.myHideout.transform.position.z);
 
             }
-
 
             // change waypoint indicator icon and position to player's hideout
             waypoints.setWaypointType("hideout");
@@ -158,7 +161,7 @@ public class PlayerUI : MonoBehaviour
         {
             // change waypoint indicator icon and position back to the bank
             waypoints.setWaypointType("bank");
-            waypoints.setWayPointPosition(new Vector3(-30.1200f,3.81f,89.03f));
+            waypoints.setWayPointPosition(bankLocation);
             cooldownText.text = "No longer criminal in " + thiefActions.currentTimerCriminalState.ToString("0");
         }
     	
@@ -240,10 +243,6 @@ public class PlayerUI : MonoBehaviour
             durationTimerAnimation = 0;
         }
 
-    }
-
-    public void UpdateCriminalStatus(){
-        
     }
 
     public void updatePlayerCount(int playerCount, int maxPlayers)

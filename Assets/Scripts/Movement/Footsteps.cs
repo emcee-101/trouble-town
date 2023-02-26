@@ -15,8 +15,7 @@ public class Footsteps : NetworkBehaviour
     public override void Spawned() 
     {
         currentlyPlaying = false;
-        playFootstepSound = false;
-        
+        playFootstepSound = false;        
     }
     void Update()
     {   
