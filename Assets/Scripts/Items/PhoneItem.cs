@@ -35,5 +35,5 @@ public class PhoneItem : NetworkBehaviour
         {
             runner.Despawn(GetComponent<NetworkObject>());
         }
-    }s
+    }
 }
