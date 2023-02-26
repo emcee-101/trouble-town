@@ -5,18 +5,39 @@ using UnityEngine;
 // Author: Mohammad Zidane
 public class PoliceActions : MonoBehaviour
 {
-    public float investigationDurationDefault = 5.0f;
-    public float investigationDurationDifferenceWithPhoneItem = 2.5f;
-    private NetworkPlayer ownNetworkPlayer;
+    [SerializeField] private float investigationDurationDefault = 5.0f;
+    [SerializeField] private float investigationDurationReductionWithPhoneItem = 3.5f;
+    private float investigationDuration;
+
+    [SerializeField] private float prisonTimeDurationDefault = 20.0f;
+    [SerializeField] private float prisonTimeDurationAdditionWithHandcuffsItem = 15.0f;
+    private float prisonTimeDuration;
+
+    private NetworkPlayer netPlayer;
 
     void Start()
     {
-        ownNetworkPlayer = GetComponent<NetworkPlayer>();
+        netPlayer = GetComponent<NetworkPlayer>();
+    }
+
+    void Update()
+    {
+
     }
 
     public bool investigatePlayer(NetworkPlayer _np)
     {
-        
+        investigationDuration = investigationDurationDefault;
+        if (netPlayer.hasPhoneItem)
+        {
+            investigationDuration -= investigationDurationReductionWithPhoneItem;
+        }
+
+        prisonTimeDuration = prisonTimeDurationDefault;
+        if (netPlayer.hasHandcuffsItem)
+        {
+            prisonTimeDuration += prisonTimeDurationAdditionWithHandcuffsItem;
+        }
         StartCoroutine(waiter(_np));
         
         
@@ -26,15 +47,10 @@ public class PoliceActions : MonoBehaviour
     
     IEnumerator waiter(NetworkPlayer _np)
     {
-        float investigationDuration = investigationDurationDefault;
-        if (ownNetworkPlayer.hasPhoneItem)
-        {
-            investigationDuration -= investigationDurationDifferenceWithPhoneItem;
-            ownNetworkPlayer.hasPhoneItem = false;
-        }
-
+        // Send "isBeingInvestigated" to the remote player
         _np.isBeingInvestigated = true;
-
+        // If police has phone item, it should be consumed at this point
+        netPlayer.hasPhoneItem = false;
         GetComponent<CharacterController>().enabled = false;
         //Wait for 5 seconds
         yield return new WaitForSeconds(investigationDuration);
@@ -45,10 +61,13 @@ public class PoliceActions : MonoBehaviour
 
             GetComponent<CharacterInputHandler>().addCatchingRobberPoints();
 
-            _np.supposedToGoToPrison = true;
-            yield return new WaitForSeconds(20.0f);
-            _np.supposedToGoToPrison = false;
+            // If police has Handcuffs item, it should be consumed at this point
+            netPlayer.hasHandcuffsItem = false;
 
+            _np.supposedToGoToPrison = true;
+            _np.prisonTimeDuration = prisonTimeDuration;
+            yield return new WaitForSeconds(prisonTimeDuration);
+            _np.supposedToGoToPrison = false;
         }   
     }
 }

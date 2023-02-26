@@ -7,10 +7,8 @@ using System.Linq;
 public class PlayerInteract : MonoBehaviour
 {
     public Camera cam;
-    [SerializeField]
-    private float rayDistance = 15f;
-    [SerializeField]
-    private LayerMask mask;
+    [SerializeField] private float rayDistance = 15f;
+    [SerializeField] private LayerMask mask;
     private PlayerUI playerUI;
     private ThiefActions thiefActions;
     private PoliceActions policeActions;
@@ -37,7 +35,7 @@ public class PlayerInteract : MonoBehaviour
         }
         Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
     
-        // Override: Do not show message or allow interaction with hideout
+        // Do not show message or allow interaction with hideout if the
         // player has no pocket money
         if (interactable.interactableType == "hideout")
         {
