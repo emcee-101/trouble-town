@@ -8,7 +8,6 @@ public class round_timer : NetworkBehaviour
     public float timeForOneRoundInSeconds;
 
     [Networked] public TickTimer timer { get; set; }
-    public bool timerIsRunning = false;
 
     public NetworkRunner networkRunnerInScene;
 
@@ -18,13 +17,11 @@ public class round_timer : NetworkBehaviour
 
         // create new timer
         timer = TickTimer.CreateFromSeconds(networkRunnerInScene, timeForOneRoundInSeconds);
-        timerIsRunning = true;
     }
 
     public void stopTimer()
     {
         timer = TickTimer.None;
-        timerIsRunning = false;
     }
 
     public override void FixedUpdateNetwork() {
