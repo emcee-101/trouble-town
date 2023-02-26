@@ -27,8 +27,8 @@ public class ThiefActions : MonoBehaviour
     public float prisonTimeDuration;
     public float criminalStateDurationAfterMoneyIsHidden;
 
-    [SerializeField] 
-    private float speedBoostDuration = 10.0f;
+    [SerializeField]
+    private float speedBoostDuration = 20.0f;
     private float currentSpeedBoostDuration = 0.0f;
 
     private PlayerAudio playerAudio;
@@ -68,9 +68,12 @@ public class ThiefActions : MonoBehaviour
 
         if (netPlayer.hasSpeedBoostItem)
         {
+            NetworkCharacterControllerPrototypeCustom nCCPC = GetComponent<NetworkCharacterControllerPrototypeCustom>();
+            nCCPC.maxSpeed += 5.0f;
             currentSpeedBoostDuration += Time.deltaTime;
             if (currentSpeedBoostDuration > speedBoostDuration){
                 currentSpeedBoostDuration = 0.0f;
+                nCCPC.maxSpeed -= 5.0f;
                 netPlayer.hasSpeedBoostItem = false;
             }
         }
