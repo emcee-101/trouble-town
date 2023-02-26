@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 using static MainMenuUIHandler;
 
 public interface IMenu
@@ -15,12 +16,18 @@ public class MenuStateScripts : MonoBehaviour
 
     public MainMenuUIHandler mainMenu;
     public SettingMenuScript settingsMenu;
-    
+    public AudioMixer mixer;
 
     public void Start()
     {
         mainMenu.enabled = true;
         settingsMenu.enabled = false;
+
+        if (!PlayerPrefs.HasKey("volume"))
+            PlayerPrefs.SetFloat("volume", 0.0f);
+
+        mixer.SetFloat("MasterVol", PlayerPrefs.GetFloat("volume"));
+
     }
 
     public enum menuState

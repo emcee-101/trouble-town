@@ -20,7 +20,7 @@ public class audio : MonoBehaviour
 
         myBeautifulSlider.minValue = min;
         myBeautifulSlider.maxValue = max;
-
+        
         mixer.GetFloat(parameterName,out curVol);
 
         myBeautifulSlider.value = Mathf.Pow(10, curVol / 20);
@@ -33,6 +33,8 @@ public class audio : MonoBehaviour
         mixer.SetFloat(parameterName, Mathf.Log10(myBeautifulSlider.value) * 20);
         mixer.GetFloat(parameterName, out curVol);
         Debug.Log("new Volume" + curVol);
+
+        PlayerPrefs.SetFloat("volume", curVol);
     }
 
 

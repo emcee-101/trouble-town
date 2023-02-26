@@ -3759,6 +3759,8 @@ MonoBehaviour:
       Data: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   isHostAndPolice: 0
   hasMoneyBagItem: 0
+  hasCrowbarItem: 0
+  hasHandcuffsItem: 0
   hasPhoneItem: 0
   hasSpeedBoostItem: 0
   _isBeingInvestigated:
@@ -3784,6 +3786,7 @@ MonoBehaviour:
     _value: 0
   _gameEnded:
     _value: 0
+  mixer: {fileID: 24100000, guid: ad75b9a78920e0245840ef62a626849f, type: 2}
 --- !u!114 &5594361340946633643
 MonoBehaviour:
   m_ObjectHideFlags: 0
