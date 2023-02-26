@@ -3116,7 +3116,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8081760661856977215}
         m_TargetAssemblyTypeName: PlayerUI, Assembly-CSharp
-        m_MethodName: onStartClick
+        m_MethodName: quitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
