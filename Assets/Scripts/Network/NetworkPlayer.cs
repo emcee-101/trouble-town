@@ -178,7 +178,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             }
 
             if (PlayerPrefs.HasKey("volume"))
-                mixer.SetFloat("masterAudio", PlayerPrefs.GetFloat("volume"));
+                mixer.SetFloat("MasterVol", PlayerPrefs.GetFloat("volume"));
 
 
 
