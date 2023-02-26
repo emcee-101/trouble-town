@@ -22,11 +22,16 @@ public class MoneyBagItem : NetworkBehaviour
         {
             if (roundSpawner.spawnedMoneyBagItems.Contains(this))
             {
-                roundSpawner.spawnedMoneyBagItems.Remove(this);
-                runner.Despawn(GetComponent<NetworkObject>());
+                Despawn();
                 networkPlayer.hasMoneyBagItem = true;
             }
 
         }
+    }
+
+    public void Despawn()
+    {
+        roundSpawner.spawnedMoneyBagItems.Remove(this);
+        runner.Despawn(GetComponent<NetworkObject>());
     }
 }
