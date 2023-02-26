@@ -22,10 +22,15 @@ public class SpeedBoostItem : NetworkBehaviour
         {
             if (roundSpawner.spawnedSpeedBoostItems.Contains(this))
             {
+                Despawn();
                 roundSpawner.spawnedSpeedBoostItems.Remove(this);
-                runner.Despawn(GetComponent<NetworkObject>());
                 networkPlayer.hasSpeedBoostItem = true;
             }
         }
+    }
+
+    public void Despawn()
+    {
+        runner.Despawn(GetComponent<NetworkObject>());
     }
 }

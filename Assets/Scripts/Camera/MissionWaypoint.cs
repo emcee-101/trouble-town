@@ -29,6 +29,10 @@ public class MissionWaypoint : MonoBehaviour
     }
     private void Update()
     {
+        if (img == null)
+        {
+            return;
+        }
         // Giving limits to the icon so it sticks on the screen
         // Below calculations witht the assumption that the icon anchor point is in the middle
         // Minimum X position: half of the icon width
