@@ -7,30 +7,35 @@ using UnityEngine.UI;
 // Author: Mohammad Zidane
 public class PlayerUI : MonoBehaviour
 {
+    [Header("Text Elements")]
     public TextMeshProUGUI promptText;
-    public TextMeshProUGUI cooldownText;
-    public TextMeshProUGUI introText;
-    public TextMeshProUGUI introSubText;
-    public Animator fadeAnimator;
-    public bool animatorRunning;
+    [SerializeField] private TextMeshProUGUI warnMessage;
+    [SerializeField] private TextMeshProUGUI cooldownText;
+    [SerializeField] private TextMeshProUGUI introText;
+    [SerializeField] private TextMeshProUGUI introSubText;
+    [SerializeField] private TextMeshProUGUI thiefPocketMoney;
+    [SerializeField] private TextMeshProUGUI thiefSecuredMoney;
+    [SerializeField] private MissionWaypoint waypoints;
 
-    public float fadeSceneSwitchDuration;
-    public float animationDuration = 2.0f;
-    public float moneyTotal;
-    public float moneyLeft;
-    public float totalPocketMoney;
-
-    public TextMeshProUGUI thiefPocketMoney;
-    public TextMeshProUGUI thiefSecuredMoney;
-    
+    [SerializeField] private  Animator fadeAnimator;
 
     [Header("Intense Overlay")]
-    public Image intenseOverlay;
-    public TextMeshProUGUI warnMessage;
+    [SerializeField] private Image intenseOverlay;
 
-    public Image frontBarMoney;
-    public Image backBarMoney;
-    public TextMeshProUGUI moneyText;
+    [Header("Money Bar")]
+    [SerializeField] private Image frontBarMoney;
+    [SerializeField] private Image backBarMoney;
+    [SerializeField] private TextMeshProUGUI moneyText;
+
+    [Header("LobbyUI")]
+    [SerializeField] public TextMeshProUGUI playerCountText;
+
+    private bool animatorRunning;
+    private float fadeSceneSwitchDuration;
+    private float animationDuration = 2.0f;
+    private float moneyTotal;
+    private float moneyLeft;
+    private float totalPocketMoney;
 
     private NetworkPlayer netPlayer;
     private ThiefActions thiefActions;
@@ -39,12 +44,8 @@ public class PlayerUI : MonoBehaviour
     private GameObject state;
     private global_money globalMoney;
 
-    public MissionWaypoint waypoints;
     private Vector3 ownHideoutLocation;
 
-    [Header("LobbyUI")]
-    [SerializeField]
-    public TextMeshProUGUI playerCountText;
 
     public void Init()
     {
@@ -264,7 +265,7 @@ public class PlayerUI : MonoBehaviour
          if (!currentlyPlayingCriminalCatched)
          {
             currentlyPlayingCriminalCatched = true;
-            playerAudio.ownAudio.clip = playerAudio.catchedByPolice;
+            playerAudio.ownAudio.clip = thiefActions.catchedByPolice;
             // Play the sound
             playerAudio.ownAudio.Play();
             fadeAnimator.SetTrigger("FadeToBlack");

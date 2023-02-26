@@ -698,15 +698,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a1da9db07cac0478bc4806ea95545c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stealAmount: 1000
+  stealAmountDefault: 1000
+  stealAmountExtraWithBagItem: 500
+  criminalStateDurationAfterMoneyIsHidden: 0
+  speedBoostDuration: 20
+  catchedByPolice: {fileID: 8300000, guid: a3de125833f89cb448679d4300d908b0, type: 3}
+  stolenTheBank: {fileID: 8300000, guid: 82966cda3acf330409423f56a33bdd18, type: 3}
+  secureTheMoney: {fileID: 8300000, guid: 79f1aaa5c5b9fb940bd75769ad87b526, type: 3}
   currentMoney: 0
   pocketMoney: 0
-  hasJustStolen: 0
+  currentStealCooldown: 0
+  currentTimerCriminalState: 0
   pocketMoneyHidden: 0
-  stealCooldown: 20
-  investigationDuration: 5
-  prisonTimeDuration: 20
-  wantedStateDuration: 10
 --- !u!114 &8923842330607666703
 MonoBehaviour:
   m_ObjectHideFlags: 0
