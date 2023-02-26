@@ -14252,7 +14252,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   secondsForItemWave1: 0
-  MoneyBagItemPrefab: {fileID: 7882753766546016455, guid: b733252011eed3041a1de16cc616a984, type: 3}
+  secondsForItemWave2: 0
+  secondsForItemWave3: 0
+  secondsForItemWave4: 0
+  secondsForItemWave5: 0
+  moneyBagItemPrefab: {fileID: 0}
   phoneItemPrefab: {fileID: 3399118123054221770, guid: c5e129af6c1f2994fa3e3f33b0122487, type: 3}
   speedBoostItemPrefab: {fileID: 3400085646521259250, guid: 980db57b37794cb41a29907d2795daf2, type: 3}
   spawnedMoneyBagItems: []

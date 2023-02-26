@@ -19,6 +19,8 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     public bool isHostAndPolice = false;
 
     public bool hasMoneyBagItem = false;
+    public bool hasCrowbarItem = false;
+    public bool hasHandcuffsItem = false;
     public bool hasPhoneItem = false;
     public bool hasSpeedBoostItem = false;
 
