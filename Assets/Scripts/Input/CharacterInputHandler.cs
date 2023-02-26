@@ -40,7 +40,7 @@ public class CharacterInputHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!networkPlayer.isGamePaused)
+        if (!networkPlayer.isGamePaused && !networkPlayer.gameEnded)
         {
             //View input
             viewInputVector.x = Input.GetAxis("Mouse X");
@@ -59,7 +59,7 @@ public class CharacterInputHandler : MonoBehaviour
             localCameraHandler.SetViewInputVector(viewInputVector);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !networkPlayer.gameEnded)
         {
             networkPlayer.toggleGamePausedState();
 

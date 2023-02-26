@@ -248,7 +248,7 @@ public class PlayerUI : MonoBehaviour
     }
 
     IEnumerator playCriminalCatched()
-     {
+    {
          
          if (!currentlyPlayingCriminalCatched)
          {
@@ -263,5 +263,10 @@ public class PlayerUI : MonoBehaviour
             currentlyPlayingCriminalCatched = false;
          }
          
-     }
+    }
+
+    public void quitGame()
+    {
+        Application.Quit();
+    }
 }
