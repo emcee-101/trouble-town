@@ -21,16 +21,14 @@ public class ThiefActions : MonoBehaviour
     private global_money globalMoney;
     public bool hasJustStolen;
     public bool pocketMoneyHidden;
-    public float stealCooldownDefault = 20.0f;
-    public float stealCooldownDifferenceWithCrowbarItem = 10.0f;
+    public float stealCooldown;
+    public float investigationDuration;
     public float prisonTimeDuration;
-    public float investigationDuration = 5.0f;
-    public float wantedStateDuration = 20.0f;
+    public float wantedStateDuration;
 
     // Start is called before the first frame update
     void Start()
     {   
-
         state = GameObject.FindWithTag("State");
         globalMoney = state.GetComponent<global_money>();
         //totalPocketMoney = globalMoney.TotalPocketMoney;
@@ -78,11 +76,6 @@ public class ThiefActions : MonoBehaviour
         setCriminal(true);
         pocketMoneyHidden = false;
 
-        float stealCooldown = stealCooldownDefault;
-        if (networkPlayer.hasCrowbarItem)
-        {
-            stealCooldown -= stealCooldownDifferenceWithCrowbarItem;
-        }
         playerUI.durationTimerStealCooldown = stealCooldown;
         playerUI.durationTimerCriminalState = wantedStateDuration;
         
