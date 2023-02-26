@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3257000137308420625}
   - component: {fileID: 7882753766546016455}
   - component: {fileID: 4847579753692383332}
+  - component: {fileID: 2560707996320669880}
   m_Layer: 0
   m_Name: MoneyBagItem
   m_TagString: Untagged
@@ -185,3 +186,15 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &2560707996320669880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7032893985635153587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdbc72f5658a23940bbdac31a9069f7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
