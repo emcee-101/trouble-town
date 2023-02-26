@@ -116,6 +116,7 @@ public class PlayerUI : MonoBehaviour
         waypoints.setWaypointType("bank");
         waypoints.setWayPointPosition(new Vector3(-30.1200f,3.81f,89.03f));
         cc.enabled = true;
+
         // If the player has stolen & not in prison.
         if (netPlayer.isCriminal && !netPlayer.isInPrison) {
             // change waypoint indicator icon and position to player's hideout
@@ -126,6 +127,23 @@ public class PlayerUI : MonoBehaviour
             warnMessage.text = "Now you are criminal! Stay away from policeman*in";
             UpdateIntenseOverlay();
             UpdateCriminalStatus();
+        }
+
+        // If player has hidden their stolen money, remove Criminal status after
+        // certain time has passed
+        if (netPlayer.isCriminal && thiefActions.pocketMoneyHidden)
+        {
+            // change waypoint indicator icon and position back to the bank
+            waypoints.setWaypointType("bank");
+            waypoints.setWayPointPosition(new Vector3(-30.1200f,3.81f,89.03f));
+
+            durationTimerCriminalState -= Time.deltaTime;
+            string guiTimer = durationTimerCriminalState.ToString("0");
+            cooldownText.text = "No longer criminal in " + guiTimer;
+            if (durationTimerCriminalState <= 0){
+                thiefActions.setCriminal(false);
+                durationTimerCriminalState = thiefActions.wantedStateDuration;
+            }
         }
     	
         // Show steal cooldown if it exists
@@ -214,18 +232,7 @@ public class PlayerUI : MonoBehaviour
     }
 
     public void UpdateCriminalStatus(){
-        // If player has hidden their stolen money, remove Criminal status after
-        // certain time has passed
-        if (thiefActions.pocketMoneyHidden && netPlayer.isCriminal)
-        {
-            durationTimerCriminalState -= Time.deltaTime;
-            string guiTimer = durationTimerCriminalState.ToString("0");
-            cooldownText.text = "No longer criminal in " + guiTimer;
-            if (durationTimerCriminalState <= 0){
-                thiefActions.setCriminal(false);
-                durationTimerCriminalState = thiefActions.wantedStateDuration;
-            }
-        }
+        
     }
 
     public void UpdateWhileInPrison(){

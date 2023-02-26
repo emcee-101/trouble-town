@@ -36,8 +36,15 @@ public class PlayerInteract : MonoBehaviour
             return;
         }
         Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
+    
+        // Override: Do not show message or allow interaction with hideout
+        // player has no pocket money
+        if (interactable.interactableType == "hideout")
+        {
+            if (thiefActions.pocketMoney == 0) return;
+        }
         playerUI.promptText.text = interactable.promptMessage;
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
         {
             interactable.BaseInteract();
             onInteractPlayerAction(hitInfo.collider);

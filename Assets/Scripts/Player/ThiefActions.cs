@@ -92,17 +92,16 @@ public class ThiefActions : MonoBehaviour
         
         pocketMoney += stealAmount;
          // Play SFX
-        playerAudio.ownAudio.PlayOneShot(playerAudio.stolenTheBank, 0.7F);
+        playerAudio.ownAudio.PlayOneShot(playerAudio.stolenTheBank);
         return true;
 
     }
 
     public bool hideMoney()
     {   
-        if (pocketMoney <= 0) {
+        if (pocketMoney == 0) {
             return false;
         }
-        //GetComponent<>
         globalMoney.TotalPocketMoney -= pocketMoney;
         currentMoney                 += pocketMoney;
         pocketMoney = 0;
@@ -111,7 +110,7 @@ public class ThiefActions : MonoBehaviour
         // add Points
         GetComponent<CharacterInputHandler>().addStoringMoneyPoints();
         // Play SFX
-        playerAudio.ownAudio.PlayOneShot(playerAudio.secureTheMoney, 0.7F);
+        playerAudio.ownAudio.PlayOneShot(playerAudio.secureTheMoney);
 
         return true;
     }
