@@ -64,6 +64,7 @@ public class CharacterMovementHandler : NetworkBehaviour
 
                 if(states == null) states = GameObject.FindGameObjectWithTag("State");
 
+                states.GetComponent<global_money>().TotalPocketMoney += networkInputData.globalPocketMoneyChange;
                 states.GetComponent<global_money>().GlobalMoney += networkInputData.globalMoneyChange;
                 //Debug.Log(states.GetComponent<global_money>().GlobalMoney);
 

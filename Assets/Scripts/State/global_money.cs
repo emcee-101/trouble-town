@@ -9,8 +9,8 @@ public class global_money : NetworkBehaviour
     // https://doc.photonengine.com/en-us/fusion/current/manual/network-object/network-behaviour#networked_state
 
     public Boolean logStateAuthority = false;
-    [Networked(OnChanged = nameof(onMoneyChanged))] public int GlobalMoney { get; set; } = 10000;
     [Networked(OnChanged = nameof(onMoneyChanged))] public int TotalPocketMoney { get; set; } = 0;
+    [Networked(OnChanged = nameof(onMoneyChanged))] public int GlobalMoney { get; set; } = 10000;
 
 
     public static void onMoneyChanged(Changed<global_money> changed)
