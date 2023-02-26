@@ -27,7 +27,6 @@ public class ThiefActions : MonoBehaviour
     public float investigationDuration;
     public float prisonTimeDuration;
     public float wantedStateDuration;
-
     private PlayerAudio playerAudio;
     // Start is called before the first frame update
     void Start()

@@ -45,9 +45,8 @@ public class PoliceActions : MonoBehaviour
             _np.supposedToGoToPrison = true;
             yield return new WaitForSeconds(20.0f);
             _np.supposedToGoToPrison = false;
-        }
-        
-    }
 
+        }   
+    }
 }
 

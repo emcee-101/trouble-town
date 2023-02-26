@@ -22,11 +22,15 @@ public class PhoneItem : NetworkBehaviour
         {
             if (roundSpawner.spawnedPhoneItems.Contains(this))
             {
+                Despawn();
                 roundSpawner.spawnedPhoneItems.Remove(this);
-                runner.Despawn(GetComponent<NetworkObject>());
                 networkPlayer.hasPhoneItem = true;
             }
 
         }
+    }
+    public void Despawn()
+    {
+        runner.Despawn(GetComponent<NetworkObject>());
     }
 }

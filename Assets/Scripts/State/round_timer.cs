@@ -7,7 +7,7 @@ public class round_timer : NetworkBehaviour
 {
     public float timeForOneRoundInSeconds;
 
-    [Networked] public TickTimer timer { get; set; } 
+    [Networked] public TickTimer timer { get; set; }
 
     public NetworkRunner networkRunnerInScene;
 
