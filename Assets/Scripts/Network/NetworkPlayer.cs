@@ -116,19 +116,29 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         if (Object.HasInputAuthority)
         {
             isGamePaused = !isGamePaused;
-
-            Cursor.visible = isGamePaused;
             gamePausedBackgroundUI.SetActive(isGamePaused);
 
             if (isGamePaused)
             {
-                Cursor.lockState = CursorLockMode.None;
+                freeCursor();
             }
             else
             {
-                Cursor.lockState = CursorLockMode.Locked;
+                lockCursor();
             }
         }
+    }
+
+    private void freeCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    private void lockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public override void Spawned()
@@ -209,8 +219,10 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         {
             //Debug.Log("game ended!!!");
 
-            if (!isGamePaused)
+            if (isGamePaused)
                 toggleGamePausedState();
+
+            freeCursor();
 
             if(!endUIactivated)
             {
@@ -223,15 +235,17 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
             }
 
-        } 
+        }
         // Deactivates endUI appropriately
-        else if (endUIactivated)
+        else 
         {
-            endUIactivated = false;
-            HideUis();
-            endUI.SetActive(false);
-            scoreUI.activated = true;
-
+            if (endUIactivated)
+            {
+                endUIactivated = false;
+                HideUis();
+                endUI.SetActive(false);
+                scoreUI.activated = true;
+            }
         }
 
         if (Object.HasInputAuthority && playerNumber != -1 && myHideout == null && !isHostAndPolice)
