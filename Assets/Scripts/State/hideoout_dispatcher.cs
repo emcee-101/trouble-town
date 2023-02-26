@@ -30,7 +30,7 @@ public class hideoout_dispatcher : MonoBehaviour
 
     public GameObject dispatchHideout(int number) {
 
-        if (number <= numOfHideouts)
+        if (number-1 <= numOfHideouts)
         {
             if(hideoutPositions[number - 1 - 1] == null)
             {
