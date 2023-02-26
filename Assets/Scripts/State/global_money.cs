@@ -9,30 +9,23 @@ public class global_money : NetworkBehaviour
     // https://doc.photonengine.com/en-us/fusion/current/manual/network-object/network-behaviour#networked_state
 
     public Boolean logStateAuthority = false;
-    [Networked(OnChanged = nameof(onGlobalMoneyChanged))] public int GlobalMoney { get; set; } = 10000;
-    [Networked] public int TotalPocketMoney { get; set; } = 0;
+    [Networked(OnChanged = nameof(onMoneyChanged))] public int GlobalMoney { get; set; } = 10000;
+    [Networked(OnChanged = nameof(onMoneyChanged))] public int TotalPocketMoney { get; set; } = 0;
 
 
-    public static void onGlobalMoneyChanged(Changed<global_money> changed)
+    public static void onMoneyChanged(Changed<global_money> changed)
     {
-
-        changed.Behaviour.onGlobalMoneyChanged();
-
+        changed.Behaviour.onMoneyChanged();
     }
 
-    public void onGlobalMoneyChanged()
+    public void onMoneyChanged()
     {
-        Log.Info("Money still there: " + GlobalMoney);
-
         // Check if in Bounds -> if < 0 : Round ended | else : okay
-        if (GlobalMoney <= 0)
+        if (GlobalMoney <= 0 && TotalPocketMoney <= 0)
         {
             game_state game_manager = GetComponent<game_state>();
             Log.Info("Game has ended due to the Bank being robbed empty - the robbers win!!");
             game_manager.gameState = GameState.aftergame;
-        }
-        else {
-            Log.Info("Theres still Money at the Bank!");
         }
     }
 
