@@ -36,9 +36,8 @@ public class hideoout_dispatcher : MonoBehaviour
             {
                 Debug.Log("Values were read incorrect");
                 return null;
-
             }
-                                                    // minus 1 for the fact that player 1 is the police guy and minus 1 for the array/list beginning at 0
+            // minus 1 for the fact that player 1 is the police guy and minus 1 for the array/list beginning at 0
             return Instantiate(prefabForHideout, hideoutPositions[number - 1 - 1].position, hideoutPositions[number  - 1 - 1].rotation, parentObj.transform);
            
 

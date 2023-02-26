@@ -110,9 +110,10 @@ public class PlayerUI : MonoBehaviour
 
     private void updateThiefUI()
     {
-
-
-
+        // Workaround : Get the hideout location for once and store it in a variable
+        if (ownHideoutLocation == Vector3.zero && netPlayer.myHideout != null){
+            ownHideoutLocation = netPlayer.myHideout.transform.position;
+        }
         thiefPocketMoney.text = string.Format("Pocket Money: {0}$.", thiefActions.pocketMoney);
         thiefSecuredMoney.text = string.Format("Secured Money: {0}$.", thiefActions.currentMoney);
 

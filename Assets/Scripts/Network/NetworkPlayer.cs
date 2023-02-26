@@ -256,10 +256,8 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
             // Player gets his/her own Hideout
             myHideout = state.GetComponent<hideoout_dispatcher>().dispatchHideout(playerNumber);
 
-            if(myHideout == null)
-            { Debug.Log("Hideout not set correctly"); }
-            else 
-               myHideout.SetActive(true);
+            if(myHideout == null) Debug.Log("Hideout not set correctly");
+            else myHideout.SetActive(true);
         }
 
 
