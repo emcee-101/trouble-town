@@ -19,7 +19,7 @@ public class PoliceActions : MonoBehaviour
         
         StartCoroutine(waiter(_np));
         
-        GetComponent<CharacterInputHandler>().addCatchingRobberPoints();
+        
 
         return true;
     }
@@ -42,6 +42,9 @@ public class PoliceActions : MonoBehaviour
         _np.isBeingInvestigated = false;
 
         if (_np.isCriminal){
+
+            GetComponent<CharacterInputHandler>().addCatchingRobberPoints();
+
             _np.supposedToGoToPrison = true;
             yield return new WaitForSeconds(20.0f);
             _np.supposedToGoToPrison = false;
