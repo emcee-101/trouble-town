@@ -4,6 +4,7 @@ using UnityEngine;
 using Fusion;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 {
@@ -72,6 +73,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     [Networked]
     public NetworkBool gameEnded { get; set; } = false;
 
+    public AudioMixer mixer;
 
     void Awake()
     {
@@ -163,6 +165,9 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
                 PlayerUI playerUI = player.GetComponent<PlayerUI>();
                 playerUI.updatePlayerCount(runner.SessionInfo.PlayerCount, runner.SessionInfo.MaxPlayers);
             }
+
+            if (PlayerPrefs.HasKey("volume"))
+                mixer.SetFloat("masterAudio", PlayerPrefs.GetFloat("volume"));
 
 
 
